@@ -47,9 +47,27 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Pet'
+              examples:
+                example-1:
+                  value:
+                    id: 10
+                    name: doggie
+                    category:
+                      id: 1
+                      name: Dogs
+                    photoUrls:
+                      - string
+                    tags:
+                      - id: 0
+                        name: string
+                    status: available
             application/json:
               schema:
                 $ref: '#/components/schemas/Pet'
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
         '405':
           description: Invalid input
       security:
@@ -133,6 +151,10 @@ paths:
           in: query
           name: name
           description: name of pet
+        - schema:
+            type: string
+          in: query
+          name: email
       responses:
         '200':
           description: successful operation
