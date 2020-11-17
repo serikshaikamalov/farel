@@ -9,9 +9,8 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0'
   version: 1.0.0
 servers:
-  # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/Farel/Test/1.0.0
+    url: 'https://virtserver.swaggerhub.com/Farel/Test/1.0.0'
   - url: 'http://localhost:8080'
     description: Inferred Url
 tags:
@@ -52,7 +51,7 @@ tags:
   - name: Fee
     description: Fees
 paths:
-  /schedules/{schedule_id}/fees:
+  '/schedules/{schedule_id}/fees':
     get:
       tags:
         - Fee
@@ -67,7 +66,7 @@ paths:
             format: int64
       responses:
         '200':
-          description: ""
+          description: ''
           content:
             application/json:
               schema:
@@ -93,9 +92,9 @@ paths:
         '200':
           description: OK
           content:
-              '*/*':
-                schema:
-                  $ref: '#/components/schemas/FeeForCreate'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FeeForCreate'
         '201':
           description: Created
         '401':
@@ -104,7 +103,7 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  /schedules/{schedule_id}/seats:
+  '/schedules/{schedule_id}/tariff':
     get:
       tags:
         - Seats
@@ -119,12 +118,12 @@ paths:
             format: int64
       responses:
         '200':
-          description: ""
+          description: ''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SeatResponse'
-  /fees/{fee_id}:
+                $ref: '#/components/schemas/TariffList'
+  '/fees/{fee_id}':
     delete:
       tags:
         - Fee
@@ -169,9 +168,9 @@ paths:
         '200':
           description: OK
           content:
-              '*/*':
-                schema:
-                  $ref: '#/components/schemas/Fee'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Fee'
         '201':
           description: Created
         '401':
@@ -186,18 +185,18 @@ paths:
         - Taxes
       responses:
         '200':
-          description: ""
+          description: ''
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TaxesResponse'
   /companies/profile:
     get:
-      tags: 
+      tags:
         - Airline Profile
       responses:
-        200:
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -215,9 +214,9 @@ paths:
         '200':
           description: OK
           content:
-              '*/*':
-                schema:
-                  $ref: '#/components/schemas/AirlineProfile'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AirlineProfile'
         '201':
           description: Created
         '401':
@@ -226,19 +225,28 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-          
   /user/profile:
     get:
-      tags: 
+      tags:
         - user_profile
       description: Return account settings
       responses:
-        200:
-          description: "User information"
+        '200':
+          description: User information
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountSettingsResponse'
+              examples:
+                example-1:
+                  value:
+                    firstName: string
+                    lastName: string
+                    email: string
+                    phone: string
+                    role:
+                      id: 0
+                      name: string
         '401':
           description: Unauthorized
         '403':
@@ -271,7 +279,6 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-      
   '/airplanes/{id}/type':
     get:
       tags:
@@ -5024,17 +5031,92 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
+  /tariffs:
+    get:
+      summary: Get tariffs all
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+      operationId: get-tariffs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                type:
+                  type: string
+    post:
+      summary: ''
+      operationId: Create a tariff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TariffCreate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+  '/tariffs/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get tarrif according to id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+      operationId: get-tariffs-id
+    put:
+      summary: ''
+      operationId: put-tariffs-id
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-tariffs-id
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
-    SeatResponse:
-      title: SchedueleSeat
+    TariffList:
+      title: TariffList
       type: object
       properties:
         id:
           type: integer
-          format: int64
-        name:
-          type: string
+        class:
+          $ref: '#/components/schemas/Class'
+        count:
+          type: integer
     Airplane:
       title: Airplane
       type: object
@@ -6063,6 +6145,14 @@ components:
         id:
           type: integer
           format: int64
+    Class:
+      title: Class
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
     AccountSettings:
       title: AccountSettings
       type: object
@@ -6075,30 +6165,29 @@ components:
           type: string
         phone:
           type: string
-          
     AirlineProfile:
       title: AirlineProfile
       type: object
       properties:
-        legalName: 
+        legalName:
           type: string
-        enName: 
+        enName:
           type: string
-        otherName: 
+        otherName:
           type: string
-        taxId: 
+        taxId:
           type: string
-        icaoCode: 
+        icaoCode:
           type: string
-        iataCode: 
+        iataCode:
           type: string
-        website: 
+        website:
           type: string
-        address: 
+        address:
           type: string
-        email: 
+        email:
           type: string
-        currency: 
+        currency:
           type: string
     TemplateVariable:
       title: TemplateVariable
@@ -6162,7 +6251,7 @@ components:
     AccountSettingsResponse:
       type: object
       properties:
-        firstName: 
+        firstName:
           type: string
         lastName:
           type: string
@@ -6172,8 +6261,8 @@ components:
           type: string
         role:
           type: object
-          properties: 
-            id: 
+          properties:
+            id:
               type: integer
             name:
               type: string
@@ -6218,6 +6307,40 @@ components:
           type: string
         type:
           type: string
+          enum:
+            - AMOUNT
+            - PERCENT
+    TariffCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+        classId:
+          type: integer
+        count:
+          type: integer
+        fares:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fare'
+    Fare:
+      type: object
+      properties:
+        id:
+          type: integer
+        passengerTypeId:
+          type: integer
+        baggage:
+          type: integer
+        cabinBaggage:
+          type: integer
+        refundable:
+          type: boolean
+        refundPrice:
+          type: integer
+        fare: 
+          type: integer
+        
 
   securitySchemes:
     api_key:
