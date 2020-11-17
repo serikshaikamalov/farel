@@ -1,849 +1,6225 @@
-openapi: 3.0.2
-servers:
-  - url: /v3
+openapi: 3.0.3
 info:
-  description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
-    Swagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
-    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
-    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.dsfd
-    sdf
-    Some useful links:
-    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  version: 1.0.6-SNAPSHOT
-  title: Swagger Petstore - OpenAPI 3.0
-  termsOfService: 'http://swagger.io/terms/'
-  contact:
-    email: apiteam@swagger.io
+  title: Api Documentation
+  description: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Farel/Test/1.0.0
+  - url: 'http://localhost:8080'
+    description: Inferred Url
 tags:
-  - name: pet
-    description: Everything about your Pets
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
-  - name: store
-    description: Operations about user
-  - name: user
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
+  - name: Airplane Entity
+    description: Airplane
+  - name: AirplaneType Entity
+    description: Simple Jpa Repository
+  - name: Airport Entity
+    description: Simple Jpa Repository
+  - name: Country Entity
+    description: Simple Jpa Repository
+  - name: Flight Entity
+    description: Flight
+  - name: FlightSeat Entity
+    description: Flight Seat
+  - name: Inventory Entity
+    description: Inventory
+  - name: InventoryType Entity
+    description: Simple Jpa Repository
+  - name: Location Entity
+    description: Location
+  - name: PassengerType Entity
+    description: Simple Jpa Repository
+  - name: Schedule Entity
+    description: Schedule
+  - name: Seat Entity
+    description: Seat
+  - name: SeatClass Entity
+    description: Simple Jpa Repository
+  - name: basic-error-controller
+    description: Basic Error Controller
+  - name: profile-controller
+    description: Profile Controller
+  - name: Airline Profile
+    description: Get and Put controller
+  - name: Tax
+    description: Taxes
+  - name: Fee
+    description: Fees
 paths:
-  /pet:
-    post:
-      tags:
-        - pet
-      summary: Add a new pet to the store
-      description: Add a new pet to the store
-      operationId: addPet
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-              examples:
-                example-1:
-                  value:
-                    id: 10
-                    name: doggie
-                    category:
-                      id: 1
-                      name: Dogs
-                    photoUrls:
-                      - string
-                    tags:
-                      - id: 0
-                        name: string
-                    status: available
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            multipart/form-data:
-              schema:
-                type: object
-                properties: {}
-        '405':
-          description: Invalid input
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-      requestBody:
-        description: Create a new pet in the store
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-    put:
-      tags:
-        - pet
-      summary: Update an existing pet
-      description: Update an existing pet by Id
-      operationId: updatePet
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        '405':
-          description: Validation exception
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-      requestBody:
-        description: Update an existent pet in the store
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-  /pet/findByStatuss:
+  /schedules/{schedule_id}/fees:
     get:
       tags:
-        - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
+        - Fee
       parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: false
-          explode: true
-          schema:
-            type: string
-            enum:
-              - available
-              - pending
-              - sold
-            default: available
-        - schema:
-            type: string
-          in: query
-          name: name
-          description: name of pet
-        - schema:
-            type: string
-          in: query
-          name: email
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/javascript:
-              schema:
-                type: object
-                properties:
-                  '':
-                    type: string
-              examples:
-                example-1:
-                  value: {}
-        '400':
-          description: Invalid status value
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-    parameters: []
-  /pet/findByTags:
-    get:
-      tags:
-        - pet
-      summary: Finds Pets by tags
-      description: 'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.'
-      operationId: findPetsByTags
-      parameters:
-        - name: tags
-          in: query
-          description: Tags to filter by
-          required: false
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid tag value
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-  '/pet/{petId}':
-    get:
-      tags:
-        - pet
-      summary: Find pet by ID
-      description: Returns a single pet
-      operationId: getPetById
-      parameters:
-        - name: petId
+        - name: schedule_id
           in: path
-          description: ID of pet to return
+          description: id
           required: true
+          style: simple
           schema:
             type: integer
             format: int64
       responses:
         '200':
-          description: successful operation
+          description: ""
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-      security:
-        - api_key: []
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+                $ref: '#/components/schemas/FeesResponse'
     post:
       tags:
-        - pet
-      summary: Updates a pet in the store with form data
-      description: ''
-      operationId: updatePetWithForm
+        - Fee
       parameters:
-        - name: petId
+        - name: schedule_id
           in: path
-          description: ID of pet that needs to be updated
+          description: id
           required: true
+          style: simple
           schema:
             type: integer
             format: int64
-        - name: name
-          in: query
-          description: Name of pet that needs to be updated
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Status of pet that needs to be updated
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeeForCreate'
       responses:
-        '405':
-          description: Invalid input
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+        '200':
+          description: OK
+          content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/FeeForCreate'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /schedules/{schedule_id}/seats:
+    get:
+      tags:
+        - Seats
+      parameters:
+        - name: schedule_id
+          in: path
+          description: id of currnent adding or updating schedule
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeatResponse'
+  /fees/{fee_id}:
     delete:
       tags:
-        - pet
-      summary: Deletes a pet
-      description: ''
-      operationId: deletePet
+        - Fee
+      summary: Fee
+      operationId: feeDELETE
       parameters:
-        - name: api_key
-          in: header
-          description: ''
-          required: false
-          schema:
-            type: string
-        - name: petId
+        - name: fee_id
           in: path
-          description: Pet id to delete
+          description: id
           required: true
+          style: simple
           schema:
             type: integer
             format: int64
-      responses:
-        '400':
-          description: Invalid pet value
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-  '/pet/{petId}/uploadImage':
-    post:
-      tags:
-        - pet
-      summary: uploads an image
-      description: ''
-      operationId: uploadFile
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet to update
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: additionalMetadata
-          in: query
-          description: Additional Metadata
-          required: false
-          schema:
-            type: string
       responses:
         '200':
-          description: successful operation
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    put:
+      tags:
+        - Fee
+      parameters:
+        - name: fee_id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeeForUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Fee'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /companyTaxes:
+    get:
+      tags:
+        - Taxes
+      responses:
+        '200':
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-  /store/inventory:
+                $ref: '#/components/schemas/TaxesResponse'
+  /companies/profile:
     get:
-      tags:
-        - store
-      summary: Returns pet inventories by status
-      description: Returns a map of status codes to quantities
-      operationId: getInventory
-      x-swagger-router-controller: OrderController
+      tags: 
+        - Airline Profile
       responses:
-        '200':
-          description: successful operation
+        200:
+          description: ""
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/AirlineProfileResponse'
+    put:
+      tags:
+        - Airline Profile
+      description: Set airplane profile settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirlineProfile'
+      responses:
+        '200':
+          description: OK
+          content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/AirlineProfile'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          
+  /user/profile:
+    get:
+      tags: 
+        - user_profile
+      description: Return account settings
+      responses:
+        200:
+          description: "User information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountSettingsResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - api_key: []
+    put:
+      tags:
+        - user_profile
+      description: Set accounts settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountSettings'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      
+  '/airplanes/{id}/type':
+    get:
+      tags:
+        - Airplane Entity
+      summary: airplaneType
+      operationId: airplaneTypeUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Airplane Entity
+      summary: airplaneType
+      operationId: airplaneTypeUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Airplane Entity
+      summary: airplaneType
+      operationId: airplaneTypeUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Airplane Entity
+      summary: airplaneType
+      operationId: airplaneTypeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Airplane Entity
+      summary: airplaneType
+      operationId: airplaneTypeUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /airplanes:
+    get:
+      tags:
+        - Airplane Entity
+      summary: findAllAirplane
+      operationId: findAllAirplaneUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplane'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplane'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplane'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplane'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Airplane Entity
+      summary: saveAirplane
+      operationId: saveAirplaneUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airplane'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/airplanes/{id}':
+    get:
+      tags:
+        - Airplane Entity
+      summary: findByIdAirplane
+      operationId: findByIdAirplaneUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Airplane Entity
+      summary: saveAirplane
+      operationId: saveAirplaneUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airplane'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Airplane Entity
+      summary: deleteByIdAirplane
+      operationId: deleteByIdAirplaneUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Airplane Entity
+      summary: saveAirplane
+      operationId: saveAirplaneUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airplane'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /airplaneTypes:
+    get:
+      tags:
+        - AirplaneType Entity
+      summary: findAllAirplaneType
+      operationId: findAllAirplaneTypeUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplaneType'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplaneType'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplaneType'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirplaneType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - AirplaneType Entity
+      summary: saveAirplaneType
+      operationId: saveAirplaneTypeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirplaneType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/airplaneTypes/{id}':
+    get:
+      tags:
+        - AirplaneType Entity
+      summary: findByIdAirplaneType
+      operationId: findByIdAirplaneTypeUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - AirplaneType Entity
+      summary: saveAirplaneType
+      operationId: saveAirplaneTypeUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirplaneType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - AirplaneType Entity
+      summary: deleteByIdAirplaneType
+      operationId: deleteByIdAirplaneTypeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - AirplaneType Entity
+      summary: saveAirplaneType
+      operationId: saveAirplaneTypeUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirplaneType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplaneType'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /airports:
+    get:
+      tags:
+        - Airport Entity
+      summary: findAllAirport
+      operationId: findAllAirportUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirport'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirport'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirport'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelAirport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Airport Entity
+      summary: saveAirport
+      operationId: saveAirportUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airport'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/airports/{id}':
+    get:
+      tags:
+        - Airport Entity
+      summary: findByIdAirport
+      operationId: findByIdAirportUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Airport Entity
+      summary: saveAirport
+      operationId: saveAirportUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airport'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Airport Entity
+      summary: deleteByIdAirport
+      operationId: deleteByIdAirportUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Airport Entity
+      summary: saveAirport
+      operationId: saveAirportUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Airport'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /countries:
+    get:
+      tags:
+        - Country Entity
+      summary: findAllCountry
+      operationId: findAllCountryUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelCountry'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelCountry'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelCountry'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelCountry'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Country Entity
+      summary: saveCountry
+      operationId: saveCountryUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Country'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/countries/{id}':
+    get:
+      tags:
+        - Country Entity
+      summary: findByIdCountry
+      operationId: findByIdCountryUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Country Entity
+      summary: saveCountry
+      operationId: saveCountryUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Country'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Country Entity
+      summary: deleteByIdCountry
+      operationId: deleteByIdCountryUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Country Entity
+      summary: saveCountry
+      operationId: saveCountryUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Country'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/flights/{id}/schedule':
+    get:
+      tags:
+        - Flight Entity
+      summary: flightSchedule
+      operationId: flightScheduleUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Flight Entity
+      summary: flightSchedule
+      operationId: flightScheduleUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Flight Entity
+      summary: flightSchedule
+      operationId: flightScheduleUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Flight Entity
+      summary: flightSchedule
+      operationId: flightScheduleUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Flight Entity
+      summary: flightSchedule
+      operationId: flightScheduleUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /flights:
+    get:
+      tags:
+        - Flight Entity
+      summary: findAllFlight
+      operationId: findAllFlightUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlight'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlight'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlight'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlight'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Flight Entity
+      summary: saveFlight
+      operationId: saveFlightUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flight'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/flights/{id}':
+    get:
+      tags:
+        - Flight Entity
+      summary: findByIdFlight
+      operationId: findByIdFlightUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Flight Entity
+      summary: saveFlight
+      operationId: saveFlightUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flight'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Flight Entity
+      summary: deleteByIdFlight
+      operationId: deleteByIdFlightUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Flight Entity
+      summary: saveFlight
+      operationId: saveFlightUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flight'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/flightSeats/{id}/flight':
+    get:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatFlight
+      operationId: flightSeatFlightUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatFlight
+      operationId: flightSeatFlightUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatFlight
+      operationId: flightSeatFlightUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatFlight
+      operationId: flightSeatFlightUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatFlight
+      operationId: flightSeatFlightUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlight'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/flightSeats/{id}/seatClass':
+    get:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatSeatClass
+      operationId: flightSeatSeatClassUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatSeatClass
+      operationId: flightSeatSeatClassUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatSeatClass
+      operationId: flightSeatSeatClassUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatSeatClass
+      operationId: flightSeatSeatClassUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - FlightSeat Entity
+      summary: flightSeatSeatClass
+      operationId: flightSeatSeatClassUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /flightSeats:
+    get:
+      tags:
+        - FlightSeat Entity
+      summary: findAllFlightSeat
+      operationId: findAllFlightSeatUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlightSeat'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlightSeat'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlightSeat'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelFlightSeat'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - FlightSeat Entity
+      summary: saveFlightSeat
+      operationId: saveFlightSeatUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightSeat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlightSeat'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/flightSeats/{id}':
+    get:
+      tags:
+        - FlightSeat Entity
+      summary: findByIdFlightSeat
+      operationId: findByIdFlightSeatUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlightSeat'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - FlightSeat Entity
+      summary: saveFlightSeat
+      operationId: saveFlightSeatUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightSeat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlightSeat'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - FlightSeat Entity
+      summary: deleteByIdFlightSeat
+      operationId: deleteByIdFlightSeatUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - FlightSeat Entity
+      summary: saveFlightSeat
+      operationId: saveFlightSeatUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightSeat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelFlightSeat'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/inventories/{id}/inventoryType':
+    get:
+      tags:
+        - Inventory Entity
+      summary: inventoryInventoryType
+      operationId: inventoryInventoryTypeUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Inventory Entity
+      summary: inventoryInventoryType
+      operationId: inventoryInventoryTypeUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Inventory Entity
+      summary: inventoryInventoryType
+      operationId: inventoryInventoryTypeUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Inventory Entity
+      summary: inventoryInventoryType
+      operationId: inventoryInventoryTypeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Inventory Entity
+      summary: inventoryInventoryType
+      operationId: inventoryInventoryTypeUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /inventories:
+    get:
+      tags:
+        - Inventory Entity
+      summary: findAllInventory
+      operationId: findAllInventoryUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventory'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventory'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventory'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventory'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Inventory Entity
+      summary: saveInventory
+      operationId: saveInventoryUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventory'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/inventories/{id}':
+    get:
+      tags:
+        - Inventory Entity
+      summary: findByIdInventory
+      operationId: findByIdInventoryUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventory'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Inventory Entity
+      summary: saveInventory
+      operationId: saveInventoryUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventory'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Inventory Entity
+      summary: deleteByIdInventory
+      operationId: deleteByIdInventoryUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Inventory Entity
+      summary: saveInventory
+      operationId: saveInventoryUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventory'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /inventoryTypes:
+    get:
+      tags:
+        - InventoryType Entity
+      summary: findAllInventoryType
+      operationId: findAllInventoryTypeUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventoryType'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventoryType'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventoryType'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelInventoryType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - InventoryType Entity
+      summary: saveInventoryType
+      operationId: saveInventoryTypeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/inventoryTypes/{id}':
+    get:
+      tags:
+        - InventoryType Entity
+      summary: findByIdInventoryType
+      operationId: findByIdInventoryTypeUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - InventoryType Entity
+      summary: saveInventoryType
+      operationId: saveInventoryTypeUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - InventoryType Entity
+      summary: deleteByIdInventoryType
+      operationId: deleteByIdInventoryTypeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - InventoryType Entity
+      summary: saveInventoryType
+      operationId: saveInventoryTypeUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelInventoryType'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/locations/{id}/airport':
+    get:
+      tags:
+        - Location Entity
+      summary: locationAirport
+      operationId: locationAirportUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Location Entity
+      summary: locationAirport
+      operationId: locationAirportUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Location Entity
+      summary: locationAirport
+      operationId: locationAirportUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Location Entity
+      summary: locationAirport
+      operationId: locationAirportUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Location Entity
+      summary: locationAirport
+      operationId: locationAirportUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/locations/{id}/country':
+    get:
+      tags:
+        - Location Entity
+      summary: locationCountry
+      operationId: locationCountryUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Location Entity
+      summary: locationCountry
+      operationId: locationCountryUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Location Entity
+      summary: locationCountry
+      operationId: locationCountryUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Location Entity
+      summary: locationCountry
+      operationId: locationCountryUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Location Entity
+      summary: locationCountry
+      operationId: locationCountryUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelCountry'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /locations:
+    get:
+      tags:
+        - Location Entity
+      summary: findAllLocation
+      operationId: findAllLocationUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelLocation'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelLocation'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelLocation'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelLocation'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Location Entity
+      summary: saveLocation
+      operationId: saveLocationUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelLocation'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/locations/{id}':
+    get:
+      tags:
+        - Location Entity
+      summary: findByIdLocation
+      operationId: findByIdLocationUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelLocation'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Location Entity
+      summary: saveLocation
+      operationId: saveLocationUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelLocation'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Location Entity
+      summary: deleteByIdLocation
+      operationId: deleteByIdLocationUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Location Entity
+      summary: saveLocation
+      operationId: saveLocationUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelLocation'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /passengerTypes:
+    get:
+      tags:
+        - PassengerType Entity
+      summary: findAllPassengerType
+      operationId: findAllPassengerTypeUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelPassengerType'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelPassengerType'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelPassengerType'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelPassengerType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - PassengerType Entity
+      summary: savePassengerType
+      operationId: savePassengerTypeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassengerType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelPassengerType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/passengerTypes/{id}':
+    get:
+      tags:
+        - PassengerType Entity
+      summary: findByIdPassengerType
+      operationId: findByIdPassengerTypeUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelPassengerType'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - PassengerType Entity
+      summary: savePassengerType
+      operationId: savePassengerTypeUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassengerType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelPassengerType'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - PassengerType Entity
+      summary: deleteByIdPassengerType
+      operationId: deleteByIdPassengerTypeUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - PassengerType Entity
+      summary: savePassengerType
+      operationId: savePassengerTypeUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassengerType'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelPassengerType'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/schedules/{id}/airplane':
+    get:
+      tags:
+        - Schedule Entity
+      summary: scheduleAirplane
+      operationId: scheduleAirplaneUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Schedule Entity
+      summary: scheduleAirplane
+      operationId: scheduleAirplaneUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Schedule Entity
+      summary: scheduleAirplane
+      operationId: scheduleAirplaneUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Schedule Entity
+      summary: scheduleAirplane
+      operationId: scheduleAirplaneUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Schedule Entity
+      summary: scheduleAirplane
+      operationId: scheduleAirplaneUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirplane'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/schedules/{id}/destination':
+    get:
+      tags:
+        - Schedule Entity
+      summary: scheduleDestination
+      operationId: scheduleDestinationUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Schedule Entity
+      summary: scheduleDestination
+      operationId: scheduleDestinationUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Schedule Entity
+      summary: scheduleDestination
+      operationId: scheduleDestinationUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Schedule Entity
+      summary: scheduleDestination
+      operationId: scheduleDestinationUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Schedule Entity
+      summary: scheduleDestination
+      operationId: scheduleDestinationUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/schedules/{id}/origin':
+    get:
+      tags:
+        - Schedule Entity
+      summary: scheduleOrigin
+      operationId: scheduleOriginUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Schedule Entity
+      summary: scheduleOrigin
+      operationId: scheduleOriginUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Schedule Entity
+      summary: scheduleOrigin
+      operationId: scheduleOriginUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Schedule Entity
+      summary: scheduleOrigin
+      operationId: scheduleOriginUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Schedule Entity
+      summary: scheduleOrigin
+      operationId: scheduleOriginUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelAirport'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /schedules:
+    get:
+      tags:
+        - Schedule Entity
+      summary: findAllSchedule
+      operationId: findAllScheduleUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSchedule'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSchedule'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSchedule'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSchedule'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Schedule Entity
+      summary: saveSchedule
+      operationId: saveScheduleUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/schedules/{id}':
+    get:
+      tags:
+        - Schedule Entity
+      summary: findByIdSchedule
+      operationId: findByIdScheduleUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Schedule Entity
+      summary: saveSchedule
+      operationId: saveScheduleUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Schedule Entity
+      summary: deleteByIdSchedule
+      operationId: deleteByIdScheduleUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Schedule Entity
+      summary: saveSchedule
+      operationId: saveScheduleUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/seats/{id}/schedule':
+    get:
+      tags:
+        - Seat Entity
+      summary: seatSchedule
+      operationId: seatScheduleUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Seat Entity
+      summary: seatSchedule
+      operationId: seatScheduleUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Seat Entity
+      summary: seatSchedule
+      operationId: seatScheduleUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Seat Entity
+      summary: seatSchedule
+      operationId: seatScheduleUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Seat Entity
+      summary: seatSchedule
+      operationId: seatScheduleUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSchedule'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/seats/{id}/seatClass':
+    get:
+      tags:
+        - Seat Entity
+      summary: seatSeatClass
+      operationId: seatSeatClassUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Seat Entity
+      summary: seatSeatClass
+      operationId: seatSeatClassUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Seat Entity
+      summary: seatSeatClass
+      operationId: seatSeatClassUsingPOST
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Seat Entity
+      summary: seatSeatClass
+      operationId: seatSeatClassUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Seat Entity
+      summary: seatSeatClass
+      operationId: seatSeatClassUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+          application/x-spring-data-compact+json:
+            schema:
+              type: string
+          text/uri-list:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /seats:
+    get:
+      tags:
+        - Seat Entity
+      summary: findAllSeat
+      operationId: findAllSeatUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeat'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeat'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeat'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeat'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Seat Entity
+      summary: saveSeat
+      operationId: saveSeatUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeat'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/seats/{id}':
+    get:
+      tags:
+        - Seat Entity
+      summary: findByIdSeat
+      operationId: findByIdSeatUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeat'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Seat Entity
+      summary: saveSeat
+      operationId: saveSeatUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeat'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Seat Entity
+      summary: deleteByIdSeat
+      operationId: deleteByIdSeatUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Seat Entity
+      summary: saveSeat
+      operationId: saveSeatUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seat'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeat'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /seatClasses:
+    get:
+      tags:
+        - SeatClass Entity
+      summary: findAllSeatClass
+      operationId: findAllSeatClassUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeatClass'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeatClass'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeatClass'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelSeatClass'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - SeatClass Entity
+      summary: saveSeatClass
+      operationId: saveSeatClassUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatClass'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/seatClasses/{id}':
+    get:
+      tags:
+        - SeatClass Entity
+      summary: findByIdSeatClass
+      operationId: findByIdSeatClassUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - SeatClass Entity
+      summary: saveSeatClass
+      operationId: saveSeatClassUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatClass'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - SeatClass Entity
+      summary: deleteByIdSeatClass
+      operationId: deleteByIdSeatClassUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - SeatClass Entity
+      summary: saveSeatClass
+      operationId: saveSeatClassUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatClass'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EntityModelSeatClass'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /error:
+    get:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
               schema:
                 type: object
                 additionalProperties:
-                  type: integer
-                  format: int32
-      security:
-        - api_key: []
-  /store/order:
-    post:
-      tags:
-        - store
-      summary: Place an order for a pet
-      description: Place a new order in the store
-      operationId: placeOrder
-      x-swagger-router-controller: OrderController
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '405':
-          description: Invalid input
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Order'
-  '/store/order/{orderId}':
-    get:
-      tags:
-        - store
-      summary: Find purchase order by ID
-      x-swagger-router-controller: OrderController
-      description: For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
-      operationId: getOrderById
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of order that needs to be fetched
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Invalid ID supplied
+                  type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
         '404':
-          description: Order not found
-    delete:
-      tags:
-        - store
-      summary: Delete purchase order by ID
-      x-swagger-router-controller: OrderController
-      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
-      operationId: deleteOrder
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of the order that needs to be deleted
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Order not found
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      responses:
-        default:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-        description: Created user object
-  /user/createWithList:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input array
-      description: Creates list of users with given input array
-      x-swagger-router-controller: UserController
-      operationId: createUsersWithListInput
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        default:
-          description: successful operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
-  /user/login:
-    get:
-      tags:
-        - user
-      summary: Logs user into the system
-      description: ''
-      operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: false
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when toekn expires
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-        '400':
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ''
-      operationId: logoutUser
-      parameters: []
-      responses:
-        default:
-          description: successful operation
-  '/user/{username}':
-    get:
-      tags:
-        - user
-      summary: Get user by user name
-      description: ''
-      operationId: getUserByName
-      parameters:
-        - name: username
-          in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
+          description: Not Found
     put:
       tags:
-        - user
-      summary: Update user
-      x-swagger-router-controller: UserController
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: name that need to be deleted
-          required: true
-          schema:
-            type: string
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPUT
       responses:
-        default:
-          description: successful operation
-      requestBody:
-        description: Update an existent user in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPOST
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
     delete:
       tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingDELETE
       responses:
-        '400':
-          description: Invalid username supplied
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    options:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingOPTIONS
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    head:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingHEAD
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPATCH
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    trace:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingTRACE
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /profile:
+    get:
+      tags:
+        - profile-controller
+      summary: listAllFormsOfMetadata
+      operationId: listAllFormsOfMetadataUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RepresentationModelobject'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
         '404':
-          description: User not found
-externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
+          description: Not Found
+    options:
+      tags:
+        - profile-controller
+      summary: profileOptions
+      operationId: profileOptionsUsingOPTIONS
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
 components:
   schemas:
-    Order:
-      x-swagger-router-model: io.swagger.petstore.model.Order
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        petId:
-          type: integer
-          format: int64
-          example: 198772
-        quantity:
-          type: integer
-          format: int32
-          example: 7
-        shipDate:
-          type: string
-          format: date-time
-        status:
-          type: string
-          description: Order Status
-          enum:
-            - placed
-            - approved
-            - delivered
-          example: approved
-        complete:
-          type: boolean
-      xml:
-        name: order
+    SeatResponse:
+      title: SchedueleSeat
       type: object
-    Customer:
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 100000
-        username:
-          type: string
-          example: fehguy
-        address:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-          xml:
-            wrapped: true
-            name: addresses
-      xml:
-        name: customer
-      type: object
-    Address:
-      properties:
-        street:
-          type: string
-          example: 437 Lytton
-        city:
-          type: string
-          example: Palo Alto
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: 94301
-      xml:
-        name: address
-      type: object
-    Category:
-      x-swagger-router-model: io.swagger.petstore.model.Category
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Dogs
-      xml:
-        name: category
-      type: object
-    User:
-      x-swagger-router-model: io.swagger.petstore.model.User
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        username:
-          type: string
-          example: theUser
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: James
-        email:
-          type: string
-          example: john@email.com
-        password:
-          type: string
-          example: 12345
-        phone:
-          type: string
-          example: 12345
-        userStatus:
-          type: integer
-          format: int32
-          example: 1
-          description: User Status
-      xml:
-        name: user
-      type: object
-    Tag:
-      x-swagger-router-model: io.swagger.petstore.model.Tag
       properties:
         id:
           type: integer
           format: int64
         name:
           type: string
-      xml:
-        name: tag
+    Airplane:
+      title: Airplane
       type: object
-    Pet:
-      x-swagger-router-model: io.swagger.petstore.model.Pet
-      required:
-        - name
-        - photoUrls
       properties:
         id:
           type: integer
           format: int64
-          example: 10
         name:
           type: string
-          example: doggie
-        category:
-          $ref: '#/components/schemas/Category'
-        photoUrls:
-          type: array
-          xml:
-            wrapped: true
-          items:
-            type: string
-            xml:
-              name: photoUrl
-        tags:
-          type: array
-          xml:
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Tag'
-            xml:
-              name: tag
-        status:
-          type: string
-          description: pet status in the store
-          enum:
-            - available
-            - pending
-            - sold
-      xml:
-        name: pet
+        seats:
+          type: integer
+          format: int64
+        type:
+          $ref: '#/components/schemas/AirplaneType'
+    AirplaneType:
+      title: AirplaneType
       type: object
-    ApiResponse:
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Airport:
+      title: Airport
+      type: object
       properties:
         code:
+          type: string
+        id:
           type: integer
-          format: int32
+          format: int64
+        name:
+          type: string
+        tags:
+          type: string
+        timezone:
+          type: string
+        type:
+          type: integer
+          format: int64
+    CollectionModelAirplaneType:
+      title: CollectionModelAirplaneType
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionAirplaneType'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of AirplaneType
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelAirplane:
+      title: CollectionModelAirplane
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionAirplane'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Airplane
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelAirport:
+      title: CollectionModelAirport
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionAirport'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Airport
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelCountry:
+      title: CollectionModelCountry
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionCountry'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Country
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelFlightSeat:
+      title: CollectionModelFlightSeat
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionFlightSeat'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of FlightSeat
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelFlight:
+      title: CollectionModelFlight
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionFlight'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Flight
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelInventoryType:
+      title: CollectionModelInventoryType
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionInventoryType'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of InventoryType
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelInventory:
+      title: CollectionModelInventory
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionInventory'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Inventory
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelLocation:
+      title: CollectionModelLocation
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionLocation'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Location
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelPassengerType:
+      title: CollectionModelPassengerType
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionPassengerType'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of PassengerType
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelSchedule:
+      title: CollectionModelSchedule
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionSchedule'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Schedule
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelSeatClass:
+      title: CollectionModelSeatClass
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionSeatClass'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of SeatClass
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    CollectionModelSeat:
+      title: CollectionModelSeat
+      required:
+        - _embedded
+        - _links
+      type: object
+      properties:
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedCollectionSeat'
+        _links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Link collection
+      description: Resources of Seat
+      xml:
+        name: entities
+        attribute: false
+        wrapped: false
+    Country:
+      title: Country
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        nameRu:
+          type: string
+        tags:
+          type: string
+    EmbeddedCollectionAirplaneType:
+      title: EmbeddedCollectionAirplaneType
+      required:
+        - airplaneTypes
+      type: object
+      properties:
+        airplaneTypes:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/AirplaneType'
+      description: Embedded collection of AirplaneType
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionAirplane:
+      title: EmbeddedCollectionAirplane
+      required:
+        - airplanes
+      type: object
+      properties:
+        airplanes:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Airplane'
+      description: Embedded collection of Airplane
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionAirport:
+      title: EmbeddedCollectionAirport
+      required:
+        - airports
+      type: object
+      properties:
+        airports:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Airport'
+      description: Embedded collection of Airport
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionCountry:
+      title: EmbeddedCollectionCountry
+      required:
+        - countries
+      type: object
+      properties:
+        countries:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Country'
+      description: Embedded collection of Country
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionFlightSeat:
+      title: EmbeddedCollectionFlightSeat
+      required:
+        - flightSeats
+      type: object
+      properties:
+        flightSeats:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/FlightSeat'
+      description: Embedded collection of FlightSeat
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionFlight:
+      title: EmbeddedCollectionFlight
+      required:
+        - flights
+      type: object
+      properties:
+        flights:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Flight'
+      description: Embedded collection of Flight
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionInventoryType:
+      title: EmbeddedCollectionInventoryType
+      required:
+        - inventoryTypes
+      type: object
+      properties:
+        inventoryTypes:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/InventoryType'
+      description: Embedded collection of InventoryType
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionInventory:
+      title: EmbeddedCollectionInventory
+      required:
+        - inventories
+      type: object
+      properties:
+        inventories:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Inventory'
+      description: Embedded collection of Inventory
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionLocation:
+      title: EmbeddedCollectionLocation
+      required:
+        - locations
+      type: object
+      properties:
+        locations:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Location'
+      description: Embedded collection of Location
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionPassengerType:
+      title: EmbeddedCollectionPassengerType
+      required:
+        - passengerTypes
+      type: object
+      properties:
+        passengerTypes:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/PassengerType'
+      description: Embedded collection of PassengerType
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionSchedule:
+      title: EmbeddedCollectionSchedule
+      required:
+        - schedules
+      type: object
+      properties:
+        schedules:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Schedule'
+      description: Embedded collection of Schedule
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionSeatClass:
+      title: EmbeddedCollectionSeatClass
+      required:
+        - seatClasses
+      type: object
+      properties:
+        seatClasses:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/SeatClass'
+      description: Embedded collection of SeatClass
+      xml:
+        name: content
+        wrapped: true
+    EmbeddedCollectionSeat:
+      title: EmbeddedCollectionSeat
+      required:
+        - seats
+      type: object
+      properties:
+        seats:
+          type: array
+          description: Resource collection
+          items:
+            $ref: '#/components/schemas/Seat'
+      description: Embedded collection of Seat
+      xml:
+        name: content
+        wrapped: true
+    EntityModelAirplaneType:
+      title: EntityModelAirplaneType
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+    EntityModelAirplane:
+      title: EntityModelAirplane
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+        seats:
+          type: integer
+          format: int64
+        type:
+          $ref: '#/components/schemas/AirplaneType'
+    EntityModelAirport:
+      title: EntityModelAirport
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+        tags:
+          type: string
+        timezone:
+          type: string
+        type:
+          type: integer
+          format: int64
+    EntityModelCountry:
+      title: EntityModelCountry
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+        nameRu:
+          type: string
+        tags:
+          type: string
+    EntityModelFlightSeat:
+      title: EntityModelFlightSeat
+      type: object
+      properties:
+        available:
+          type: boolean
+        count:
+          type: integer
+          format: int64
+        flight:
+          $ref: '#/components/schemas/Flight'
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        price:
+          type: integer
+          format: int64
+        seatClass:
+          $ref: '#/components/schemas/SeatClass'
+        timeLimit:
+          type: integer
+          format: int64
+    EntityModelFlight:
+      title: EntityModelFlight
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+    EntityModelInventoryType:
+      title: EntityModelInventoryType
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+    EntityModelInventory:
+      title: EntityModelInventory
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        inventoryType:
+          $ref: '#/components/schemas/InventoryType'
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+    EntityModelLocation:
+      title: EntityModelLocation
+      type: object
+      properties:
+        airport:
+          $ref: '#/components/schemas/Airport'
+        code:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+        nameRu:
+          type: string
+        state:
+          type: string
+        tags:
+          type: string
+        timezone:
+          type: string
+    EntityModelPassengerType:
+      title: EntityModelPassengerType
+      type: object
+      properties:
+        accompanied:
+          type: boolean
+        ageEnd:
+          type: integer
+          format: int64
+        ageStart:
+          type: integer
+          format: int64
+        available:
+          type: boolean
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        name:
+          type: string
+        seat_included:
+          type: boolean
+    EntityModelSchedule:
+      title: EntityModelSchedule
+      type: object
+      properties:
+        airplane:
+          $ref: '#/components/schemas/Airplane'
+        destination:
+          $ref: '#/components/schemas/Airport'
+        end:
+          type: string
+          format: date-time
+        flightCode:
+          type: string
+        flightDuration:
+          type: integer
+          format: int64
+        frequencyOrder:
+          type: integer
+          format: int64
+        frequencyTime:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        origin:
+          $ref: '#/components/schemas/Airport'
+        start:
+          type: string
+          format: date-time
+    EntityModelSeatClass:
+      title: EntityModelSeatClass
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+    EntityModelSeat:
+      title: EntityModelSeat
+      type: object
+      properties:
+        available:
+          type: boolean
+        count:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        links:
+          $ref: '#/components/schemas/Links'
+        price:
+          type: number
+          format: bigdecimal
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+        seatClass:
+          $ref: '#/components/schemas/SeatClass'
+        timeLimit:
+          type: integer
+          format: int64
+    Flight:
+      title: Flight
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+    FlightSeat:
+      title: FlightSeat
+      type: object
+      properties:
+        available:
+          type: boolean
+        count:
+          type: integer
+          format: int64
+        flight:
+          $ref: '#/components/schemas/Flight'
+        id:
+          type: integer
+          format: int64
+        price:
+          type: integer
+          format: int64
+        seatClass:
+          $ref: '#/components/schemas/SeatClass'
+        timeLimit:
+          type: integer
+          format: int64
+    Inventory:
+      title: Inventory
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        inventoryType:
+          $ref: '#/components/schemas/InventoryType'
+        name:
+          type: string
+    InventoryType:
+      title: InventoryType
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Link:
+      title: Link
+      type: object
+      properties:
+        deprecation:
+          type: string
+        href:
+          type: string
+        hreflang:
+          type: string
+        media:
+          type: string
+        name:
+          type: string
+        profile:
+          type: string
+        rel:
+          $ref: '#/components/schemas/LinkRelation'
+        title:
+          type: string
         type:
           type: string
-        message:
-          type: string
-      xml:
-        name: '##default'
+    LinkRelation:
+      title: LinkRelation
       type: object
-  requestBodies:
-    Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pet'
-      description: Pet object that needs to be added to the store
-    UserArray:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-      description: List of user object
+    Links:
+      title: Links
+      type: object
+      properties:
+        empty:
+          type: boolean
+    Location:
+      title: Location
+      type: object
+      properties:
+        airport:
+          $ref: '#/components/schemas/Airport'
+        code:
+          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        nameRu:
+          type: string
+        state:
+          type: string
+        tags:
+          type: string
+        timezone:
+          type: string
+    ModelAndView:
+      title: ModelAndView
+      type: object
+      properties:
+        empty:
+          type: boolean
+        model:
+          type: object
+        modelMap:
+          type: object
+          additionalProperties:
+            type: object
+        reference:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - ACCEPTED
+            - ALREADY_REPORTED
+            - BAD_GATEWAY
+            - BAD_REQUEST
+            - BANDWIDTH_LIMIT_EXCEEDED
+            - CHECKPOINT
+            - CONFLICT
+            - CONTINUE
+            - CREATED
+            - DESTINATION_LOCKED
+            - EXPECTATION_FAILED
+            - FAILED_DEPENDENCY
+            - FORBIDDEN
+            - FOUND
+            - GATEWAY_TIMEOUT
+            - GONE
+            - HTTP_VERSION_NOT_SUPPORTED
+            - IM_USED
+            - INSUFFICIENT_SPACE_ON_RESOURCE
+            - INSUFFICIENT_STORAGE
+            - INTERNAL_SERVER_ERROR
+            - I_AM_A_TEAPOT
+            - LENGTH_REQUIRED
+            - LOCKED
+            - LOOP_DETECTED
+            - METHOD_FAILURE
+            - METHOD_NOT_ALLOWED
+            - MOVED_PERMANENTLY
+            - MOVED_TEMPORARILY
+            - MULTIPLE_CHOICES
+            - MULTI_STATUS
+            - NETWORK_AUTHENTICATION_REQUIRED
+            - NON_AUTHORITATIVE_INFORMATION
+            - NOT_ACCEPTABLE
+            - NOT_EXTENDED
+            - NOT_FOUND
+            - NOT_IMPLEMENTED
+            - NOT_MODIFIED
+            - NO_CONTENT
+            - OK
+            - PARTIAL_CONTENT
+            - PAYLOAD_TOO_LARGE
+            - PAYMENT_REQUIRED
+            - PERMANENT_REDIRECT
+            - PRECONDITION_FAILED
+            - PRECONDITION_REQUIRED
+            - PROCESSING
+            - PROXY_AUTHENTICATION_REQUIRED
+            - REQUESTED_RANGE_NOT_SATISFIABLE
+            - REQUEST_ENTITY_TOO_LARGE
+            - REQUEST_HEADER_FIELDS_TOO_LARGE
+            - REQUEST_TIMEOUT
+            - REQUEST_URI_TOO_LONG
+            - RESET_CONTENT
+            - SEE_OTHER
+            - SERVICE_UNAVAILABLE
+            - SWITCHING_PROTOCOLS
+            - TEMPORARY_REDIRECT
+            - TOO_EARLY
+            - TOO_MANY_REQUESTS
+            - UNAUTHORIZED
+            - UNAVAILABLE_FOR_LEGAL_REASONS
+            - UNPROCESSABLE_ENTITY
+            - UNSUPPORTED_MEDIA_TYPE
+            - UPGRADE_REQUIRED
+            - URI_TOO_LONG
+            - USE_PROXY
+            - VARIANT_ALSO_NEGOTIATES
+        view:
+          $ref: '#/components/schemas/View'
+        viewName:
+          type: string
+    PassengerType:
+      title: PassengerType
+      type: object
+      properties:
+        accompanied:
+          type: boolean
+        ageEnd:
+          type: integer
+          format: int64
+        ageStart:
+          type: integer
+          format: int64
+        available:
+          type: boolean
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        seat_included:
+          type: boolean
+    RepresentationModelobject:
+      title: RepresentationModelobject
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+    Schedule:
+      title: Schedule
+      type: object
+      properties:
+        airplane:
+          $ref: '#/components/schemas/Airplane'
+        destination:
+          $ref: '#/components/schemas/Airport'
+        end:
+          type: string
+          format: date-time
+        flightCode:
+          type: string
+        flightDuration:
+          type: integer
+          format: int64
+        frequencyOrder:
+          type: integer
+          format: int64
+        frequencyTime:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        origin:
+          $ref: '#/components/schemas/Airport'
+        start:
+          type: string
+          format: date-time
+    Seat:
+      title: Seat
+      type: object
+      properties:
+        available:
+          type: boolean
+        count:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        price:
+          type: number
+          format: bigdecimal
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+        seatClass:
+          $ref: '#/components/schemas/SeatClass'
+        timeLimit:
+          type: integer
+          format: int64
+    SeatClass:
+      title: SeatClass
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: integer
+          format: int64
+    AccountSettings:
+      title: AccountSettings
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          
+    AirlineProfile:
+      title: AirlineProfile
+      type: object
+      properties:
+        legalName: 
+          type: string
+        enName: 
+          type: string
+        otherName: 
+          type: string
+        taxId: 
+          type: string
+        icaoCode: 
+          type: string
+        iataCode: 
+          type: string
+        website: 
+          type: string
+        address: 
+          type: string
+        email: 
+          type: string
+        currency: 
+          type: string
+    TemplateVariable:
+      title: TemplateVariable
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - COMPOSITE_PARAM
+            - FRAGMENT
+            - PATH_VARIABLE
+            - REQUEST_PARAM
+            - REQUEST_PARAM_CONTINUED
+            - SEGMENT
+    UriTemplate:
+      title: UriTemplate
+      type: object
+      properties:
+        variableNames:
+          type: array
+          items:
+            type: string
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateVariable'
+    View:
+      title: View
+      type: object
+      properties:
+        contentType:
+          type: string
+    AirlineProfileResponse:
+      type: object
+      properties:
+        legalName:
+          type: string
+        enName:
+          type: string
+        otherName:
+          type: string
+        tax:
+          type: string
+        icaoCode:
+          type: string
+        iataCode:
+          type: string
+        website:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+          format: email
+        currency:
+          type: string
+    AccountSettingsResponse:
+      type: object
+      properties:
+        firstName: 
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        role:
+          type: object
+          properties: 
+            id: 
+              type: integer
+            name:
+              type: string
+    FeesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Fee'
+    FeeForCreate:
+      type: object
+      properties:
+        tax:
+          $ref: '#/components/schemas/Tax'
+        amount:
+          type: integer
+    Fee:
+      type: object
+      properties:
+        id:
+          type: integer
+        tax:
+          $ref: '#/components/schemas/Tax'
+        amount:
+          type: integer
+        currency:
+          type: string
+    FeeForUpdate:
+      properties:
+        tax:
+          $ref: '#/components/schemas/Tax'
+        amount:
+          type: integer
+    TaxesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tax'
+    Tax:
+      type: object
+      properties:
+        id:
+          type: integer
+        tax:
+          type: string
+        type:
+          type: string
+
   securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'https://petstore.swagger.io/oauth/authorize'
-          scopes:
-            'write:pets': modify pets in your account
-            'read:pets': read your pets
     api_key:
       type: apiKey
       name: api_key
