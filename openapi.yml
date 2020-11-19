@@ -5120,6 +5120,35 @@ paths:
       responses:
         '200':
           description: OK
+  '/schedules/{schedule_id}/pricing/{seat_id}':
+    parameters:
+      - schema:
+          type: string
+        name: schedule_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: seat_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-schedules-schedule_id-pricing-seat_id
+    put:
+      summary: ''
+      operationId: put-schedules-schedule_id-pricing-seat_id
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-schedules-schedule_id-pricing-seat_id
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     Pricing:
