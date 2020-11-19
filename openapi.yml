@@ -103,10 +103,10 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  '/schedules/{schedule_id}/tariff':
+  '/schedules/{schedule_id}/pricing':
     get:
       tags:
-        - Seats
+        - Pricing
       parameters:
         - name: schedule_id
           in: path
@@ -122,7 +122,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TariffList'
+                $ref: '#/components/schemas/Pricing'
+    post:
+      summary: ''
+      operationId: post-schedules-schedule_id-seats
+      parameters:
+        - name: schedule_id
+          in: path
+          description: id of currnent adding or updating schedule
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatAndTariff'
+      responses:
+        '200':
+          description: OK
   '/fees/{fee_id}':
     delete:
       tags:
@@ -5034,35 +5054,24 @@ paths:
   /tariffs:
     get:
       summary: Get tariffs all
-      responses: 
+      responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  type:
-                    type: string
+                type: array
+                items:
+                  $ref: '#/components/schemas/FareResponse'
       operationId: get-tariffs
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: integer
-                type:
-                  type: string
     post:
       summary: ''
-      operationId: Create a tariff
+      operationId: Create a tariff and seats
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TariffCreate'
+              $ref: '#/components/schemas/SeatAndTariff'
       responses:
         '200':
           description: OK
@@ -5088,17 +5097,23 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  type:
-                    type: string
+                $ref: '#/components/schemas/FareResponse'
       operationId: get-tariffs-id
     put:
       summary: ''
       operationId: put-tariffs-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FareCreate'
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FareResponse'
     delete:
       summary: ''
       operationId: delete-tariffs-id
@@ -5107,13 +5122,26 @@ paths:
           description: OK
 components:
   schemas:
-    TariffList:
-      title: TariffList
+    Pricing:
+      title: Pricing
+      type: object
+      properties:
+        cabin:
+          type: string
+          default: Economy
+        availableSeats:
+          type: integer
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleSeat'
+    ScheduleSeat:
+      title: Seats
       type: object
       properties:
         id:
           type: integer
-        class:
+        rbd:
           $ref: '#/components/schemas/Class'
         count:
           type: integer
@@ -6146,7 +6174,7 @@ components:
           type: integer
           format: int64
     Class:
-      title: Class
+      title: RBD classes
       type: object
       properties:
         code:
@@ -6322,8 +6350,8 @@ components:
         fares:
           type: array
           items:
-            $ref: '#/components/schemas/Fare'
-    Fare:
+            $ref: '#/components/schemas/FareCreate'
+    FareCreate:
       type: object
       properties:
         id:
@@ -6338,10 +6366,53 @@ components:
           type: boolean
         refundPrice:
           type: integer
-        fare: 
+        fare:
           type: integer
-        
-
+    TariffResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        classId:
+          type: integer
+        count:
+          type: integer
+        fares:
+          type: array
+          items:
+            $ref: '#/components/schemas/FareResponse'
+    FareResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        passengerTypeId:
+          type: integer
+        baggage:
+          type: integer
+        cabinBaggage:
+          type: integer
+        refundable:
+          type: boolean
+        refundPrice:
+          type: integer
+        fare:
+          type: integer
+        taxSum:
+          type: integer
+        total:
+          type: integer
+    SeatAndTariff:
+      type: object
+      properties:
+        class:
+          $ref: '#/components/schemas/ScheduleSeat'
+        count:
+          type: integer
+        fares:
+          type: array
+          items:
+            $ref: '#/components/schemas/FareCreate'
   securitySchemes:
     api_key:
       type: apiKey
