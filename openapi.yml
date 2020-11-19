@@ -143,6 +143,58 @@ paths:
       responses:
         '200':
           description: OK
+  '/schedules/{schedule_id}/pricing/{seat_id}':
+    parameters:
+      - schema:
+          type: integer
+        name: schedule_id
+        in: path
+        required: true
+      - schema:
+          type: integer
+        name: seat_id
+        in: path
+        required: true
+    get:
+      summary: Gets all fares and seat for schedule seats
+      tags: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeatAndTariffResponse'
+      operationId: get-schedules-schedule_id-pricing-seat_id
+    put:
+      summary: ''
+      operationId: put-schedules-schedule_id-pricing-seat_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatAndTariff'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SeatAndTariffResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      summary: ''
+      operationId: delete-schedules-schedule_id-pricing-seat_id
+      responses:
+        '200':
+          description: OK
   '/fees/{fee_id}':
     delete:
       tags:
@@ -5120,35 +5172,6 @@ paths:
       responses:
         '200':
           description: OK
-  '/schedules/{schedule_id}/pricing/{seat_id}':
-    parameters:
-      - schema:
-          type: string
-        name: schedule_id
-        in: path
-        required: true
-      - schema:
-          type: string
-        name: seat_id
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-schedules-schedule_id-pricing-seat_id
-    put:
-      summary: ''
-      operationId: put-schedules-schedule_id-pricing-seat_id
-      responses:
-        '200':
-          description: OK
-    delete:
-      summary: ''
-      operationId: delete-schedules-schedule_id-pricing-seat_id
-      responses:
-        '200':
-          description: OK
 components:
   schemas:
     Pricing:
@@ -6431,13 +6454,20 @@ components:
           type: integer
         total:
           type: integer
+    SeatAndTariffResponse:
+      type: object
+      properties:
+        class:
+          $ref: '#/components/schemas/ScheduleSeat'
+        fares:
+          type: array
+          items:
+            $ref: '#/components/schemas/FareResponse'
     SeatAndTariff:
       type: object
       properties:
         class:
           $ref: '#/components/schemas/ScheduleSeat'
-        count:
-          type: integer
         fares:
           type: array
           items:
