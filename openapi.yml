@@ -1,4 +1,4 @@
-openapi: 3.0.3
+sopenapi: 3.0.3
 info:
   title: Api Documentation
   description: Api Documentation
@@ -4042,14 +4042,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Schedule'
+              $ref: '#/components/schemas/ScheduleCreate'
       responses:
         '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/EntityModelSchedule'
+                $ref: '#/components/schemas/ScheduleCreate'
         '201':
           description: Created
         '401':
@@ -5871,6 +5871,28 @@ components:
           type: string
         seat_included:
           type: boolean
+    ScheduleCreate:
+      title: Schedule Entity
+      type: object
+      properties:
+        flightCode:
+          type: String
+        originId:
+          type: integer
+        destinationId:
+          type: integer
+        departure:
+          type: string
+        arrival:
+          type: string
+        frequency: 
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        aircraftId:
+          type: integer
     EntityModelSchedule:
       title: EntityModelSchedule
       type: object
@@ -5888,8 +5910,7 @@ components:
           type: integer
           format: int64
         frequencyOrder:
-          type: integer
-          format: int64
+          type: string
         frequencyTime:
           type: integer
           format: int64
