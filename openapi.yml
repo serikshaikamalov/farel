@@ -1,4 +1,4 @@
-sopenapi: 3.0.3
+openapi: 3.0.3
 info:
   title: Api Documentation
   description: Api Documentation
