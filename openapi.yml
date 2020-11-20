@@ -4707,7 +4707,7 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  /seatClasses:
+  /rbd:
     get:
       tags:
         - SeatClass Entity
