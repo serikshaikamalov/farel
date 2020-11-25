@@ -6437,7 +6437,7 @@ components:
           type: integer
         refundable:
           type: boolean
-        refundPrice:
+        refundPenalty:
           type: integer
         fare:
           type: integer
