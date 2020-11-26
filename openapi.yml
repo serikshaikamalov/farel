@@ -1,4 +1,4 @@
-TTopenapi: 3.0.3
+openapi: 3.0.3
 info:
   title: Api Documentation
   description: Api Documentation
@@ -5898,7 +5898,7 @@ components:
       type: object
       properties:
         flightCode:
-          type: String
+          type: string
         originId:
           type: integer
         destinationId:
