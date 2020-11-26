@@ -1,4 +1,4 @@
-openapi: 3.0.3
+TTopenapi: 3.0.3
 info:
   title: Api Documentation
   description: Api Documentation
@@ -5172,6 +5172,28 @@ paths:
       responses:
         '200':
           description: OK
+  /company-flights:
+    get:
+      summary: Your GET endpoint
+      operationId: get-company-flights
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: from
+          description: ' from date'
+        - schema:
+            type: string
+          in: query
+          name: to
+          description: to date
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyFlight'
 components:
   schemas:
     Pricing:
@@ -5885,7 +5907,7 @@ components:
           type: string
         arrival:
           type: string
-        frequency: 
+        frequency:
           type: string
         startDate:
           type: string
@@ -6528,9 +6550,9 @@ components:
           type: string
         date:
           type: string
-        departure:
+        departureTime:
           type: string
-        arrival:
+        arrivalTime:
           type: string
         weekday:
           type: string
@@ -6549,6 +6571,9 @@ components:
             - ACTIVE
             - CANCEL
         cabins:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cabin'
   securitySchemes:
     api_key:
       type: apiKey
