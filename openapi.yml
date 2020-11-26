@@ -6493,6 +6493,62 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FareCreate'
+    CompanyFlightSeat:
+      type: object
+      properties:
+        fareClassCode:
+          type: string
+        available:
+          type: integer
+        total:
+          type: integer
+    Cabin:
+      type: object
+      properties:
+        cabinName:
+          type: string
+        available:
+          type: integer
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyFlightSeat'
+    CompanyFlight:
+      type: object
+      properties:
+        id:
+          type: integer
+        flightNumber:
+          type: string
+        from:
+          type: string
+        via:
+          type: string
+        to:
+          type: string
+        date:
+          type: string
+        departure:
+          type: string
+        arrival:
+          type: string
+        weekday:
+          type: string
+        availableSeats:
+          type: integer
+        load:
+          type: integer
+        saleStatus:
+          type: string
+          enum:
+            - AVAILABLE
+            - UNAVAILABLE
+        flightStatus:
+          type: string
+          enum:
+            - ACTIVE
+            - CANCEL
+        cabins:
   securitySchemes:
     api_key:
       type: apiKey
