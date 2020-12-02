@@ -181,10 +181,6 @@ components:
         bookingStatus:
           type: string
           enum: [PURCHASED, PARTIALLY_CHANGED, AWAITING_PAYMENT, CANCELLED, ERROR, EXPIRED, PROCESSING, VOIDED]
-        bookingExpires:
-          type: string
-          format: date-time
-          description: "The payment deadline. Applies only to Bookings with AWAITING_PAYMENT statuses"
           nullable: true
         ticketStatus:
           type: string
@@ -343,6 +339,10 @@ components:
           format: date
           pattern: YYYY-MM-DD
           description: "A Date when this booking was created"
+        bookingExpires:
+          type: string
+          format: date-time
+          description: "The payment deadline. Applies only to Bookings with AWAITING_PAYMENT statuses"
         direction:
           type: string
           example: "ALA-NQZ-MOW"
