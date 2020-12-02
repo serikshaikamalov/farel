@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  title: booking
+  version: '1.0'
+  description: Booking management 
+  contact:
+    name: Asset Yelemessov
+    url: farel.dev
+    email: asset@farel.io
+servers:
+  - url: 'http://localhost:8080/api/v1'
+tags:
+  - name: Bookings
+    description: Paginated list of Bookings
+  - name: Booking details
+    description: Comprehensive information about requested Booking
+paths:
+  /bookings:
+    get:
+      operationId: get-bookings
+      description: endpoint to get all bookings
+      tags: 
+        - Bookings
+      parameters:
+        - name: origin
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Origin airport code
+        - name: destination
+          in: query
+          required: false
+          schema: 
+            type: string
+          description: Destination airport code
+        - name: departDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Departure date in the format defined by ISO
+        - name: returnDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Return date in the format defined by ISO
+        - $ref: '#/components/parameters/PageOffset'
+        - $ref: '#/components/parameters/PageLimit'
+      responses: 
+        "200":
+          description: "Successfully retrieve all bookings"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllBookingsResponse'
+  /bookings/{bookingId}:
+    get:
+      operationId: getBookingDetails
+      description: get booking details
+      tags:
+        - Booking details
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Booking details response"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/BookingDetailsResponse'
+        "404":
+          description: "Requested booking not found"
+  /bookings/{bookingId}/passengers/{passengerId}:
+    put:
+      operationId: updatePassengerDetails
+      description: update passenger details
+      tags:
+        - Booking details
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: passengerId
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/PassenderDetailsUpdateBody'
+      responses:
+        "204":
+          description: "Passenger details were successfully update"
+        "400":
+          description: "Malformed request body. Either message format or data format is wrong"
+        "404":
+          description: "Either bookingId or passengerId not found"
+components:
+  parameters:
+    Pagination:
+      in: query
+      name: pagination
+      required: false
+      schema:
+        type: object
+        properties:
+          offset:
+            type: integer
+            minimum: 0
+            default: 0
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+    PageOffset:
+      in: query
+      name: offset
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    PageLimit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 20
+  requestBodies:
+    PassenderDetailsUpdateBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstname:
+                type: string
+              lastname:
+                type: string
+              gender:
+                type: string
+              birthDate:
+                type: string
+                format: date
+                pattern: YYYY-MM-DD
+              citizenship:
+                type: string
+              idNumber:
+                type: string
+              expireDate:
+                type: string
+  schemas:
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+        bookingNumber:
+          type: string
+          description: "a.k.a PNR number"
+        bookingDate:
+          type: string
+          format: date
+          pattern: YYYY-MM-DD
+          description: "A Date when this booking was created"
+        bookingStatus:
+          type: string
+          enum: [PURCHASED, PARTIALLY_CHANGED, AWAITING_PAYMENT, CANCELLED, ERROR, EXPIRED, PROCESSING, VOIDED]
+        bookingExpires:
+          type: string
+          format: date-time
+          description: "The payment deadline. Applies only to Bookings with AWAITING_PAYMENT statuses"
+          nullable: true
+        ticketStatus:
+          type: string
+          enum: [EXCHANGED, CHECK_IN, FLOWN, AIRPORT_CONTROL]
+        direction:
+          type: string
+          example: "ALA-NQZ-MOW"
+        departDate:
+          type: string
+          pattern: YYYY-MM-DD
+          format: date
+        returnDate:
+          type: string
+          pattern: YYYY-MM-DD
+          format: date
+        channel:
+          type: string
+          example: "OTA Ozon Travel"
+        customer:
+          type: object
+          properties:
+            firstname:
+              type: string
+            lastname:
+              type: string
+        paymentDetails:
+          type: object
+          properties: 
+            paymentDate: 
+              type: string
+              format: date
+              pattern: YYYY-MM-DD
+            paymentType:
+              type: string
+              enum: [CARD, CASH, VOUCHER]
+            paymentAmount:
+              type: object
+              properties:
+                totalAmount:
+                  type: string
+                fees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      amount:
+                        type: string
+    Ticket:
+      type: object
+      properties:
+        ticketNumber: 
+          type: string
+        ticketStatus: 
+          type: string
+          enum: [EXCHANGED, CHECK_IN, FLOWN, AIRPORT_CONTROL]
+        class:
+          type: string
+          example: "Economy - N"
+        fareId:
+          type: string
+        passengerDetails: 
+          type: object
+          properties:
+            id:
+              type: string
+            firstname:
+              type: string
+            lastname:
+              type: string
+            gender:
+              type: string
+              enum: [FEMALE, MALE, OTHER]
+            birthday:
+              type: string
+              format: date
+              pattern: "YYYY-MM-DD"
+            citizenship:
+              type: string
+            document:
+              type: object 
+              properties:
+                documentType: 
+                  type: string
+                  enum: [PASSPORT, NATIONAL_ID, BIRTH_CERTIFICATE]
+                documentId:
+                  type: string
+                expireDate:
+                  type: string
+                  format: date
+                  pattern: "YYYY-MM-DD"
+            email:
+              type: string
+              format: email
+            phone:
+              type: string
+        flightSegments:
+          type: array
+          items:
+            type: object
+            properties:
+              flightNumber:
+                type: string
+              aircraft:
+                type: string
+              origin:
+                type: object
+                properties:
+                  airport:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+                    pattern: "YYYY-MM-DD"
+                  time:
+                    type: string
+                    pattern: "HH24:MM"
+              destination:
+                type: object
+                properties:
+                  airport:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+                    pattern: "YYYY-MM-DD"
+                  time:
+                    type: string
+                    pattern: "HH24:MM"
+              stops:
+                type: object
+                properties:
+                  airport:
+                    type: string
+                  stopDuration:
+                    type: string
+                    description: "Stop duration in minutes"
+              duration:
+                type: string
+                description: "Flight duration in minutes"
+    AllBookingsResponse:
+      type: object
+      properties:
+        totalCount: 
+          type: integer
+        returnedCount:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Booking'
+    BookingDetailsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Ticket'
