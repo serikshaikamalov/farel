@@ -217,9 +217,6 @@ components:
               type: string
               format: date
               pattern: YYYY-MM-DD
-            paymentType:
-              type: string
-              enum: [CARD, CASH, VOUCHER]
             paymentAmount:
               type: object
               properties:
@@ -338,6 +335,62 @@ components:
           items:
             $ref: '#/components/schemas/Booking'
     BookingDetailsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/Ticket'
+      type: object
+      properties:
+        bookingNumber:
+          type: string
+          description: "a.k.a PNR number"
+        bookingDate:
+          type: string
+          format: date
+          pattern: YYYY-MM-DD
+          description: "A Date when this booking was created"
+        direction:
+          type: string
+          example: "ALA-NQZ-MOW"
+        departDate:
+          type: string
+          pattern: YYYY-MM-DD
+          format: date
+        returnDate:
+          type: string
+          pattern: YYYY-MM-DD
+          format: date
+        customer:
+          type: object
+          properties:
+            firstname:
+              type: string
+            lastname:
+              type: string
+        channel:
+          type: string
+          example: "OTA Ozon Travel"
+        paymentDetails:
+          type: object
+          properties: 
+            paymentDate: 
+              type: string
+              format: date
+              pattern: YYYY-MM-DD
+            paymentType:
+              type: string
+              enum: [CARD, CASH, VOUCHER]
+            paymentAmount:
+              type: object
+              properties:
+                totalAmount:
+                  type: string
+                fees:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      amount:
+                        type: string
+        tickets:  
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticket'
