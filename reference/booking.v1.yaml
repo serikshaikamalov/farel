@@ -48,7 +48,7 @@ paths:
             type: string
             format: date
           description: Return date in the format defined by ISO
-        - $ref: '#/components/parameters/PageOffset'
+        - $ref: '#/components/parameters/PageNumber'
         - $ref: '#/components/parameters/PageLimit'
       responses: 
         "200":
@@ -116,7 +116,7 @@ components:
       schema:
         type: object
         properties:
-          offset:
+          page:
             type: integer
             minimum: 0
             default: 0
