@@ -181,7 +181,6 @@ components:
         bookingStatus:
           type: string
           enum: [PURCHASED, PARTIALLY_CHANGED, AWAITING_PAYMENT, CANCELLED, ERROR, EXPIRED, PROCESSING, VOIDED]
-          nullable: true
         ticketStatus:
           type: string
           enum: [EXCHANGED, CHECK_IN, FLOWN, AIRPORT_CONTROL]
@@ -343,6 +342,9 @@ components:
           type: string
           format: date-time
           description: "The payment deadline. Applies only to Bookings with AWAITING_PAYMENT statuses"
+        bookingStatus:
+          type: string
+          enum: [PURCHASED, PARTIALLY_CHANGED, AWAITING_PAYMENT, CANCELLED, ERROR, EXPIRED, PROCESSING, VOIDED]
         direction:
           type: string
           example: "ALA-NQZ-MOW"
