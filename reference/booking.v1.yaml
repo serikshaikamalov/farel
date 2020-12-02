@@ -328,8 +328,6 @@ components:
       properties:
         totalCount: 
           type: integer
-        returnedCount:
-          type: integer
         data:
           type: array
           items:
