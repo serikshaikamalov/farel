@@ -237,8 +237,6 @@ components:
         class:
           type: string
           example: "Economy - N"
-        fareId:
-          type: string
         passengerDetails: 
           type: object
           properties:
@@ -282,6 +280,8 @@ components:
               flightNumber:
                 type: string
               aircraft:
+                type: string
+              fareId:
                 type: string
               origin:
                 type: object
