@@ -5194,6 +5194,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanyFlight'
+  '/user/change-password/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-user-change-password-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+                newPasswordConfirmation:
+                  type: string
+            examples:
+              example-1:
+                value:
+                  oldPassword: string
+                  newPassword: string
+                  newPasswordConfirmation: string
 components:
   schemas:
     Pricing:
