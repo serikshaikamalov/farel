@@ -5227,7 +5227,7 @@ paths:
                   newPasswordConfirmation: string
   /company-schedules:
     get:
-      summary: Your GET endpoint
+      summary: get company schedules
       tags:
         - Schedule Entity
       responses:
@@ -5276,7 +5276,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: get fares for schedule
       tags: []
       operationId: get-company-schedules-id-fares
       responses:
@@ -5285,9 +5285,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SeatAndTariffResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/CabinWithFares'
+  '/company-flights/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cabin'
+      operationId: get-company-flights-id
 components:
   schemas:
+    SeatAndFares:
+      type: object
+      properties:
+        id:
+          type: integer
+        fare:
+          type: integer
+    CabinWithFares:
+      title: Pricing
+      type: object
+      properties:
+        cabin:
+          type: string
+          default: Economy
+        availableSeats:
+          type: integer
+        fares:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeatAndFares'
     Pricing:
       title: Pricing
       type: object
@@ -6662,10 +6704,6 @@ components:
           enum:
             - ACTIVE
             - CANCEL
-        cabins:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cabin'
   securitySchemes:
     api_key:
       type: apiKey
