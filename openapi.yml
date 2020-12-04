@@ -5263,6 +5263,24 @@ paths:
           in: query
           name: to
           description: Iso format(optional)
+  '/company-schedules/{id}/fares':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      operationId: get-company-schedules-id-fares
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeatAndTariffResponse'
 components:
   schemas:
     Pricing:
