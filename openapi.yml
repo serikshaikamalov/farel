@@ -5239,6 +5239,8 @@ paths:
                 items:
                   type: object
                   properties:
+                    id:
+                      type: integer
                     flightNumber:
                       type: string
                     origin:
