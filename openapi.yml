@@ -5251,7 +5251,8 @@ paths:
                       type: object
                       $ref: '#/components/schemas/Airport'
                     via:
-                      type: string
+                      type: object
+                      $ref: '#/components/schemas/Airport'
                     startDate:
                       type: string
                     endDate:
@@ -5268,6 +5269,16 @@ paths:
           in: query
           name: to
           description: Iso format(optional)
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: page number
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: page limit 
   '/company-schedules/{id}/fares':
     tag:
       - Schedule Entity
