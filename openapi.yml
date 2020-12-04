@@ -5245,9 +5245,11 @@ paths:
                     flightNumber:
                       type: string
                     origin:
-                      type: string
+                      type: object
+                      $ref: '#/components/schemas/Airport'
                     destination:
-                      type: string
+                      type: object
+                      $ref: '#/components/schemas/Airport'
                     via:
                       type: string
                     startDate:
