@@ -5313,12 +5313,21 @@ components:
     SeatAndFares:
       type: object
       properties:
-        id:
+        seatId:
           type: integer
+        rbd:
+          type: string
+        seatCount:
+          type: integer
+        fareId:
+          type: string
         fare:
           type: integer
+        fees:
+          type: integer
+        totalPrice:
+          type: integer
     CabinWithFares:
-      title: Pricing
       type: object
       properties:
         cabin:
