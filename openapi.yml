@@ -5211,6 +5211,7 @@ paths:
           application/json:
             schema:
               type: object
+              name: passwordChange
               properties:
                 oldPassword:
                   type: string
@@ -5224,6 +5225,44 @@ paths:
                   oldPassword: string
                   newPassword: string
                   newPasswordConfirmation: string
+  /company-schedules:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    flightNumber:
+                      type: string
+                    origin:
+                      type: string
+                    destination:
+                      type: string
+                    via:
+                      type: string
+                    startDate:
+                      type: string
+                    endDate:
+                      type: string
+      operationId: get-company-schedules
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: from
+          description: Iso format(optional)
+        - schema:
+            type: string
+          in: query
+          name: to
+          description: Iso format(optional)
 components:
   schemas:
     Pricing:
