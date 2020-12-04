@@ -5228,7 +5228,8 @@ paths:
   /company-schedules:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Schedule Entity
       responses:
         '200':
           description: OK
@@ -5266,6 +5267,8 @@ paths:
           name: to
           description: Iso format(optional)
   '/company-schedules/{id}/fares':
+    tag:
+      - Schedule Entity
     parameters:
       - schema:
           type: string
