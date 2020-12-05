@@ -5278,7 +5278,7 @@ paths:
             type: integer
           in: query
           name: limit
-          description: page limit 
+          description: page limit
   '/company-schedules/{id}/fares':
     tag:
       - Schedule Entity
@@ -5321,6 +5321,20 @@ paths:
                 items:
                   $ref: '#/components/schemas/Cabin'
       operationId: get-company-flights-id
+  /company-fees:
+    get:
+      summary: Your GET endpoint
+      tags: Fee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeesResponse'
+      operationId: get-company-fees
 components:
   schemas:
     SeatAndFares:
