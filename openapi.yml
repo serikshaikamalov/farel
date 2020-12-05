@@ -5277,7 +5277,7 @@ paths:
         - schema:
             type: integer
           in: query
-          name: limit
+          name: size
           description: page limit
   '/company-schedules/{id}/fares':
     tag:
@@ -5335,6 +5335,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/FeesResponse'
       operationId: get-company-fees
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: ' page number'
+        - schema:
+            type: integer
+          in: query
+          name: size
+          description: size of each page
 components:
   schemas:
     SeatAndFares:
