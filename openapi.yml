@@ -5377,6 +5377,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SeatAndFares'
+        fees:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeesResponse'
     Pricing:
       title: Pricing
       type: object
