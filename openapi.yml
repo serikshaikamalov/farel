@@ -5279,7 +5279,7 @@ paths:
           in: query
           name: size
           description: page limit
-  '/company-schedules/{id}/fares':
+  '/schedules/{id}/fares':
     tag:
       - Schedule Entity
     parameters:
