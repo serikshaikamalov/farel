@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: IBE
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080/api/v1'
+paths:
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+        description: uuid of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: 
+        - User profile
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    firstName: Sierra
+                    lastName: Fergusoon
+                    email: sierra@gmail.com
+                    phone: '+77078904592'
+        '403':
+          description: It is not possible to get other user profile
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    put:
+      tags:
+        - User profile
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserChange'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    firstName: Rebecca
+                    lastName: Baker
+                    phone: '+77078904592'
+        '403':
+          description: It is not possible to change other's profile.
+        '404':
+          description: User Not Found
+      description: Update the infromation of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                phone:
+                  type: string
+            examples:
+              Update profile for Rebecca:
+                value:
+                  firstName: Sierra
+                  lastName: Fergusoon
+                  phone: '+77078904592'
+        description: Patch user profile to update.
+  '/users/{userId}/password':
+    put:
+      tags:
+        - User profile
+      summary: Update User password
+      operationId: patch-password-userId
+      responses:
+        '200':
+          description: Password Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Password'
+              examples:
+                Updated Password for Rebecca Baker:
+                  value:
+                    currentPassword: current
+                    newPassword: new-password
+                    newPasswordConfirmation: new-password
+        '403':
+          description: Forbidden to change others password
+        '404':
+          description: User Not Found
+      description: Update the infromation of an existing user.
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: 'user profile'
+      x-examples:
+        Alice Smith:
+          firstName: Sierra
+          lastName: Fergusoon
+          email: sierra@gmail.com
+          phone: '+77078904592'
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          format: phone
+    UserChange:
+      title: User change
+      type: object
+      description: 'user profile'
+      x-examples:
+        Alice Smith:
+          firstName: Sierra
+          lastName: Fergusoon
+          phone: '+77078904592'
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+          format: phone
+    Password:
+      title: Change password
+      type: object
+      description: 'old and new passwords'
+      x-examples:
+        Alice Smith:
+          currentPassword: current
+          newPassword: new-password
+          newPasswordConfirmation: new-password
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+        newPasswordConfirmation:
+          type: string
