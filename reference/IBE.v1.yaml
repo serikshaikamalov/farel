@@ -3,19 +3,20 @@ info:
   title: IBE
   version: '1.0'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:8080/api/v1'
 paths:
   '/users/{userId}':
     parameters:
       - schema:
-          type: integer
+          type: string
         name: userId
         in: path
         required: true
-        description: Id of an existing user.
+        description: uuid of an existing user.
     get:
       summary: Get User Info by User ID
-      tags: []
+      tags: 
+        - User profile
       responses:
         '200':
           description: User Found
@@ -26,18 +27,19 @@ paths:
               examples:
                 Get User Alice Smith:
                   value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
+                    firstName: Sierra
+                    lastName: Fergusoon
+                    email: sierra@gmail.com
+                    phone: '+77078904592'
+        '403':
+          description: It is not possible to get other user profile
         '404':
           description: User Not Found
       operationId: get-users-userId
       description: Retrieve the information of the user with the matching user ID.
-    patch:
+    put:
+      tags:
+        - User profile
       summary: Update User Information
       operationId: patch-users-userId
       responses:
@@ -46,21 +48,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserChange'
               examples:
                 Updated User Rebecca Baker:
                   value:
-                    id: 13
                     firstName: Rebecca
                     lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
+                    phone: '+77078904592'
+        '403':
+          description: It is not possible to change other's profile.
         '404':
           description: User Not Found
-        '409':
-          description: Email Already Taken
       description: Update the infromation of an existing user.
       requestBody:
         content:
@@ -75,93 +73,52 @@ paths:
                 email:
                   type: string
                   description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
+                phone:
                   type: string
             examples:
-              Update First Name:
+              Update profile for Rebecca:
                 value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
-  /user:
-    post:
-      summary: Create New User
-      operationId: post-user
+                  firstName: Sierra
+                  lastName: Fergusoon
+                  phone: '+77078904592'
+        description: Patch user profile to update.
+  '/users/{userId}/password':
+    put:
+      tags:
+        - User profile
+      summary: Update User password
+      operationId: patch-password-userId
       responses:
         '200':
-          description: User Created
+          description: Password Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Password'
               examples:
-                New User Bob Fellow:
+                Updated Password for Rebecca Baker:
                   value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
-        '400':
-          description: Missing Required Information
-        '409':
-          description: Email Already Taken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-              required:
-                - firstName
-                - lastName
-                - email
-                - dateOfBirth
-            examples:
-              Create User Bob Fellow:
-                value:
-                  firstName: Bob
-                  lastName: Fellow
-                  email: bob.fellow@gmail.com
-                  dateOfBirth: '1996-08-24'
-        description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
+                    currentPassword: current
+                    newPassword: new-password
+                    newPasswordConfirmation: new-password
+        '403':
+          description: Forbidden to change others password
+        '404':
+          description: User Not Found
+      description: Update the infromation of an existing user.
 components:
   schemas:
     User:
       title: User
       type: object
-      description: ''
+      description: 'user profile'
       x-examples:
         Alice Smith:
-          id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
+          firstName: Sierra
+          lastName: Fergusoon
+          email: sierra@gmail.com
+          phone: '+77078904592'
       properties:
-        id:
-          type: integer
-          description: Unique identifier for the given user.
         firstName:
           type: string
         lastName:
@@ -169,20 +126,39 @@ components:
         email:
           type: string
           format: email
-        dateOfBirth:
+        phone:
           type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-        createDate:
+          format: phone
+    UserChange:
+      title: User change
+      type: object
+      description: 'user profile'
+      x-examples:
+        Alice Smith:
+          firstName: Sierra
+          lastName: Fergusoon
+          phone: '+77078904592'
+      properties:
+        firstName:
           type: string
-          format: date
-          description: The date that the user was created.
-      required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
+        lastName:
+          type: string
+        phone:
+          type: string
+          format: phone
+    Password:
+      title: Change password
+      type: object
+      description: 'old and new passwords'
+      x-examples:
+        Alice Smith:
+          currentPassword: current
+          newPassword: new-password
+          newPasswordConfirmation: new-password
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+        newPasswordConfirmation:
+          type: string
