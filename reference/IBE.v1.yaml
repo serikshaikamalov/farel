@@ -43,18 +43,8 @@ paths:
       summary: Update User Information
       operationId: patch-users-userId
       responses:
-        '200':
+        '204':
           description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserChange'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    firstName: Rebecca
-                    lastName: Baker
-                    phone: '+77078904592'
         '403':
           description: It is not possible to change other's profile.
         '404':
@@ -89,18 +79,8 @@ paths:
       summary: Update User password
       operationId: patch-password-userId
       responses:
-        '200':
+        '204':
           description: Password Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Password'
-              examples:
-                Updated Password for Rebecca Baker:
-                  value:
-                    currentPassword: current
-                    newPassword: new-password
-                    newPasswordConfirmation: new-password
         '403':
           description: Forbidden to change others password
         '404':
