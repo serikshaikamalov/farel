@@ -119,6 +119,9 @@ components:
                 type: array
                 items:
                   properties:
+                    passengerType:
+                      type: string
+                      example: ADT
                     firstname:
                       type: string
                     lastname:
@@ -130,6 +133,7 @@ components:
                       format: date
                     citizenship:
                       type: string
+                      example: KZ
                     documentId:
                       type: string
                     documentExpireDate:
