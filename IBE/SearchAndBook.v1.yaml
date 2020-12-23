@@ -139,6 +139,9 @@ components:
                     documentExpireDate:
                       type: string
                       format: datetime
+                    fareClassCode:
+                      type: string
+                      example: Y
               contactPerson:
                 type: object
                 properties:
