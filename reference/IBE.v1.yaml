@@ -27,6 +27,7 @@ paths:
               examples:
                 Get User Alice Smith:
                   value:
+                    id: qwerty123
                     firstName: Sierra
                     lastName: Fergusoon
                     email: sierra@gmail.com
@@ -94,11 +95,14 @@ components:
       description: 'user profile'
       x-examples:
         Alice Smith:
+          id: testid
           firstName: Sierra
           lastName: Fergusoon
           email: sierra@gmail.com
           phone: '+77078904592'
       properties:
+        id:
+          type: string
         firstName:
           type: string
         lastName:
