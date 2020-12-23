@@ -130,14 +130,11 @@ components:
                       format: date
                     citizenship:
                       type: string
-                    document:
-                      type: object
-                      properties:
-                        documentId:
-                          type: string
-                        expireDate:
-                          type: string
-                          format: datetime
+                    documentId:
+                      type: string
+                    documentExpireDate:
+                      type: string
+                      format: datetime
               contactPerson:
                 type: object
                 properties:
