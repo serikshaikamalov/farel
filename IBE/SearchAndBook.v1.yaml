@@ -12,6 +12,7 @@ servers:
 tags:
   - name: Search flights
     description: Paginated list of Bookings
+  - name: Create booking
 paths:
   /public/flights:
     get:
@@ -85,7 +86,73 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightsResponse'
+  /public/bookings:
+      post:
+        operationId: create-booking
+        description: Create booking
+        tags:
+          - Create booking
+        requestBody:
+          $ref: '#/components/requestBodies/BookingRequestBody'
+        responses:
+          "204":
+            description: Booking was created successfully
 components:
+  requestBodies:
+    BookingRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              flights:
+                type: array
+                items:
+                  properties:
+                    flightNumber:
+                      type: string
+                    flightDate:
+                      type: string
+                      format: datetime
+              passengers:
+                type: array
+                items:
+                  properties:
+                    passengerType:
+                      type: string
+                      example: ADT
+                    firstname:
+                      type: string
+                    lastname:
+                      type: string
+                    gender:
+                      type: string
+                    birthday: 
+                      type: string
+                      format: date
+                    citizenship:
+                      type: string
+                      example: KZ
+                    documentId:
+                      type: string
+                    documentExpireDate:
+                      type: string
+                      format: datetime
+                    fareClassCode:
+                      type: string
+                      example: Y
+              contactPerson:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
   schemas:
     FlightsResponse:
       type: object

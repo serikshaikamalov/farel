@@ -3,9 +3,9 @@ info:
   title: IBE
   version: '1.0'
 servers:
-  - url: 'http://localhost:8080/api/v1'
+  - url: 'http://localhost:8080/api/v1/ibe'
 paths:
-  '/users/{userId}':
+  '/customers/{userId}':
     parameters:
       - schema:
           type: string
@@ -73,7 +73,7 @@ paths:
                   lastName: Fergusoon
                   phone: '+77078904592'
         description: Patch user profile to update.
-  '/users/{userId}/password':
+  '/customers/{userId}/password':
     put:
       tags:
         - User profile
