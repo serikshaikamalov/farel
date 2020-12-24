@@ -79,9 +79,26 @@ paths:
         - User profile
       summary: Update User password
       operationId: patch-password-userId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentPassword:
+                  type: string
+                newPassword:
+                  type: string
+            examples:
+              Update password for account :
+                value:
+                  currentPassword: admin
+                  newPassword: demo
       responses:
         '204':
           description: Password Updated
+        '400':
+          description: Password too short
         '403':
           description: Forbidden to change others password
         '404':
@@ -138,11 +155,8 @@ components:
         Alice Smith:
           currentPassword: current
           newPassword: new-password
-          newPasswordConfirmation: new-password
       properties:
         currentPassword:
           type: string
         newPassword:
-          type: string
-        newPasswordConfirmation:
           type: string
