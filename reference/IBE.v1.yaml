@@ -1,4 +1,4 @@
-openapi: 3.0.0
+Sopenapi: 3.0.0
 info:
   title: IBE
   version: '1.0'
@@ -74,6 +74,13 @@ paths:
                   phone: '+77078904592'
         description: Patch user profile to update.
   '/customers/{userId}/password':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+        description: uuid of an existing logged user user.
     post:
       tags:
         - User profile
@@ -131,6 +138,7 @@ paths:
           description: User Not Found
       operationId: get-bookings-userId
       description: Retrieve the bookings of the user with the matching user ID.
+
 components:
   schemas:
     User:
@@ -198,18 +206,22 @@ components:
           type: string
         status:
           type: string
-          enum:
-            - ACCEPTED
-            - ALREADY_REPORTED
-            - BAD_GATEWAY
+        enum:
+          - PAYMENT_AWAITING
+          - PURCHASED
+          - EXPIRED
+          - CANCELED
+          - REFUNDED
+          - PROCESSING
+          - ERROR
         flight:
           type: array
           items:
             $ref: '#/components/schemas/Flight'
     Flight:
-      title: Booking list
+      title: FLight
       type: object
-      description: 'list of bookings'
+      description: list of flights
       properties:
         departure: 
           type: object
@@ -231,6 +243,9 @@ components:
           type: integer
         stop:
           type: integer
+        stopDuration:
+          type: integer
+          description: stop duration in minutes
         stopCodes:
           type: array
           items:
