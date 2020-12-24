@@ -104,6 +104,33 @@ paths:
         '404':
           description: User Not Found
       description: Update the infromation of an existing user.
+  '/customers/{customerId}/bookings':
+    parameters:
+      - schema:
+          type: string
+        name: customerId
+        in: path
+        required: true
+        description: uuid of an existing logged user user.
+    get:
+      summary: Get User Bookings by User ID
+      tags: 
+        - User profile
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bookings'
+        '403':
+          description: It is not possible to get other user profile
+        '404':
+          description: User Not Found
+      operationId: get-bookings-userId
+      description: Retrieve the bookings of the user with the matching user ID.
 components:
   schemas:
     User:
@@ -160,3 +187,53 @@ components:
           type: string
         newPassword:
           type: string
+    Bookings:
+      title: Booking list
+      type: object
+      description: 'list of bookings'
+      properties:
+        order: 
+          type: string
+        price: 
+          type: string
+        status:
+          type: string
+          enum:
+            - ACCEPTED
+            - ALREADY_REPORTED
+            - BAD_GATEWAY
+        flight:
+          type: array
+          items:
+            $ref: '#/components/schemas/Flight'
+    Flight:
+      title: Booking list
+      type: object
+      description: 'list of bookings'
+      properties:
+        departure: 
+          type: object
+          properties:
+            date: 
+              type: string
+            code: 
+              type: string
+        arrival: 
+          type: object
+          properties:
+            date: 
+              type: string
+            code: 
+              type: string
+            nextDay:
+              type: integer
+        duration:
+          type: integer
+        stop:
+          type: integer
+        stopCodes:
+          type: array
+          items:
+            properties:
+              type: string
+        
