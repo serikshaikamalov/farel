@@ -273,7 +273,7 @@ components:
       type: object
       description: 'list of bookings'
       properties:
-        order: 
+        orderNumber: 
           type: string
         price: 
           type: string
@@ -293,6 +293,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Flight'
+        tag:
+          type: string
+          description: string to make search firstname,lastname,pnr code
     Flight:
       title: Flight
       type: object
@@ -312,7 +315,7 @@ components:
               type: string
             code: 
               type: string
-            nextDay:
+            nextDayCount:
               type: integer
         duration:
           type: integer
