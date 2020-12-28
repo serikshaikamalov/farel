@@ -97,7 +97,56 @@ paths:
         responses:
           "204":
             description: Booking was created successfully
-components:
+  /public/fares:
+    get:
+      operationId: get-fares
+      description: Get Fares for the given flights and dates
+      tags:
+        - Get Fares
+      parameters:
+        - name: flights
+          in: query
+          schema:
+            type: array
+            items:
+              properties:
+                flightNumber:
+                  type: string
+                flightDate:
+                  type: string
+                  format: datetime
+                tripType: 
+                  type: string
+                  enum: ["OW", "RT"]
+      responses:
+        "200":
+          description: List of Fares
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    flightNumber:
+                      type: string
+                    flightDate:
+                      type: string
+                      format: datetime
+                    passengerType:
+                      type: string
+                    baseFare:
+                      type: number
+                    totalPrice:
+                      type: number
+                    fees: 
+                      type: array
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          amount:
+                            type: number
+                    
   requestBodies:
     BookingRequestBody:
       required: true
