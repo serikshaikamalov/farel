@@ -5204,14 +5204,15 @@ paths:
     put:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-user-change-password-id
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              name: passwordChange
               properties:
                 oldPassword:
                   type: string
@@ -5245,13 +5246,10 @@ paths:
                     flightNumber:
                       type: string
                     origin:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     destination:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     via:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     startDate:
                       type: string
@@ -5280,8 +5278,6 @@ paths:
           name: size
           description: page limit
   '/schedules/{id}/fares':
-    tag:
-      - Schedule Entity
     parameters:
       - schema:
           type: string
@@ -5324,7 +5320,7 @@ paths:
   /company-fees:
     get:
       summary: Your GET endpoint
-      tags: Fee
+      tags: []
       responses:
         '200':
           description: OK
@@ -6901,7 +6897,6 @@ components:
       type: object
       properties:
         data:
-          type: array
           items:
             $ref: '#/components/schemas/DcsFlight'
         totalCount:
