@@ -5345,6 +5345,8 @@ paths:
           description: size of each page
   /dcs/flights:
     get:
+      tags:
+        - DCS
       summary: DCS Flights
       responses:
         '200':
@@ -5370,8 +5372,7 @@ paths:
           in: query
           name: page
           description: page number
-      tags:
-        - DCS
+      
 components:
   schemas:
     SeatAndFares:
