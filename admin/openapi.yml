@@ -6855,6 +6855,7 @@ components:
     DcsFlight:
       title: DcsFlight
       type: object
+      description: ''
       properties:
         flightId:
           type: number
@@ -6891,8 +6892,7 @@ components:
         passengers:
           type: array
           items:
-            $ref: '#/components/schemas/DcsFlightPassenger'
-      description: ''
+            $ref: ''
     DcsFlightsResponse:
       title: DcsFlightsResponse
       type: object
