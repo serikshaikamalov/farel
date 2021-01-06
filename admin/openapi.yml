@@ -6886,9 +6886,7 @@ components:
         load:
           type: number
         passengers:
-          type:
-            - 'null'
-            - array
+          type: array
           items:
             $ref: '#/components/schemas/DcsFlightPassenger'
       description: ''
@@ -6896,7 +6894,7 @@ components:
       title: DcsFlightsResponse
       type: object
       properties:
-        data:
+        data:          
           items:
             $ref: '#/components/schemas/DcsFlight'
         totalCount:
