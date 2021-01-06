@@ -51,7 +51,7 @@ tags:
   - name: Fee
     description: Fees
   - name: DCS
-    description: DCS
+    description: DCS module
 paths:
   '/schedules/{schedule_id}/fees':
     get:
