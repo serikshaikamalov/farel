@@ -14,6 +14,8 @@ servers:
   - url: 'http://localhost:8080'
     description: Inferred Url
 tags:
+  - name: Dcs
+    description: DCS module
   - name: Airplane Entity
     description: Airplane
   - name: AirplaneType Entity
@@ -50,8 +52,6 @@ tags:
     description: Taxes
   - name: Fee
     description: Fees
-  - name: DCS
-    description: DCS module
 paths:
   '/schedules/{schedule_id}/fees':
     get:
@@ -5347,8 +5347,6 @@ paths:
   /dcs/flights:
     get:
       summary: DCS Flights
-      tags: 
-        - DSC
       responses:
         '200':
           description: OK
@@ -5373,6 +5371,8 @@ paths:
           in: query
           name: page
           description: page number
+      tags:
+        - Dcs
 components:
   schemas:
     SeatAndFares:
@@ -6897,7 +6897,7 @@ components:
       title: DcsFlightsResponse
       type: object
       properties:
-        data:          
+        data:
           items:
             $ref: '#/components/schemas/DcsFlight'
         totalCount:
