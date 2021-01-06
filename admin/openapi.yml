@@ -5348,7 +5348,7 @@ paths:
           description: size of each page
   /dcs/flights:
     get:
-      summary: Your GET endpoint
+      summary: DCS Flights
       tags: []
       responses:
         '200':
