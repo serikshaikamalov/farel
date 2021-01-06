@@ -5345,7 +5345,8 @@ paths:
   /dcs/flights:
     get:
       summary: DCS Flights
-      tags: []
+      tags: 
+        - DSC Flights
       responses:
         '200':
           description: OK
