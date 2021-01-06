@@ -5346,6 +5346,40 @@ paths:
           in: query
           name: size
           description: size of each page
+  /dcs/flights:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
+              examples:
+                example-1:
+                  value: {}
+      operationId: get-dcs-flights
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: from
+          description: from date
+        - schema:
+            type: string
+          in: query
+          name: to
+          description: to date
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: page number
 components:
   schemas:
     SeatAndFares:
@@ -5409,15 +5443,15 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-        name:
+          type: number
+        regNumber:
           type: string
-        seats:
-          type: integer
-          format: int64
         type:
           $ref: '#/components/schemas/AirplaneType'
+        seatingCapacity:
+          type: array
+          items:
+            $ref: ''
     AirplaneType:
       title: AirplaneType
       type: object
@@ -6755,6 +6789,129 @@ components:
           enum:
             - ACTIVE
             - CANCEL
+    CabinClass:
+      title: CabinClass
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+      description: cabin class
+    DcsFare:
+      title: DcsFare
+      type: object
+      properties:
+        id:
+          type: number
+        baggage:
+          type: number
+        cabinBaggage:
+          type: number
+        cabinClass:
+          $ref: '#/components/schemas/CabinClass'
+    DcsFlightPassenger:
+      title: DcsFlightPassenger
+      type: object
+      properties:
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        orderNumber:
+          type: string
+        eticketNumber:
+          type: string
+        type:
+          $ref: '#/components/schemas/PassengerType'
+        checkInStatus:
+          type: string
+        eticketStatus:
+          type: string
+          enum:
+            - OPEN_FOR_USE
+            - CHECK_IN
+            - BOARDED
+            - FLOWN
+            - REFUNDED
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+        citizenship:
+          type: string
+        idNumber:
+          type: string
+        expireDate:
+          type: string
+        fare:
+          $ref: '#/components/schemas/DcsFare'
+    Capacity:
+      title: Capacity
+      type: object
+      properties:
+        cabinClass:
+          type: string
+        capacity:
+          type: number
+    DcsFlight:
+      title: DcsFlight
+      type: object
+      properties:
+        flightId:
+          type: number
+        flightStatus:
+          type: string
+          enum:
+            - ON_SCHEDULE
+            - CHECK_IN
+            - ARRIVED
+            - BOARDING
+            - FLOWN
+        flightNumber:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        departureDate:
+          type: string
+        departureScheduledTime:
+          type: string
+        departureActualTime:
+          type: string
+        arrivalScheduledTime:
+          type: string
+        arrivalActualTime:
+          type: string
+        aircraft:
+          $ref: '#/components/schemas/Airplane'
+        passengersCount:
+          type: number
+        load:
+          type: number
+        passengers:
+          type:
+            - 'null'
+            - array
+          items:
+            $ref: '#/components/schemas/DcsFlightPassenger'
+      description: ''
+    DcsFlightsResponse:
+      title: DcsFlightsResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DcsFlight'
+        totalCount:
+          type: number
   securitySchemes:
     api_key:
       type: apiKey
