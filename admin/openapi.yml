@@ -5343,7 +5343,7 @@ paths:
           in: query
           name: size
           description: size of each page
-  /dcs/flights:
+  '/dcs/flights':
     get:
       tags:
         - DCS
