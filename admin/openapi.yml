@@ -5357,9 +5357,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DcsFlightsResponse'
-              examples:
-                example-1:
-                  value: {}
       operationId: get-dcs-flights
       parameters:
         - schema:
