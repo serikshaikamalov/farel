@@ -44,14 +44,14 @@ tags:
     description: Basic Error Controller
   - name: profile-controller
     description: Profile Controller
+  - name: DCS
+    description: DCS desc
   - name: Airline Profile
     description: Get and Put controller
   - name: Tax
     description: Taxes
   - name: Fee
     description: Fees
-  - name: DCS
-    description: DCS desc
 paths:
   '/schedules/{schedule_id}/fees':
     get:
