@@ -50,6 +50,8 @@ tags:
     description: Taxes
   - name: Fee
     description: Fees
+  - name: DCS
+    description: DCS
 paths:
   '/schedules/{schedule_id}/fees':
     get:
@@ -5346,7 +5348,7 @@ paths:
     get:
       summary: DCS Flights
       tags: 
-        - DSC Flights
+        - DSC
       responses:
         '200':
           description: OK
