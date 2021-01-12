@@ -48,11 +48,9 @@ paths:
           required: true
           schema:
             type: string
-            enum:
-              - OW
-              - RT
-          description: One-Way vs. Round-Trip indicator
-          example: OW
+            format: date
+          example: '2020-01-01'
+          description: Return Flight date in the format defined by ISO
         - name: airlines
           in: query
           required: true
