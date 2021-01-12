@@ -45,7 +45,6 @@ paths:
           description: Flight date in the format defined by ISO
         - name: returnDate
           in: query
-          required: true
           schema:
             type: string
             format: date
