@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: booking
   version: '1.0'
-  description: Booking management 
+  description: Booking management
   contact:
     name: Asset Yelemessov
     url: farel.dev
@@ -35,20 +35,22 @@ paths:
             type: string
           description: Destination Airport Code
           example: ALA
-        - name: flightDate
+        - name: outboundDate
           in: query
           required: true
           schema:
             type: string
             format: date
-          example: 2020-01-01
+          example: '2020-01-01'
           description: Flight date in the format defined by ISO
-        - name: tripType
+        - name: returnDate
           in: query
           required: true
           schema:
             type: string
-            enum: ["OW", "RT"]
+            enum:
+              - OW
+              - RT
           description: One-Way vs. Round-Trip indicator
           example: OW
         - name: airlines
@@ -56,47 +58,28 @@ paths:
           required: true
           schema:
             type: array
-            items: 
+            items:
               type: string
             minItems: 1
           description: Airline IDs
-        - name: segmentGroupId
-          in: query
-          schema:
-            type: string
-          description: Departing Flight ID for Round-Trip
-        - name: page
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 50
-            default: 20
       responses:
-        "200":
-          description:
-            List of flights 
+        '200':
+          description: List of flights
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightsResponse'
   /public/bookings:
-      post:
-        operationId: create-booking
-        description: Create booking
-        tags:
-          - Create booking
-        requestBody:
-          $ref: '#/components/requestBodies/BookingRequestBody'
-        responses:
-          "204":
-            description: Booking was created successfully
+    post:
+      operationId: create-booking
+      description: Create booking
+      tags:
+        - Create booking
+      requestBody:
+        $ref: '#/components/requestBodies/BookingRequestBody'
+      responses:
+        '204':
+          description: Booking was created successfully
   /public/fares:
     get:
       operationId: get-fares
@@ -115,11 +98,13 @@ paths:
                 flightDate:
                   type: string
                   format: datetime
-                tripType: 
+                tripType:
                   type: string
-                  enum: ["OW", "RT"]
+                  enum:
+                    - OW
+                    - RT
       responses:
-        "200":
+        '200':
           description: List of Fares
           content:
             application/json:
@@ -138,7 +123,7 @@ paths:
                       type: number
                     totalPrice:
                       type: number
-                    fees: 
+                    fees:
                       type: array
                       items:
                         properties:
@@ -146,7 +131,6 @@ paths:
                             type: string
                           amount:
                             type: number
-                    
   requestBodies:
     BookingRequestBody:
       required: true
@@ -177,7 +161,7 @@ paths:
                       type: string
                     gender:
                       type: string
-                    birthday: 
+                    birthday:
                       type: string
                       format: date
                     citizenship:
@@ -190,7 +174,7 @@ paths:
                       format: datetime
                     fareClassCode:
                       type: string
-                      example: Y
+                      example: 'Y'
               contactPerson:
                 type: object
                 properties:
@@ -210,26 +194,26 @@ paths:
           type: integer
         data:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/Flight'
     Flight:
       type: object
       properties:
         origin:
           type: string
-          example: "ALA"
+          example: ALA
         destination:
           type: string
-          example: "SVO"
+          example: SVO
         departTime:
           type: string
-          pattern: "HH:MM"
+          pattern: 'HH:MM'
         arriveTime:
           type: string
-          pattern: "HH:MM"
+          pattern: 'HH:MM'
         arriveDateOffset:
           type: string
-          example: "-1"
+          example: '-1'
         duration:
           type: integer
           description: Flight duration in minutes
@@ -243,7 +227,7 @@ paths:
                 example: NQZ
               stopDuration:
                 type: integer
-                description: "Stop duration in minutes"
+                description: Stop duration in minutes
                 example: 60
         flightSegments:
           type: array
@@ -260,7 +244,7 @@ paths:
               origin:
                 type: object
                 properties:
-                  city: 
+                  city:
                     type: string
                   airportName:
                     type: string
@@ -269,13 +253,13 @@ paths:
                   date:
                     type: string
                     format: datetime
-                  time: 
+                  time:
                     type: string
-                    pattern: "HH:MM"
+                    pattern: 'HH:MM'
               destination:
                 type: object
                 properties:
-                  city: 
+                  city:
                     type: string
                   airportName:
                     type: string
@@ -284,9 +268,259 @@ paths:
                   date:
                     type: string
                     format: date
-                  time: 
+                  time:
                     type: string
-                    pattern: "HH:MM"
+                    pattern: 'HH:MM'
         totalPrice:
           type: string
-          example: "$500"
+          example: $500
+  responses: {}
+components:
+  schemas:
+    FlightsResponse:
+      title: FlightsResponse
+      type: object
+      properties:
+        outboundFlights:
+          type: array
+          items:
+            type: object
+            properties:
+              origin:
+                type: string
+              destination:
+                type: string
+              departTime:
+                type: string
+              arriveTime:
+                type: string
+              arriveDateOffset:
+                type: string
+              duration:
+                type: integer
+              totalPrice:
+                type: number
+              stops:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    airport:
+                      type: string
+                    stopDuration:
+                      type: number
+              flightSegments:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    flightNumber:
+                      type: string
+                    aircraft:
+                      type: string
+                    flightDuration:
+                      type: integer
+                    stopDuration:
+                      type: number
+                    origin:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    destination:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          flightNumber:
+                            type: string
+                          cabinClass:
+                            type: string
+                          date:
+                            type: string
+                            format: datetime
+                          passengerType:
+                            type: string
+                          fareClasses:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                baggage:
+                                  type: integer
+                                cabinBaggage:
+                                  type: integer
+                                fare:
+                                  type: integer
+                                flightId:
+                                  type: integer
+                                refundable:
+                                  type: boolean
+                                refundPenalty:
+                                  type: number
+                                totalPrice:
+                                  type: number
+                                fareClassCode:
+                                  type: string
+                                fareClass:
+                                  type: string
+                                code:
+                                  type: string
+                                fees:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      tax:
+                                        type: string
+                                      type:
+                                        type: string
+                                      amount:
+                                        type: number
+        returnFlights:
+          type: array
+          items:
+            type: object
+            properties:
+              origin:
+                type: string
+              destination:
+                type: string
+              departTime:
+                type: string
+              arriveTime:
+                type: string
+              arriveDateOffset:
+                type: string
+              duration:
+                type: integer
+              totalPrice:
+                type: number
+              stops:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    airport:
+                      type: string
+                    stopDuration:
+                      type: number
+              flightSegments:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    flightNumber:
+                      type: string
+                    aircraft:
+                      type: string
+                    flightDuration:
+                      type: integer
+                    stopDuration:
+                      type: number
+                    origin:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    destination:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          flightNumber:
+                            type: string
+                          cabinClass:
+                            type: string
+                          date:
+                            type: string
+                            format: datetime
+                          passengerType:
+                            type: string
+                          fareClasses:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                baggage:
+                                  type: integer
+                                cabinBaggage:
+                                  type: integer
+                                fare:
+                                  type: integer
+                                flightId:
+                                  type: integer
+                                refundable:
+                                  type: boolean
+                                refundPenalty:
+                                  type: number
+                                totalPrice:
+                                  type: number
+                                fareClassCode:
+                                  type: string
+                                fareClass:
+                                  type: string
+                                code:
+                                  type: string
+                                fees:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      tax:
+                                        type: string
+                                      type:
+                                        type: string
+                                      amount:
+                                        type: number
+      description: ''
