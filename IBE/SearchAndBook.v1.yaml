@@ -118,18 +118,15 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      type: object
+                      required:
+                        - name
+                        - amount
                       properties:
                         name:
                           type: string
                           minLength: 1
                         amount:
                           type: number
-                        '':
-                          type: string
-                      required:
-                        - name
-                        - amount
                   totalFee:
                     type: number
                   fares:
@@ -137,7 +134,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      type: object
+                      required: []
                       properties:
                         INF:
                           type: object
@@ -179,19 +176,28 @@ paths:
                           required:
                             - baseFare
                             - totalPrice
-                  changed:
-                    type: boolean
-                  message:
-                    type: string
-                  oldTotalPrice:
-                    type: number
-                  newTotalPrice:
-                    type: number
+                  priceMatcher:
+                    type: object
+                    properties:
+                      changed:
+                        type: boolean
+                      message:
+                        type: string
+                        minLength: 1
+                      oldTotalPrice:
+                        type: number
+                      newTotalPrice:
+                        type: number
+                    required:
+                      - changed
+                      - message
+                      - oldTotalPrice
+                      - newTotalPrice
                 required:
                   - fees
                   - totalFee
                   - fares
-                  - changed
+                  - priceMatcher
               examples:
                 example-1:
                   value:
@@ -308,10 +314,11 @@ paths:
                         INS:
                           baseFare: 7480
                           totalPrice: 13470
-                    changed: true
-                    message: mismatch
-                    oldTotalPrice: 5990
-                    newTotalPrice: 4990
+                    priceMatcher:
+                      changed: true
+                      message: mismatch
+                      oldTotalPrice: 5990
+                      newTotalPrice: 4990
         '201':
           description: Created
   requestBodies:
