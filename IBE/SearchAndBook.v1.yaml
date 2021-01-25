@@ -66,6 +66,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightsResponse'
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
   /public/bookings:
     post:
       operationId: create-booking
@@ -106,28 +110,210 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  properties:
-                    flightNumber:
-                      type: string
-                    flightDate:
-                      type: string
-                      format: datetime
-                    passengerType:
-                      type: string
-                    baseFare:
-                      type: number
-                    totalPrice:
-                      type: number
+                description: ''
+                type: object
+                properties:
+                  fees:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          minLength: 1
+                        amount:
+                          type: number
+                        '':
+                          type: string
+                      required:
+                        - name
+                        - amount
+                  totalFee:
+                    type: number
+                  fares:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        INF:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        ADT:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        CHD:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        INS:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                  changed:
+                    type: boolean
+                  message:
+                    type: string
+                  oldTotalPrice:
+                    type: number
+                  newTotalPrice:
+                    type: number
+                required:
+                  - fees
+                  - totalFee
+                  - fares
+                  - changed
+              examples:
+                example-1:
+                  value:
                     fees:
-                      type: array
-                      items:
-                        properties:
-                          name:
-                            type: string
-                          amount:
-                            type: number
+                      - name: Air Astana Fuel Surcharge (YQ)
+                        amount: 5990
+                    totalFee: 5990
+                    fares:
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 21974
+                          totalPrice: 27964
+                        CHD:
+                          baseFare: 10987
+                          totalPrice: 16977
+                        INS:
+                          baseFare: 7324
+                          totalPrice: 13314
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22442
+                          totalPrice: 28432
+                        CHD:
+                          baseFare: 11220
+                          totalPrice: 17210
+                        INS:
+                          baseFare: 7480
+                          totalPrice: 13470
+                    changed: true
+                    message: mismatch
+                    oldTotalPrice: 5990
+                    newTotalPrice: 4990
+        '201':
+          description: Created
   requestBodies:
     BookingRequestBody:
       required: true
@@ -277,6 +463,113 @@ components:
     FlightsResponse:
       title: FlightsResponse
       type: object
+      description: ''
+      x-examples:
+        example-1:
+          outboundFlights:
+            - origin: string
+              destination: string
+              departTime: string
+              arriveTime: string
+              arriveDateOffset: string
+              duration: 0
+              totalPrice: 0
+              stops:
+                - airport: string
+                  stopDuration: 0
+              flightSegments:
+                - flightNumber: string
+                  aircraft: string
+                  flightDuration: 0
+                  stopDuration: 0
+                  origin:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  destination:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  fees:
+                    - flightNumber: string
+                      cabinClass: string
+                      date: string
+                      passengerType: string
+                      fareClasses:
+                        - id: 0
+                          baggage: 0
+                          cabinBaggage: 0
+                          fare: 0
+                          flightId: 0
+                          refundable: true
+                          refundPenalty: 0
+                          totalPrice: 0
+                          fareClassCode: string
+                          fareClass: string
+                          code: string
+                          fees:
+                            - id: 0
+                              tax: string
+                              type: string
+                              amount: 0
+          returnFlights:
+            - origin: string
+              destination: string
+              departTime: string
+              arriveTime: string
+              arriveDateOffset: string
+              duration: 0
+              totalPrice: 0
+              stops:
+                - airport: string
+                  stopDuration: 0
+              flightSegments:
+                - flightNumber: string
+                  aircraft: string
+                  flightDuration: 0
+                  stopDuration: 0
+                  origin:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  destination:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  fees:
+                    - flightNumber: string
+                      cabinClass: string
+                      date: string
+                      passengerType: string
+                      fareClasses:
+                        - id: 0
+                          baggage: 0
+                          cabinBaggage: 0
+                          fare: 0
+                          flightId: 0
+                          refundable: true
+                          refundPenalty: 0
+                          totalPrice: 0
+                          fareClassCode: string
+                          fareClass: string
+                          code: string
+                          fees:
+                            - id: 0
+                              tax: string
+                              type: string
+                              amount: 0
+          changed: true
+          message: mismatch
+          oldTotalPrice: 0
+          newTotalPrice: 0
       properties:
         outboundFlights:
           type: array
@@ -520,4 +813,3 @@ components:
                                         type: string
                                       amount:
                                         type: number
-      description: ''
