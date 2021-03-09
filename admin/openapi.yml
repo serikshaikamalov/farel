@@ -910,10 +910,8 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  /airports:
+  /api/v1/airports:
     get:
-      tags:
-        - Airport Entity
       summary: findAllAirport
       operationId: findAllAirportUsingGET
       parameters:
@@ -962,6 +960,8 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+      tags:
+        - Airport Entity
     post:
       tags:
         - Airport Entity
@@ -972,6 +972,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Airport'
+            examples:
+              example-1:
+                value:
+                  code: BQTA
+                  name: BrestA
+                  tags:
+                    - Ballarat
+                    - Брест
+                    - Брест
+                    - Brest
+                  location:
+                    id: 1650
+                  translate:
+                    - language: en
+                      name: Brest
       responses:
         '200':
           description: OK
@@ -987,6 +1002,24 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+        '':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 1999951
+                    code: BQTA
+                    name: BrestA
+                    tags: 'Ballarat,Брест,Брест,Brest'
+                    location:
+                      id: 1650
+                    translate: (en) Brest
+    parameters: []
   '/airports/{id}':
     get:
       tags:
@@ -1015,40 +1048,6 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-    put:
-      tags:
-        - Airport Entity
-      summary: saveAirport
-      operationId: saveAirportUsingPUT
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Airport'
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
     delete:
       tags:
         - Airport Entity
@@ -1066,38 +1065,6 @@ paths:
       responses:
         '200':
           description: OK
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-    patch:
-      tags:
-        - Airport Entity
-      summary: saveAirport
-      operationId: saveAirportUsingPATCH
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Airport'
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/EntityModelAirport'
         '204':
           description: No Content
         '401':
@@ -5468,23 +5435,20 @@ components:
         tags:
           type: array
           items:
-            required: []
-            properties: {}
+            type: object
         location:
           type: object
+          required:
+            - id
           properties:
             id:
               type: number
-          required:
-            - id
         translate:
           type: array
           uniqueItems: true
           minItems: 1
           items:
-            required:
-              - language
-              - name
+            type: object
             properties:
               language:
                 type: string
@@ -5492,12 +5456,13 @@ components:
               name:
                 type: string
                 minLength: 1
+            required:
+              - language
+              - name
       required:
         - code
         - name
-        - tags
         - location
-        - translate
     CollectionModelAirplaneType:
       title: CollectionModelAirplaneType
       required:
