@@ -971,7 +971,37 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Airport'
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: string
+                  minLength: 1
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: string
+                  minLength: 1
+              required:
+                - id
+                - code
+                - name
+                - tags
+                - location
+                - translate
             examples:
               example-1:
                 value:
@@ -1007,8 +1037,47 @@ paths:
                     type: 0
             application/json:
               schema:
+                description: ''
                 type: object
-              examples: {}
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 1999951
+                    code: BQTA
+                    name: BrestA
+                    tags: 'Ballarat,Брест,Брест,Brest'
+                    location:
+                      id: 1650
+                    translate: (en) Brest
         '201':
           description: Created
         '400':
