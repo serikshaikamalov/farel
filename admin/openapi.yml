@@ -1191,7 +1191,7 @@ paths:
                     country:
                       id: 21
                       name: Iran
-                    translate: null
+                    translate: (ru) Брест
     delete:
       tags:
         - Airport Entity
