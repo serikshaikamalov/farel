@@ -5,7 +5,7 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/v1/public/airports?page=1&size=10&letter=B&sort=name:
+  /api/v1/public/airports:
     get:
       summary: Paged airports
       tags: []
