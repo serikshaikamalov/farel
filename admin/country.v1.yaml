@@ -5,7 +5,7 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/v1/countries:
+  /api/v1/public/countries:
     get:
       summary: paged countries
       tags: []
@@ -22,6 +22,16 @@ paths:
           in: query
           name: size
           description: '1'
+        - schema:
+            type: string
+          in: query
+          name: letter
+          description: A
+        - schema:
+            type: string
+          in: query
+          name: sort
+          description: name
       requestBody:
         content:
           application/json:
@@ -99,6 +109,7 @@ paths:
                       currencyCodeInt: CN
                       translate: (ru) Китай
                       cities: 'Lhasa/Lasa, Lianyungang, Lijiang, Linyi, Suzhou, Tacheng, Taiyuan, Taizhou, Aksu, Bayannur, Beihai, Tianjin, Tongren, Yuncheng, Beijing, Shanghai, Urumqi, Guangzhou, Chengdu, Hangzhou, Kunming, Shenzhen, Xiamen, Altay, Anshan, Baishan, Baotou, Changchun, Changde, Changsha, Changzhou, Chongqing, Dali, Dalian, Daqing, Dunhuang, Fuyang, Fuzhou, Ganzhou, Guilin, Guiyang, Haikou, Hailar, Handan, Hanzhong, Harbin, Hefei, Heihe, Hohhot, Huai''an, Huaihua, Huangshan, Ji''an, Jiamusi, Jiayuguan, Jinan, Jingdezhen, Jinghong, Jining, Jiuzhaigou, Kashi, Lanzhou, Luoyang, Luzhou, Mangshi, Manzhouli, Meixian, Mianyang, Mudanjiang, Nanchang, Nanjing, Nanning, Nantong, Nanyang, Ningbo, Ordos, Quanzhou, Qingdao, Qiqihar, Shantou, Sanya, Shenyang, Shijiazhuang, Ulanhot, Weifang, Weihai, Wenzhou, Wuhan, Wuxi, Wuyishan, Xi An, Xiangyang, Xilinhot, Xining, Xinyuan, Xuzhou, Yancheng, Yanji, Yantai, Yibin, Yichang, Yinchuan, Yining, Yiwu, Zhangjiajie, Zhanjiang, Zhengzhou, Zhoushan, Zhuhai'
+    parameters: []
 components:
   schemas:
     country:
