@@ -1061,7 +1061,7 @@ paths:
                   location:
                     id: 1650
                   translate:
-                    - language: en
+                    - language: ru
                       name: Brest
       responses:
         '200':
