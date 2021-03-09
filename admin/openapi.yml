@@ -5576,6 +5576,8 @@ components:
       description: ''
       type: object
       properties:
+        id:
+          type: number
         code:
           type: string
           minLength: 1
@@ -5583,36 +5585,41 @@ components:
           type: string
           minLength: 1
         tags:
-          type: array
-          items:
-            type: object
+          type: string
+          minLength: 1
         location:
           type: object
-          required:
-            - id
           properties:
             id:
               type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        country:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
         translate:
-          type: array
-          uniqueItems: true
-          minItems: 1
-          items:
-            type: object
-            properties:
-              language:
-                type: string
-                minLength: 1
-              name:
-                type: string
-                minLength: 1
-            required:
-              - language
-              - name
+          type: string
+          minLength: 1
       required:
+        - id
         - code
         - name
+        - tags
         - location
+        - country
+        - translate
     CollectionModelAirplaneType:
       title: CollectionModelAirplaneType
       required:
