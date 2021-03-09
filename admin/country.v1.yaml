@@ -480,7 +480,7 @@ paths:
                     cities: 'Lhasa/Lasa, Lianyungang, Lijiang, Linyi, Suzhou, Tacheng, Taiyuan, Taizhou, Aksu, Bayannur, Beihai, Tianjin, Tongren, Yuncheng, Beijing, Shanghai, Urumqi, Guangzhou, Chengdu, Hangzhou, Kunming, Shenzhen, Xiamen, Altay, Anshan, Baishan, Baotou, Changchun, Changde, Changsha, Changzhou, Chongqing, Dali, Dalian, Daqing, Dunhuang, Fuyang, Fuzhou, Ganzhou, Guilin, Guiyang, Haikou, Hailar, Handan, Hanzhong, Harbin, Hefei, Heihe, Hohhot, Huai''an, Huaihua, Huangshan, Ji''an, Jiamusi, Jiayuguan, Jinan, Jingdezhen, Jinghong, Jining, Jiuzhaigou, Kashi, Lanzhou, Luoyang, Luzhou, Mangshi, Manzhouli, Meixian, Mianyang, Mudanjiang, Nanchang, Nanjing, Nanning, Nantong, Nanyang, Ningbo, Ordos, Quanzhou, Qingdao, Qiqihar, Shantou, Sanya, Shenyang, Shijiazhuang, Ulanhot, Weifang, Weihai, Wenzhou, Wuhan, Wuxi, Wuyishan, Xi An, Xiangyang, Xilinhot, Xining, Xinyuan, Xuzhou, Yancheng, Yanji, Yantai, Yibin, Yichang, Yinchuan, Yining, Yiwu, Zhangjiajie, Zhanjiang, Zhengzhou, Zhoushan, Zhuhai'
       operationId: get-api-v1-public-countries-id
     delete:
-      summary: ''
+      summary: delete by id
       operationId: delete-api-v1-public-countries-id
       responses:
         '200':
