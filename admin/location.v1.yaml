@@ -144,8 +144,512 @@ paths:
     get:
       summary: all locations
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - id
+                    - code
+                    - name
+                    - timezone
+                    - tags
+                    - country
+                    - translate
+                    - airports
+                  properties:
+                    id:
+                      type: number
+                    code:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    timezone:
+                      type: string
+                      minLength: 1
+                    tags:
+                      type: string
+                      minLength: 1
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    translate:
+                      type: string
+                      minLength: 1
+                    airports:
+                      type: string
+                      minLength: 1
+              examples:
+                example-1:
+                  value:
+                    - id: 1199
+                      code: HVD
+                      name: Khovd
+                      timezone: Asia/Hovd
+                      tags: 'Ховд, Ховд, Khovd'
+                      country:
+                        id: 66
+                        name: Mongolia
+                      translate: (ru) Ховд
+                      airports: Khovd
+                    - id: 1323
+                      code: IXL
+                      name: Leh
+                      timezone: Asia/Kolkata
+                      tags: 'Лех, Лех, 列城, leh, 列城'
+                      country:
+                        id: 37
+                        name: India
+                      translate: (ru) Лех
+                      airports: Leh
+                    - id: 1324
+                      code: LEJ
+                      name: Leipzig/Halle
+                      timezone: Europe/Berlin
+                      tags: 'Lipcse, LIPSIA, ライプチヒ, Лейпциг, Лейпциг, leipzig - halle, 莱比锡 / 哈勒, Leipciga, 來比錫'
+                      country:
+                        id: 25
+                        name: Germany
+                      translate: (ru) Лейпциг-Халле
+                      airports: Leipzig
       operationId: get-api-v1-public-locations-all
+  '/api/v1/public/locations/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: get by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  timezone:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate:
+                    type: string
+                    minLength: 1
+                  airports:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - timezone
+                  - tags
+                  - country
+                  - translate
+                  - airports
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    code: SCO
+                    name: Aktau
+                    timezone: Asia/Qyzylorda
+                    tags: 'Ақтау, aktau, aqtau, shevchenko, шевченко, Актау, 阿克套, Aktau'
+                    country:
+                      id: 1
+                      name: Kazakhstan
+                    translate: (ru) Актау
+                    airports: Aktau International
+      operationId: get-api-v1-public-locations-id
+    delete:
+      summary: delete by id
+      operationId: delete-api-v1-public-locations-id
+      responses:
+        '200':
+          description: OK
+  /api/v1/locations:
+    post:
+      summary: create
+      operationId: post-api-v1-locations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  timezone:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - timezone
+                  - tags
+                  - country
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 2000051
+                    code: LETA
+                    name: LeticiaA
+                    timezone: America/Bogota
+                    tags: 'Летисиа,Летисиа,莱蒂西亚,萊蒂 西亞'
+                    country:
+                      id: 33
+                    translate: (ru) Leticia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                timezone:
+                  type: string
+                  minLength: 1
+                state: {}
+                tags:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                country:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - language
+                      - name
+                    properties:
+                      language:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+              required:
+                - code
+                - name
+                - timezone
+                - tags
+                - country
+                - translate
+            examples:
+              example-1:
+                value:
+                  code: LETA
+                  name: LeticiaA
+                  timezone: America/Bogota
+                  state: null
+                  tags:
+                    - Летисиа
+                    - Летисиа
+                    - 莱蒂西亚
+                    - 萊蒂 西亞
+                  country:
+                    id: 33
+                  translate:
+                    - language: ru
+                      name: Leticia
+    put:
+      summary: update
+      operationId: put-api-v1-locations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  timezone:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - timezone
+                  - tags
+                  - country
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 3
+                    code: LETA
+                    name: LeticiaA
+                    timezone: America/Bogota
+                    tags: 'Летисиа,Летисиа,莱蒂西亚,萊蒂 西亞'
+                    country:
+                      id: 33
+                      name: Colombia
+                    translate: (ru) Leticia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                timezone:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: string
+                  minLength: 1
+                country:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                      minLength: 1
+                  required:
+                    - id
+                    - name
+                translate:
+                  type: string
+                  minLength: 1
+              required:
+                - id
+                - code
+                - name
+                - timezone
+                - tags
+                - country
+                - translate
+            examples:
+              example-1:
+                value:
+                  id: 3
+                  code: LETA
+                  name: LeticiaA
+                  timezone: America/Bogota
+                  tags: 'Летисиа,Летисиа,莱蒂西亚,萊蒂 西亞'
+                  country:
+                    id: 33
+                    name: Colombia
+                  translate: (ru) Leticia
+  /api/v1/public/locations/search:
+    get:
+      summary: search by pattern
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - id
+                    - code
+                    - name
+                    - timezone
+                    - tags
+                    - country
+                    - translate
+                    - airports
+                  properties:
+                    id:
+                      type: number
+                    code:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    timezone:
+                      type: string
+                      minLength: 1
+                    tags:
+                      type: string
+                      minLength: 1
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    translate:
+                      type: string
+                      minLength: 1
+                    airports:
+                      type: string
+                      minLength: 1
+              examples:
+                example-1:
+                  value:
+                    - id: 483
+                      code: RLK
+                      name: Bayannur
+                      timezone: Asia/Shanghai
+                      tags: Баян-Нур
+                      country:
+                        id: 3
+                        name: Chinah
+                      translate: (ru) Баян-Нур
+                      airports: Tianjitai
+                    - id: 9
+                      code: NQZ
+                      name: Nur-Sultan (Astana)
+                      timezone: Asia/Almaty
+                      tags: 'アスタナ, astana, целиноград, акмола, akmola, ақмола, акмолинск, Нурсултан Назарбаев, Нур Султан, Nur Sultan, Астана, Нур - Султан(Астана), Astana, Нур - Султан(Астана), 阿斯塔纳, Astana'
+                      country:
+                        id: 1
+                        name: Kazakhstan
+                      translate: (ru) Нур-Султан (Астана)
+                      airports: Nursultan Nazarbayev Airport
+                    - id: 1264
+                      code: KNX
+                      name: Kununurra
+                      timezone: Australia/Perth
+                      tags: 'カナナラ, Кунунурра, 库努纳拉, 庫 努納拉'
+                      country:
+                        id: 34
+                        name: Australia
+                      translate: (ru) Кунунерра
+                      airports: Kununurra
+                    - id: 1639
+                      code: NUE
+                      name: Nuremberg
+                      timezone: Europe/Berlin
+                      tags: 'Norimberga, ニュルンベルグ, Nurnberg, Нюрнберг, nuremberg, 纽伦堡, Nürnberg, Nirnberga, Nurnberg, 紐倫堡'
+                      country:
+                        id: 25
+                        name: Germany
+                      translate: (ru) Нюрнберг
+                      airports: Airport
+      operationId: get-api-v1-public-locations-search
 components:
   schemas:
     dshsfeshsht:
