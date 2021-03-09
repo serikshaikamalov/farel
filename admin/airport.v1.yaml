@@ -160,6 +160,22 @@ paths:
                 example-1:
                   value: '[object Object]'
       operationId: get-api-v1-public-airports?page=1&size=10&letter=B&sort=name
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: '1'
+        - schema:
+            type: string
+          in: query
+          name: letter
+          description: A
+        - schema:
+            type: string
+          in: query
+          name: sort
+          description: name
     parameters: []
 components:
   schemas:
