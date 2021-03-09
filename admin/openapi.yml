@@ -987,7 +987,7 @@ paths:
                       country:
                         id: 2
                         name: Russia
-                      translate: (en) Brest
+                      translate: (ru) Брест
                     - id: 1309
                       code: LRR
                       name: Lar
@@ -998,6 +998,7 @@ paths:
                       country:
                         id: 21
                         name: Iran
+                      translate: (ru) Брест
                     - id: 148
                       code: GZG
                       name: VN HKG MCO SSW
@@ -1008,6 +1009,7 @@ paths:
                       country:
                         id: 26
                         name: Hong Kong
+                      translate: (ru) Брест
     post:
       tags:
         - Airport Entity
@@ -1062,7 +1064,7 @@ paths:
                     id: 1650
                   translate:
                     - language: ru
-                      name: Brest
+                      name: Брест
       responses:
         '200':
           description: OK
