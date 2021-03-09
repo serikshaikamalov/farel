@@ -176,6 +176,7 @@ paths:
           in: query
           name: sort
           description: name
+      description: ''
     parameters: []
     post:
       summary: create airport
@@ -723,6 +724,12 @@ paths:
                       name: Iran
                     translate: (ru) Лар
       operationId: get-api-v1-public-airports-id
+    delete:
+      summary: delete by id
+      operationId: delete-api-v1-public-airports-id
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     Airport:
