@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: airport
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths: {}
+components:
+  schemas:
+    Airport:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        code:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        tags:
+          type: string
+          minLength: 1
+        location:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        country:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        translate:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - code
+        - name
+        - tags
+        - location
+        - country
+        - translate
+      x-examples:
+        example-1:
+          id: 1999951
+          code: BQTA
+          name: BrestA
+          tags: 'Ballarat,Брест,Брест,Brest'
+          location:
+            id: 1650
+            name: Okha
+          country:
+            id: 2
+            name: Russia
+          translate: (en) Brest
