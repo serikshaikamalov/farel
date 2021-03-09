@@ -1113,7 +1113,7 @@ paths:
                       id: 1650
                     translate: (en) Brest
     parameters: []
-  '/api/v1/public/airports/{id}':
+  '/api/v1/airports/{id}':
     get:
       tags:
         - Airport Entity
@@ -1215,7 +1215,12 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-    parameters: []
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
   /countries:
     get:
       tags:
