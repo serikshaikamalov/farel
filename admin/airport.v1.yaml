@@ -74,7 +74,7 @@ paths:
               examples:
                 example-1:
                   value:
-                    totalCount: 165
+                    totalCount: 2
                     data:
                       - id: 24
                         code: PKX
@@ -177,6 +177,169 @@ paths:
           name: sort
           description: name
     parameters: []
+    post:
+      summary: ''
+      operationId: post-api-v1-public-airports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 1999951
+                    code: BQTA
+                    name: BrestA
+                    tags: 'Ballarat,Брест,Брест,Brest'
+                    location:
+                      id: 1650
+                    translate: (ru) Брест
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - language
+                      - name
+                    properties:
+                      language:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+              required:
+                - code
+                - name
+                - tags
+                - location
+                - translate
+            examples:
+              example-1:
+                value:
+                  code: BQTA
+                  name: BrestA
+                  tags:
+                    - Ballarat
+                    - Брест
+                    - Брест
+                    - Brest
+                  location:
+                    id: 1650
+                  translate:
+                    - language: ru
+                      name: Брест
+          application/xml:
+            schema:
+              description: ''
+              type: object
+              properties:
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - language
+                      - name
+                    properties:
+                      language:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+              required:
+                - code
+                - name
+                - tags
+                - location
+                - translate
+            examples:
+              example-1:
+                value: '[object Object]'
+        description: ''
   /api/v1/public/airports/search:
     get:
       summary: search
