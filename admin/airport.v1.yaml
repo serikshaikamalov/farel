@@ -4,7 +4,163 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
-paths: {}
+paths:
+  /api/v1/public/airports?page=1&size=10&letter=B&sort=name:
+    get:
+      summary: Paged airports
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - code
+                        - name
+                        - tags
+                        - translate
+                      properties:
+                        id:
+                          type: number
+                        code:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        tags:
+                          type: string
+                          minLength: 1
+                        location:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - name
+                        country:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - name
+                        translate:
+                          type: string
+                          minLength: 1
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 165
+                    data:
+                      - id: 24
+                        code: PKX
+                        name: BEIJING DAXING
+                        tags: 'BEIJING, Pekin'
+                        location:
+                          id: 24
+                          name: Beijing
+                        country:
+                          id: 3
+                          name: China
+                        translate: (ru) Пекин
+                      - id: 1309
+                        code: LRR
+                        name: Lar
+                        tags: 'Лар,Лар,拉尔,Lar'
+                        location:
+                          id: 1309
+                          name: Lar
+                        country:
+                          id: 21
+                          name: Iran
+                        translate: (ru) Лар
+            application/xml:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - code
+                        - name
+                        - tags
+                        - translate
+                      properties:
+                        id:
+                          type: number
+                        code:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        tags:
+                          type: string
+                          minLength: 1
+                        location:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - name
+                        country:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - name
+                        translate:
+                          type: string
+                          minLength: 1
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value: '[object Object]'
+      operationId: get-api-v1-public-airports?page=1&size=10&letter=B&sort=name
+    parameters: []
 components:
   schemas:
     Airport:
