@@ -923,11 +923,91 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties: {}
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - id
+                    - code
+                    - name
+                    - tags
+                    - location
+                    - country
+                    - translate
+                  properties:
+                    id:
+                      type: number
+                    code:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    tags:
+                      type: string
+                      minLength: 1
+                    location:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    translate:
+                      type: string
+                      minLength: 1
               examples:
                 example-1:
-                  value: {}
+                  value:
+                    - id: 1999951
+                      code: BQTA
+                      name: BrestA
+                      tags: 'Ballarat,Брест,Брест,Brest'
+                      location:
+                        id: 1650
+                        name: Okha
+                      country:
+                        id: 2
+                        name: Russia
+                      translate: (en) Brest
+                    - id: 1309
+                      code: LRR
+                      name: Lar
+                      tags: 'Лар,Лар,拉尔,Lar'
+                      location:
+                        id: 1309
+                        name: Lar
+                      country:
+                        id: 21
+                        name: Iran
+                    - id: 148
+                      code: GZG
+                      name: VN HKG MCO SSW
+                      tags: ''
+                      location:
+                        id: 148
+                        name: Hong Kong
+                      country:
+                        id: 26
+                        name: Hong Kong
     post:
       tags:
         - Airport Entity
