@@ -7,7 +7,7 @@ servers:
 paths:
   /api/v1/public/airports:
     get:
-      summary: Paged airports
+      summary: paged airports
       tags: []
       responses:
         '200':
@@ -178,7 +178,7 @@ paths:
           description: name
     parameters: []
     post:
-      summary: Create airport
+      summary: create airport
       operationId: post-api-v1-public-airports
       responses:
         '200':
@@ -340,6 +340,141 @@ paths:
               example-1:
                 value: '[object Object]'
         description: ''
+    put:
+      summary: update airport
+      operationId: put-api-v1-public-airports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - country
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 1999953
+                    code: BQTAA
+                    name: BrestA
+                    tags: 'Ballarat,Брест,Брест,Brest'
+                    location:
+                      id: 1650
+                      name: Okha
+                    country:
+                      id: 2
+                      name: Russia
+                    translate: (ru) Брест
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - language
+                      - name
+                    properties:
+                      language:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+              required:
+                - id
+                - code
+                - name
+                - tags
+                - location
+                - translate
+            examples:
+              example-1:
+                value:
+                  id: 2000051
+                  code: BQTAA
+                  name: BrestA
+                  tags:
+                    - Ballarat
+                    - Брест
+                    - Брест
+                    - Brest
+                  location:
+                    id: 1650
+                  translate:
+                    - language: ru
+                      name: Брест
   /api/v1/public/airports/search:
     get:
       summary: search
