@@ -346,6 +346,85 @@ paths:
                         name: Iran
                       translate: (ru) Лар
       operationId: get-api-v1-public-airports-all
+  '/api/v1/public/airports/{id}':
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+        description: '1309'
+    get:
+      summary: get by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - country
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 1309
+                    code: LRR
+                    name: Lar
+                    tags: 'Лар,Лар,拉尔,Lar'
+                    location:
+                      id: 1309
+                      name: Lar
+                    country:
+                      id: 21
+                      name: Iran
+                    translate: (ru) Лар
+      operationId: get-api-v1-public-airports-id
 components:
   schemas:
     Airport:
