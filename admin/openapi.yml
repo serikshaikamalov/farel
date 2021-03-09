@@ -1111,7 +1111,7 @@ paths:
                       id: 1650
                     translate: (en) Brest
     parameters: []
-  '/airports/{id}':
+  '/api/v1/public/airports/{id}':
     get:
       tags:
         - Airport Entity
@@ -1130,15 +1130,66 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate: {}
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - country
+              examples:
+                example-1:
+                  value:
+                    id: 1309
+                    code: LRR
+                    name: Lar
+                    tags: 'Лар,Лар,拉尔,Lar'
+                    location:
+                      id: 1309
+                      name: Lar
+                    country:
+                      id: 21
+                      name: Iran
+                    translate: null
     delete:
       tags:
         - Airport Entity
@@ -1162,6 +1213,7 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
+    parameters: []
   /countries:
     get:
       tags:
