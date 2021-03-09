@@ -5456,23 +5456,48 @@ components:
         name:
           type: string
     Airport:
-      title: Airport
+      description: ''
       type: object
       properties:
         code:
           type: string
-        id:
-          type: integer
-          format: int64
+          minLength: 1
         name:
           type: string
+          minLength: 1
         tags:
-          type: string
-        timezone:
-          type: string
-        type:
-          type: integer
-          format: int64
+          type: array
+          items:
+            required: []
+            properties: {}
+        location:
+          type: object
+          properties:
+            id:
+              type: number
+          required:
+            - id
+        translate:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+              - language
+              - name
+            properties:
+              language:
+                type: string
+                minLength: 1
+              name:
+                type: string
+                minLength: 1
+      required:
+        - code
+        - name
+        - tags
+        - location
+        - translate
     CollectionModelAirplaneType:
       title: CollectionModelAirplaneType
       required:
