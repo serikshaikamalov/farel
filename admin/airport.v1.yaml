@@ -178,7 +178,7 @@ paths:
           description: name
     parameters: []
     post:
-      summary: ''
+      summary: Create airport
       operationId: post-api-v1-public-airports
       responses:
         '200':
