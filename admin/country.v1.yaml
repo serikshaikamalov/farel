@@ -485,6 +485,87 @@ paths:
       responses:
         '200':
           description: OK
+  /api/v1/public/countries/search:
+    get:
+      summary: search by pattern
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - code
+                    - withCitizenship
+                    - tags
+                    - currencyName
+                    - currencyCode
+                    - currencyNameInt
+                    - currencyCodeInt
+                    - translate
+                    - cities
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                      minLength: 1
+                    code:
+                      type: string
+                      minLength: 1
+                    withCitizenship:
+                      type: boolean
+                    tags:
+                      type: string
+                      minLength: 1
+                    currencyName:
+                      type: string
+                      minLength: 1
+                    currencyCode:
+                      type: string
+                      minLength: 1
+                    currencyNameInt:
+                      type: string
+                      minLength: 1
+                    currencyCodeInt:
+                      type: string
+                      minLength: 1
+                    translate:
+                      type: string
+                      minLength: 1
+                    cities:
+                      type: string
+                      minLength: 1
+              examples:
+                example-1:
+                  value:
+                    - id: 3
+                      name: Chinah
+                      code: CN
+                      withCitizenship: true
+                      tags: 'China,Kiina,Chine,Kína'
+                      currencyName: Yuah
+                      currencyCode: CNY
+                      currencyNameInt: Yuah
+                      currencyCodeInt: Yuah
+                      translate: (en) China
+                      cities: 'Lhasa/Lasa, Lianyungang, Lijiang, Linyi, Suzhou, Tacheng, Taiyuan, Taizhou, Aksu, Bayannur, Beihai, Tianjin, Tongren, Yuncheng, Beijing, Shanghai, Urumqi, Guangzhou, Chengdu, Hangzhou, Kunming, Shenzhen, Xiamen, Altay, Anshan, Baishan, Baotou, Changchun, Changde, Changsha, Changzhou, Chongqing, Dali, Dalian, Daqing, Dunhuang, Fuyang, Fuzhou, Ganzhou, Guilin, Guiyang, Haikou, Hailar, Handan, Hanzhong, Harbin, Hefei, Heihe, Hohhot, Huai''an, Huaihua, Huangshan, Ji''an, Jiamusi, Jiayuguan, Jinan, Jingdezhen, Jinghong, Jining, Jiuzhaigou, Kashi, Lanzhou, Luoyang, Luzhou, Mangshi, Manzhouli, Meixian, Mianyang, Mudanjiang, Nanchang, Nanjing, Nanning, Nantong, Nanyang, Ningbo, Ordos, Quanzhou, Qingdao, Qiqihar, Shantou, Sanya, Shenyang, Shijiazhuang, Ulanhot, Weifang, Weihai, Wenzhou, Wuhan, Wuxi, Wuyishan, Xi An, Xiangyang, Xilinhot, Xining, Xinyuan, Xuzhou, Yancheng, Yanji, Yantai, Yibin, Yichang, Yinchuan, Yining, Yiwu, Zhangjiajie, Zhanjiang, Zhengzhou, Zhoushan, Zhuhai'
+      operationId: get-api-v1-public-countries-search
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pattern
+          description: kazak
 components:
   schemas:
     country:
