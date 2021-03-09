@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: admin.location
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/v1/public/locations:
+    get:
+      summary: get paged locations
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - code
+                        - name
+                        - timezone
+                        - state
+                        - tags
+                        - translate
+                        - airports
+                      properties:
+                        id:
+                          type: number
+                        code:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        timezone:
+                          type: string
+                          minLength: 1
+                        state:
+                          type: string
+                          minLength: 1
+                        tags:
+                          type: string
+                          minLength: 1
+                        country:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            name:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - name
+                        translate:
+                          type: string
+                          minLength: 1
+                        airports:
+                          type: string
+                          minLength: 1
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 127
+                    data:
+                      - id: 319
+                        code: AHB
+                        name: Abha
+                        timezone: Asia/Riyadh
+                        tags: 'ابها, Абха, 艾卜哈, 阿卜哈'
+                        country:
+                          id: 47
+                          name: Saudi Arabia
+                        translate: (ru) Абха
+                        airports: Abha
+                      - id: 320
+                        code: ABJ
+                        name: Abidjan
+                        timezone: Africa/Abidjan
+                        tags: 'アビジャン, Абиджан, 阿比让, abidjan, Abidžana, 阿必尚'
+                        country:
+                          id: 53
+                          name: Cote D Ivoire
+                        translate: (ru) Абиджан
+                        airports: F Houphouet Boigny
+                      - id: 322
+                        code: ABI
+                        name: Abilene
+                        timezone: America/Chicago
+                        state: '76'
+                        tags: 'アビリーン, 阿比林, Абилин, шт.Техас, 阿比林'
+                        country:
+                          id: 10
+                          name: United States Of America
+                        translate: (ru) Абилин
+                        airports: 'Regional, Dyess Afb'
+                      - id: 323
+                        code: ABS
+                        name: Abu Simbel
+                        timezone: Africa/Cairo
+                        tags: 'ابو سمبل, Абу - Симбель, 阿布辛贝, 阿布新貝'
+                        country:
+                          id: 54
+                          name: Egypt
+                        translate: (ru) Абу-Симбель
+                        airports: Abu Simbel
+      operationId: get-api-v1-public-locations
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: size
+          description: '10'
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: '1'
+        - schema:
+            type: string
+          in: query
+          name: letter
+          description: A
+        - schema:
+            type: string
+          in: query
+          name: sort
+          description: name
+  /api/v1/public/locations/all:
+    get:
+      summary: all locations
+      tags: []
+      responses: {}
+      operationId: get-api-v1-public-locations-all
+components:
+  schemas:
+    dshsfeshsht:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        code:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        timezone:
+          type: string
+          minLength: 1
+        tags:
+          type: string
+          minLength: 1
+        country:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        translate:
+          type: string
+          minLength: 1
+        airports:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - code
+        - name
+        - timezone
+        - tags
+        - country
+        - translate
+        - airports
+      x-examples:
+        example-1:
+          id: 1
+          code: SCO
+          name: Aktau
+          timezone: Asia/Qyzylorda
+          tags: 'Ақтау, aktau, aqtau, shevchenko, шевченко, Актау, 阿克套, Aktau'
+          country:
+            id: 1
+            name: Kazakhstan
+          translate: (ru) Актау
+          airports: Aktau International
