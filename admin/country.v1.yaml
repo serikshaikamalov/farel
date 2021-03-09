@@ -112,7 +112,7 @@ paths:
     parameters: []
   /api/v1/countries:
     post:
-      summary: ''
+      summary: create
       operationId: post-api-v1-countries
       responses:
         '200':
@@ -254,6 +254,237 @@ paths:
             schema:
               type: object
               properties: {}
+    put:
+      summary: update
+      operationId: put-api-v1-countries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  code:
+                    type: string
+                    minLength: 1
+                  withCitizenship:
+                    type: boolean
+                  tags:
+                    type: string
+                    minLength: 1
+                  currencyName:
+                    type: string
+                    minLength: 1
+                  currencyCode:
+                    type: string
+                    minLength: 1
+                  currencyNameInt:
+                    type: string
+                    minLength: 1
+                  currencyCodeInt:
+                    type: string
+                    minLength: 1
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - name
+                  - code
+                  - withCitizenship
+                  - tags
+                  - currencyName
+                  - currencyCode
+                  - currencyNameInt
+                  - currencyCodeInt
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 3
+                    name: Chinah
+                    code: CN
+                    withCitizenship: true
+                    tags: 'China,Kiina,Chine,Kína'
+                    currencyName: Yuah
+                    currencyCode: CNY
+                    currencyNameInt: Yuah
+                    currencyCodeInt: Yuah
+                    translate: (en) China
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                name:
+                  type: string
+                  minLength: 1
+                code:
+                  type: string
+                  minLength: 1
+                withCitizenship:
+                  type: boolean
+                tags:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                translate:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - language
+                      - name
+                    properties:
+                      language:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+                currencyName:
+                  type: string
+                  minLength: 1
+                currencyCode:
+                  type: string
+                  minLength: 1
+                currencyNameInt:
+                  type: string
+                  minLength: 1
+                currencyCodeInt:
+                  type: string
+                  minLength: 1
+              required:
+                - id
+                - name
+                - code
+                - withCitizenship
+                - tags
+                - translate
+                - currencyName
+                - currencyCode
+                - currencyNameInt
+                - currencyCodeInt
+            examples:
+              example-1:
+                value:
+                  id: 3
+                  name: Chinah
+                  code: CN
+                  withCitizenship: true
+                  tags:
+                    - China
+                    - Kiina
+                    - Chine
+                    - Kína
+                  translate:
+                    - language: en
+                      name: China
+                  currencyName: Yuah
+                  currencyCode: CNY
+                  currencyNameInt: Yuah
+                  currencyCodeInt: Yuah
+        description: ''
+  '/api/v1/public/countries/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: get by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  code:
+                    type: string
+                    minLength: 1
+                  withCitizenship:
+                    type: boolean
+                  tags:
+                    type: string
+                    minLength: 1
+                  currencyName:
+                    type: string
+                    minLength: 1
+                  currencyCode:
+                    type: string
+                    minLength: 1
+                  currencyNameInt:
+                    type: string
+                    minLength: 1
+                  currencyCodeInt:
+                    type: string
+                    minLength: 1
+                  translate:
+                    type: string
+                    minLength: 1
+                  cities:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - name
+                  - code
+                  - withCitizenship
+                  - tags
+                  - currencyName
+                  - currencyCode
+                  - currencyNameInt
+                  - currencyCodeInt
+                  - translate
+                  - cities
+              examples:
+                example-1:
+                  value:
+                    id: 3
+                    name: Chinah
+                    code: CN
+                    withCitizenship: true
+                    tags: 'China,Kiina,Chine,Kína'
+                    currencyName: Yuah
+                    currencyCode: CNY
+                    currencyNameInt: Yuah
+                    currencyCodeInt: Yuah
+                    translate: (en) China
+                    cities: 'Lhasa/Lasa, Lianyungang, Lijiang, Linyi, Suzhou, Tacheng, Taiyuan, Taizhou, Aksu, Bayannur, Beihai, Tianjin, Tongren, Yuncheng, Beijing, Shanghai, Urumqi, Guangzhou, Chengdu, Hangzhou, Kunming, Shenzhen, Xiamen, Altay, Anshan, Baishan, Baotou, Changchun, Changde, Changsha, Changzhou, Chongqing, Dali, Dalian, Daqing, Dunhuang, Fuyang, Fuzhou, Ganzhou, Guilin, Guiyang, Haikou, Hailar, Handan, Hanzhong, Harbin, Hefei, Heihe, Hohhot, Huai''an, Huaihua, Huangshan, Ji''an, Jiamusi, Jiayuguan, Jinan, Jingdezhen, Jinghong, Jining, Jiuzhaigou, Kashi, Lanzhou, Luoyang, Luzhou, Mangshi, Manzhouli, Meixian, Mianyang, Mudanjiang, Nanchang, Nanjing, Nanning, Nantong, Nanyang, Ningbo, Ordos, Quanzhou, Qingdao, Qiqihar, Shantou, Sanya, Shenyang, Shijiazhuang, Ulanhot, Weifang, Weihai, Wenzhou, Wuhan, Wuxi, Wuyishan, Xi An, Xiangyang, Xilinhot, Xining, Xinyuan, Xuzhou, Yancheng, Yanji, Yantai, Yibin, Yichang, Yinchuan, Yining, Yiwu, Zhangjiajie, Zhanjiang, Zhengzhou, Zhoushan, Zhuhai'
+      operationId: get-api-v1-public-countries-id
+    delete:
+      summary: ''
+      operationId: delete-api-v1-public-countries-id
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     country:
