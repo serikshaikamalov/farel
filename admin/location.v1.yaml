@@ -140,6 +140,11 @@ paths:
           in: query
           name: sort
           description: name
+        - schema:
+            type: string
+          in: query
+          name: pattern
+          description: ala
   /api/v1/public/locations/all:
     get:
       summary: all locations

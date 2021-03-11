@@ -33,6 +33,11 @@ paths:
           in: query
           name: sort
           description: name
+        - schema:
+            type: string
+          in: query
+          name: pattern
+          description: kazak
       requestBody:
         content:
           application/json:
