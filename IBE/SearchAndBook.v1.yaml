@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: booking
   version: '1.0'
-  description: Booking management 
+  description: Booking management
   contact:
     name: Asset Yelemessov
     url: farel.dev
@@ -35,68 +35,52 @@ paths:
             type: string
           description: Destination Airport Code
           example: ALA
-        - name: flightDate
+        - name: outboundDate
           in: query
           required: true
           schema:
             type: string
             format: date
-          example: 2020-01-01
+          example: '2020-01-01'
           description: Flight date in the format defined by ISO
-        - name: tripType
+        - name: returnDate
           in: query
-          required: true
           schema:
             type: string
-            enum: ["OW", "RT"]
-          description: One-Way vs. Round-Trip indicator
-          example: OW
+            format: date
+          example: '2020-01-01'
+          description: Return Flight date in the format defined by ISO
         - name: airlines
           in: query
           required: true
           schema:
             type: array
-            items: 
+            items:
               type: string
             minItems: 1
           description: Airline IDs
-        - name: segmentGroupId
-          in: query
-          schema:
-            type: string
-          description: Departing Flight ID for Round-Trip
-        - name: page
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: pageSize
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 50
-            default: 20
       responses:
-        "200":
-          description:
-            List of flights 
+        '200':
+          description: List of flights
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightsResponse'
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
   /public/bookings:
-      post:
-        operationId: create-booking
-        description: Create booking
-        tags:
-          - Create booking
-        requestBody:
-          $ref: '#/components/requestBodies/BookingRequestBody'
-        responses:
-          "204":
-            description: Booking was created successfully
+    post:
+      operationId: create-booking
+      description: Create booking
+      tags:
+        - Create booking
+      requestBody:
+        $ref: '#/components/requestBodies/BookingRequestBody'
+      responses:
+        '204':
+          description: Booking was created successfully
   /public/fares:
     get:
       operationId: get-fares
@@ -115,38 +99,228 @@ paths:
                 flightDate:
                   type: string
                   format: datetime
-                tripType: 
+                tripType:
                   type: string
-                  enum: ["OW", "RT"]
+                  enum:
+                    - OW
+                    - RT
       responses:
-        "200":
+        '200':
           description: List of Fares
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  properties:
-                    flightNumber:
-                      type: string
-                    flightDate:
-                      type: string
-                      format: datetime
-                    passengerType:
-                      type: string
-                    baseFare:
-                      type: number
-                    totalPrice:
-                      type: number
-                    fees: 
-                      type: array
-                      items:
-                        properties:
-                          name:
-                            type: string
-                          amount:
-                            type: number
-                    
+                description: ''
+                type: object
+                properties:
+                  fees:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - name
+                        - amount
+                      properties:
+                        name:
+                          type: string
+                          minLength: 1
+                        amount:
+                          type: number
+                  totalFee:
+                    type: number
+                  fares:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required: []
+                      properties:
+                        INF:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        ADT:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        CHD:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                        INS:
+                          type: object
+                          properties:
+                            baseFare:
+                              type: number
+                            totalPrice:
+                              type: number
+                          required:
+                            - baseFare
+                            - totalPrice
+                  priceMatcher:
+                    type: object
+                    properties:
+                      changed:
+                        type: boolean
+                      message:
+                        type: string
+                        minLength: 1
+                      oldTotalPrice:
+                        type: number
+                      newTotalPrice:
+                        type: number
+                    required:
+                      - changed
+                      - message
+                      - oldTotalPrice
+                      - newTotalPrice
+                required:
+                  - fees
+                  - totalFee
+                  - fares
+                  - priceMatcher
+              examples:
+                example-1:
+                  value:
+                    fees:
+                      - name: Air Astana Fuel Surcharge (YQ)
+                        amount: 5990
+                    totalFee: 5990
+                    fares:
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 18597
+                          totalPrice: 24587
+                        CHD:
+                          baseFare: 9298
+                          totalPrice: 15288
+                        INS:
+                          baseFare: 6198
+                          totalPrice: 12188
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 21974
+                          totalPrice: 27964
+                        CHD:
+                          baseFare: 10987
+                          totalPrice: 16977
+                        INS:
+                          baseFare: 7324
+                          totalPrice: 13314
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22003
+                          totalPrice: 27993
+                        CHD:
+                          baseFare: 11001
+                          totalPrice: 16991
+                        INS:
+                          baseFare: 7334
+                          totalPrice: 13324
+                      - INF:
+                          baseFare: 0
+                          totalPrice: 5990
+                        ADT:
+                          baseFare: 22442
+                          totalPrice: 28432
+                        CHD:
+                          baseFare: 11220
+                          totalPrice: 17210
+                        INS:
+                          baseFare: 7480
+                          totalPrice: 13470
+                    priceMatcher:
+                      changed: true
+                      message: mismatch
+                      oldTotalPrice: 5990
+                      newTotalPrice: 4990
+        '201':
+          description: Created
   requestBodies:
     BookingRequestBody:
       required: true
@@ -177,7 +351,7 @@ paths:
                       type: string
                     gender:
                       type: string
-                    birthday: 
+                    birthday:
                       type: string
                       format: date
                     citizenship:
@@ -190,7 +364,7 @@ paths:
                       format: datetime
                     fareClassCode:
                       type: string
-                      example: Y
+                      example: 'Y'
               contactPerson:
                 type: object
                 properties:
@@ -210,26 +384,26 @@ paths:
           type: integer
         data:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/Flight'
     Flight:
       type: object
       properties:
         origin:
           type: string
-          example: "ALA"
+          example: ALA
         destination:
           type: string
-          example: "SVO"
+          example: SVO
         departTime:
           type: string
-          pattern: "HH:MM"
+          pattern: 'HH:MM'
         arriveTime:
           type: string
-          pattern: "HH:MM"
+          pattern: 'HH:MM'
         arriveDateOffset:
           type: string
-          example: "-1"
+          example: '-1'
         duration:
           type: integer
           description: Flight duration in minutes
@@ -243,7 +417,7 @@ paths:
                 example: NQZ
               stopDuration:
                 type: integer
-                description: "Stop duration in minutes"
+                description: Stop duration in minutes
                 example: 60
         flightSegments:
           type: array
@@ -260,7 +434,7 @@ paths:
               origin:
                 type: object
                 properties:
-                  city: 
+                  city:
                     type: string
                   airportName:
                     type: string
@@ -269,13 +443,13 @@ paths:
                   date:
                     type: string
                     format: datetime
-                  time: 
+                  time:
                     type: string
-                    pattern: "HH:MM"
+                    pattern: 'HH:MM'
               destination:
                 type: object
                 properties:
-                  city: 
+                  city:
                     type: string
                   airportName:
                     type: string
@@ -284,9 +458,365 @@ paths:
                   date:
                     type: string
                     format: date
-                  time: 
+                  time:
                     type: string
-                    pattern: "HH:MM"
+                    pattern: 'HH:MM'
         totalPrice:
           type: string
-          example: "$500"
+          example: $500
+  responses: {}
+components:
+  schemas:
+    FlightsResponse:
+      title: FlightsResponse
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          outboundFlights:
+            - origin: string
+              destination: string
+              departTime: string
+              arriveTime: string
+              arriveDateOffset: string
+              duration: 0
+              totalPrice: 0
+              stops:
+                - airport: string
+                  stopDuration: 0
+              flightSegments:
+                - flightNumber: string
+                  aircraft: string
+                  flightDuration: 0
+                  stopDuration: 0
+                  origin:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  destination:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  fees:
+                    - flightNumber: string
+                      cabinClass: string
+                      date: string
+                      passengerType: string
+                      fareClasses:
+                        - id: 0
+                          baggage: 0
+                          cabinBaggage: 0
+                          fare: 0
+                          flightId: 0
+                          refundable: true
+                          refundPenalty: 0
+                          totalPrice: 0
+                          fareClassCode: string
+                          fareClass: string
+                          code: string
+                          fees:
+                            - id: 0
+                              tax: string
+                              type: string
+                              amount: 0
+          returnFlights:
+            - origin: string
+              destination: string
+              departTime: string
+              arriveTime: string
+              arriveDateOffset: string
+              duration: 0
+              totalPrice: 0
+              stops:
+                - airport: string
+                  stopDuration: 0
+              flightSegments:
+                - flightNumber: string
+                  aircraft: string
+                  flightDuration: 0
+                  stopDuration: 0
+                  origin:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  destination:
+                    city: string
+                    airportName: string
+                    airportCode: string
+                    date: string
+                    time: string
+                  fees:
+                    - flightNumber: string
+                      cabinClass: string
+                      date: string
+                      passengerType: string
+                      fareClasses:
+                        - id: 0
+                          baggage: 0
+                          cabinBaggage: 0
+                          fare: 0
+                          flightId: 0
+                          refundable: true
+                          refundPenalty: 0
+                          totalPrice: 0
+                          fareClassCode: string
+                          fareClass: string
+                          code: string
+                          fees:
+                            - id: 0
+                              tax: string
+                              type: string
+                              amount: 0
+          changed: true
+          message: mismatch
+          oldTotalPrice: 0
+          newTotalPrice: 0
+      properties:
+        outboundFlights:
+          type: array
+          items:
+            type: object
+            properties:
+              origin:
+                type: string
+              destination:
+                type: string
+              departTime:
+                type: string
+              arriveTime:
+                type: string
+              arriveDateOffset:
+                type: string
+              duration:
+                type: integer
+              totalPrice:
+                type: number
+              stops:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    airport:
+                      type: string
+                    stopDuration:
+                      type: number
+              flightSegments:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    flightNumber:
+                      type: string
+                    aircraft:
+                      type: string
+                    flightDuration:
+                      type: integer
+                    stopDuration:
+                      type: number
+                    origin:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    destination:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          flightNumber:
+                            type: string
+                          cabinClass:
+                            type: string
+                          date:
+                            type: string
+                            format: datetime
+                          passengerType:
+                            type: string
+                          fareClasses:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                baggage:
+                                  type: integer
+                                cabinBaggage:
+                                  type: integer
+                                fare:
+                                  type: integer
+                                flightId:
+                                  type: integer
+                                refundable:
+                                  type: boolean
+                                refundPenalty:
+                                  type: number
+                                totalPrice:
+                                  type: number
+                                fareClassCode:
+                                  type: string
+                                fareClass:
+                                  type: string
+                                code:
+                                  type: string
+                                fees:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      tax:
+                                        type: string
+                                      type:
+                                        type: string
+                                      amount:
+                                        type: number
+        returnFlights:
+          type: array
+          items:
+            type: object
+            properties:
+              origin:
+                type: string
+              destination:
+                type: string
+              departTime:
+                type: string
+              arriveTime:
+                type: string
+              arriveDateOffset:
+                type: string
+              duration:
+                type: integer
+              totalPrice:
+                type: number
+              stops:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    airport:
+                      type: string
+                    stopDuration:
+                      type: number
+              flightSegments:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    flightNumber:
+                      type: string
+                    aircraft:
+                      type: string
+                    flightDuration:
+                      type: integer
+                    stopDuration:
+                      type: number
+                    origin:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    destination:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        airportName:
+                          type: string
+                        airportCode:
+                          type: string
+                        date:
+                          type: string
+                        time:
+                          type: string
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          flightNumber:
+                            type: string
+                          cabinClass:
+                            type: string
+                          date:
+                            type: string
+                            format: datetime
+                          passengerType:
+                            type: string
+                          fareClasses:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                baggage:
+                                  type: integer
+                                cabinBaggage:
+                                  type: integer
+                                fare:
+                                  type: integer
+                                flightId:
+                                  type: integer
+                                refundable:
+                                  type: boolean
+                                refundPenalty:
+                                  type: number
+                                totalPrice:
+                                  type: number
+                                fareClassCode:
+                                  type: string
+                                fareClass:
+                                  type: string
+                                code:
+                                  type: string
+                                fees:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      tax:
+                                        type: string
+                                      type:
+                                        type: string
+                                      amount:
+                                        type: number

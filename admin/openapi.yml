@@ -44,6 +44,8 @@ tags:
     description: Basic Error Controller
   - name: profile-controller
     description: Profile Controller
+  - name: DCS
+    description: DCS desc
   - name: Airline Profile
     description: Get and Put controller
   - name: Tax
@@ -976,58 +978,106 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  /airports:
+  /api/v1/public/airports/all:
     get:
-      tags:
-        - Airport Entity
       summary: findAllAirport
       operationId: findAllAirportUsingGET
-      parameters:
-        - name: page
-          in: query
-          description: page
-          required: false
-          style: form
-          schema:
-            type: integer
-            format: int32
-        - name: size
-          in: query
-          description: size
-          required: false
-          style: form
-          schema:
-            type: integer
-            format: int32
-        - name: sort
-          in: query
-          description: sort
-          required: false
-          style: form
-          schema:
-            type: string
+      parameters: []
+      tags:
+        - Airport Entity
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollectionModelAirport'
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/CollectionModelAirport'
-            text/uri-list:
-              schema:
-                $ref: '#/components/schemas/CollectionModelAirport'
-            application/x-spring-data-compact+json:
-              schema:
-                $ref: '#/components/schemas/CollectionModelAirport'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - id
+                    - code
+                    - name
+                    - tags
+                    - location
+                    - country
+                    - translate
+                  properties:
+                    id:
+                      type: number
+                    code:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    tags:
+                      type: string
+                      minLength: 1
+                    location:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                    translate:
+                      type: string
+                      minLength: 1
+              examples:
+                example-1:
+                  value:
+                    - id: 1999951
+                      code: BQTA
+                      name: BrestA
+                      tags: 'Ballarat,Брест,Брест,Brest'
+                      location:
+                        id: 1650
+                        name: Okha
+                      country:
+                        id: 2
+                        name: Russia
+                      translate: (ru) Брест
+                    - id: 1309
+                      code: LRR
+                      name: Lar
+                      tags: 'Лар,Лар,拉尔,Lar'
+                      location:
+                        id: 1309
+                        name: Lar
+                      country:
+                        id: 21
+                        name: Iran
+                      translate: (ru) Брест
+                    - id: 148
+                      code: GZG
+                      name: VN HKG MCO SSW
+                      tags: ''
+                      location:
+                        id: 148
+                        name: Hong Kong
+                      country:
+                        id: 26
+                        name: Hong Kong
+                      translate: (ru) Брест
     post:
       tags:
         - Airport Entity
@@ -1037,23 +1087,101 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Airport'
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                code:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                tags:
+                  type: string
+                  minLength: 1
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+                translate:
+                  type: string
+                  minLength: 1
+              required:
+                - id
+                - code
+                - name
+                - tags
+                - location
+                - translate
+            examples:
+              example-1:
+                value:
+                  code: BQTA
+                  name: BrestA
+                  tags:
+                    - Ballarat
+                    - Брест
+                    - Брест
+                    - Brest
+                  location:
+                    id: 1650
+                  translate:
+                    - language: ru
+                      name: Брест
       responses:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-  '/airports/{id}':
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                  translate:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - translate
+              examples:
+                example-1:
+                  value:
+                    id: 1999951
+                    code: BQTA
+                    name: BrestA
+                    tags: 'Ballarat,Брест,Брест,Brest'
+                    location:
+                      id: 1650
+                    translate: (en) Brest
+    parameters: []
+  '/api/v1/airports/{id}':
     get:
       tags:
         - Airport Entity
@@ -1072,49 +1200,66 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-    put:
-      tags:
-        - Airport Entity
-      summary: saveAirport
-      operationId: saveAirportUsingPUT
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Airport'
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  code:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                  location:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                      - name
+                  translate: {}
+                required:
+                  - id
+                  - code
+                  - name
+                  - tags
+                  - location
+                  - country
+              examples:
+                example-1:
+                  value:
+                    id: 1309
+                    code: LRR
+                    name: Lar
+                    tags: 'Лар,Лар,拉尔,Lar'
+                    location:
+                      id: 1309
+                      name: Lar
+                    country:
+                      id: 21
+                      name: Iran
+                    translate: (ru) Брест
     delete:
       tags:
         - Airport Entity
@@ -1138,38 +1283,12 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-    patch:
-      tags:
-        - Airport Entity
-      summary: saveAirport
-      operationId: saveAirportUsingPATCH
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Airport'
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/EntityModelAirport'
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
   /countries:
     get:
       tags:
@@ -5272,14 +5391,15 @@ paths:
     put:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-user-change-password-id
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              name: passwordChange
               properties:
                 oldPassword:
                   type: string
@@ -5313,13 +5433,10 @@ paths:
                     flightNumber:
                       type: string
                     origin:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     destination:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     via:
-                      type: object
                       $ref: '#/components/schemas/Airport'
                     startDate:
                       type: string
@@ -5348,8 +5465,6 @@ paths:
           name: size
           description: page limit
   '/schedules/{id}/fares':
-    tag:
-      - Schedule Entity
     parameters:
       - schema:
           type: string
@@ -5392,7 +5507,7 @@ paths:
   /company-fees:
     get:
       summary: Your GET endpoint
-      tags: Fee
+      tags: []
       responses:
         '200':
           description: OK
@@ -5414,6 +5529,36 @@ paths:
           in: query
           name: size
           description: size of each page
+  /dcs-flights:
+    get:
+      tags:
+        - DCS
+      summary: DCS Flights
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DcsFlightsResponse'
+      operationId: get-dcs-flights
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: from
+          description: from date
+        - schema:
+            type: string
+          in: query
+          name: to
+          description: to date
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: page number
+    parameters: []
 components:
   schemas:
     SeatAndFares:
@@ -5477,15 +5622,15 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-        name:
+          type: number
+        regNumber:
           type: string
-        seats:
-          type: integer
-          format: int64
         type:
           $ref: '#/components/schemas/AirplaneType'
+        seatingCapacity:
+          type: array
+          items:
+            $ref: '#/components/schemas/Capacity'
     AirplaneType:
       title: AirplaneType
       type: object
@@ -5496,23 +5641,53 @@ components:
         name:
           type: string
     Airport:
-      title: Airport
+      description: ''
       type: object
       properties:
+        id:
+          type: number
         code:
           type: string
-        id:
-          type: integer
-          format: int64
+          minLength: 1
         name:
           type: string
+          minLength: 1
         tags:
           type: string
-        timezone:
+          minLength: 1
+        location:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        country:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+        translate:
           type: string
-        type:
-          type: integer
-          format: int64
+          minLength: 1
+      required:
+        - id
+        - code
+        - name
+        - tags
+        - location
+        - country
+        - translate
     CollectionModelAirplaneType:
       title: CollectionModelAirplaneType
       required:
@@ -6823,6 +6998,126 @@ components:
           enum:
             - ACTIVE
             - CANCEL
+    CabinClass:
+      title: CabinClass
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+      description: cabin class
+    DcsFare:
+      title: DcsFare
+      type: object
+      properties:
+        id:
+          type: number
+        baggage:
+          type: number
+        cabinBaggage:
+          type: number
+        cabinClass:
+          $ref: '#/components/schemas/CabinClass'
+    DcsFlightPassenger:
+      title: DcsFlightPassenger
+      type: object
+      properties:
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        orderNumber:
+          type: string
+        eticketNumber:
+          type: string
+        type:
+          $ref: '#/components/schemas/PassengerType'
+        checkInStatus:
+          type: string
+        eticketStatus:
+          type: string
+          enum:
+            - OPEN_FOR_USE
+            - CHECK_IN
+            - BOARDED
+            - FLOWN
+            - REFUNDED
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+        citizenship:
+          type: string
+        idNumber:
+          type: string
+        expireDate:
+          type: string
+        fare:
+          $ref: '#/components/schemas/DcsFare'
+    Capacity:
+      title: Capacity
+      type: object
+      properties:
+        cabinClass:
+          type: string
+        capacity:
+          type: number
+    DcsFlight:
+      title: DcsFlight
+      type: object
+      description: ''
+      properties:
+        flightId:
+          type: number
+        flightStatus:
+          type: string
+          enum:
+            - ON_SCHEDULE
+            - CHECK_IN
+            - ARRIVED
+            - BOARDING
+            - FLOWN
+        flightNumber:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        departureDate:
+          type: string
+        departureScheduledTime:
+          type: string
+        departureActualTime:
+          type: string
+        arrivalScheduledTime:
+          type: string
+        arrivalActualTime:
+          type: string
+        aircraft:
+          $ref: '#/components/schemas/Airplane'
+        passengersCount:
+          type: number
+        load:
+          type: number
+        passengers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DcsFlightPassenger'
+    DcsFlightsResponse:
+      title: DcsFlightsResponse
+      type: object
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DcsFlight'
+        totalCount:
+          type: number
   securitySchemes:
     api_key:
       type: apiKey
