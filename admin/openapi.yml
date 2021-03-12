@@ -345,7 +345,7 @@ paths:
       parameters:
         - name: user_id
           in: path
-          description: user_id
+          description: id of current updating user
           required: true
           style: simple
           schema:
@@ -7118,6 +7118,47 @@ components:
             $ref: '#/components/schemas/DcsFlight'
         totalCount:
           type: number
+    CompanyUserList:
+      title: User list
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        position:
+          type: string
+          enum:
+            - ADMIN
+            - RESTRICTED
+        createdAt:
+          type: string
+    CompanyUserCreate:
+      title: User
+      type: object
+      description: ''
+      properties:
+        email:
+          type: string
+    CompanyUserGet:
+      title: User
+      type: object
+      description: ''
+      properties:
+        email:
+          type: string
+    CompanyUserUpdate:
+      title: User
+      type: object
+      description: ''
+      properties:
+        email:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey
