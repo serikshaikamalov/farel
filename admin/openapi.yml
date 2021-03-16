@@ -380,6 +380,12 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+    delete:
+      summary: ''
+      operationId: delete-companies-users-user_id
+      responses:
+        '204':
+          description: No Content
   /user/profile:
     get:
       tags:
@@ -1083,7 +1089,7 @@ paths:
                     - id: 148
                       code: GZG
                       name: VN HKG MCO SSW
-                      tags: 's'
+                      tags: s
                       location:
                         id: 148
                         name: Hong Kong
@@ -3659,18 +3665,18 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  '/permissions':
+  /permissions:
     get:
       tags:
         - Permissions
-      summary:  Permissions with modules
+      summary: Permissions with modules
       responses:
         '200':
           description: OK
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/PermissionsTemplate'            
+                $ref: '#/components/schemas/PermissionsTemplate'
   '/schedules/{id}/airplane':
     get:
       tags:
@@ -7141,7 +7147,7 @@ components:
           type: string
         email:
           type: string
-        position:
+        role:
           type: string
           enum:
             - ADMIN
@@ -7155,20 +7161,78 @@ components:
       properties:
         email:
           type: string
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              permission:
+                type: array
+                items:
+                  type: string
     CompanyUserGet:
       title: User
       type: object
       description: ''
       properties:
+        id:
+          type: string
         email:
           type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - RESTRICTED
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              permission:
+                type: array
+                items:
+                  type: string
     CompanyUserUpdate:
       title: User
       type: object
       description: ''
       properties:
-        email:
+        id:
           type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              permission:
+                type: array
+                items:
+                  type: string    
     PermissionsTemplate:
       title: Permission table
       type: object
@@ -7179,7 +7243,7 @@ components:
           items:
             type: object
             properties:
-              id: 
+              id:
                 type: integer
               name:
                 type: string
@@ -7187,4 +7251,3 @@ components:
                 type: array
                 items:
                   type: string
-
