@@ -312,6 +312,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompanyUserList'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pattern
+          description: keyword to search
     post:
       tags:
         - Company users
@@ -328,8 +334,17 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  /companies/users/{user_id}:
+  '/companies/users/{user_id}':
     get:
+      parameters:
+        - name: user_id
+          in: path
+          description: id of current updating user
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: string
       tags:
         - Company users
       responses:
@@ -355,7 +370,6 @@ paths:
         content:
           application/json:
             schema:
-              type: string
               $ref: '#/components/schemas/CompanyUserUpdate'
       responses:
         '204':
@@ -366,7 +380,6 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-
   /user/profile:
     get:
       tags:
@@ -1070,7 +1083,7 @@ paths:
                     - id: 148
                       code: GZG
                       name: VN HKG MCO SSW
-                      tags: ''
+                      tags: 's'
                       location:
                         id: 148
                         name: Hong Kong
@@ -1118,21 +1131,6 @@ paths:
                 - tags
                 - location
                 - translate
-            examples:
-              example-1:
-                value:
-                  code: BQTA
-                  name: BrestA
-                  tags:
-                    - Ballarat
-                    - Брест
-                    - Брест
-                    - Brest
-                  location:
-                    id: 1650
-                  translate:
-                    - language: ru
-                      name: Брест
       responses:
         '200':
           description: OK
@@ -3661,6 +3659,18 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
+  '/permissions':
+    get:
+      tags:
+        - Permissions
+      summary:  Permissions with modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PermissionsTemplate'            
   '/schedules/{id}/airplane':
     get:
       tags:
@@ -7159,8 +7169,22 @@ components:
       properties:
         email:
           type: string
-  securitySchemes:
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    PermissionsTemplate:
+      title: Permission table
+      type: object
+      description: ''
+      properties:
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id: 
+                type: integer
+              name:
+                type: string
+              permission:
+                type: array
+                items:
+                  type: string
+
