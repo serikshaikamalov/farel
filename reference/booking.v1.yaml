@@ -57,7 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllBookingsResponse'
-  'public/bookings/{bookingNumber}':
+  '/public/bookings/{bookingNumber}':
     get:
       operationId: getBookingDetails
       description: get booking details
@@ -79,7 +79,12 @@ paths:
                 $ref: '#/components/schemas/BookingDetailsResponse'
         '404':
           description: Requested booking not found
-    parameters: []
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
   '/bookings/{bookingId}/passengers/{passengerId}':
     put:
       operationId: updatePassengerDetails
