@@ -57,7 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllBookingsResponse'
-  '/public/bookings/{bookingNumber}':
+  '/bookings/{bookingId}':
     get:
       operationId: getBookingDetails
       description: get booking details
@@ -82,7 +82,7 @@ paths:
     parameters:
       - schema:
           type: string
-        name: bookingNumber
+        name: bookingId
         in: path
         required: true
   '/bookings/{bookingId}/passengers/{passengerId}':
