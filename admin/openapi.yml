@@ -440,6 +440,27 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /public/admin-password-reset:
+    post:
+      tags:
+        - Admin change password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: key
+          description: activation key from link
   '/airplanes/{id}/type':
     get:
       tags:
@@ -7232,7 +7253,7 @@ components:
               permission:
                 type: array
                 items:
-                  type: string    
+                  type: string
     PermissionsTemplate:
       title: Permission table
       type: object
