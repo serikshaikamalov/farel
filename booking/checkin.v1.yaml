@@ -5,6 +5,74 @@ info:
   description: ''
 servers:
   - url: 'http://localhost:3000'
-paths: {}
+paths:
+  '/api/v1/public/checkin/{bookingNumber}/passengers':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-api-v1-public-checkin-bookingNumber-passengers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required:
+                  - id
+                  - birthday
+                  - idNumber
+                  - citizenship
+                  - expiredDate
+                  - firstName
+                  - lastName
+                properties:
+                  id:
+                    type: number
+                  birthday:
+                    type: string
+                    minLength: 1
+                  idNumber:
+                    type: string
+                    minLength: 1
+                  citizenship:
+                    type: string
+                    minLength: 1
+                  expiredDate:
+                    type: string
+                    minLength: 1
+                  firstName:
+                    type: string
+                    minLength: 1
+                  lastName:
+                    type: string
+                    minLength: 1
+            examples:
+              example-1:
+                value:
+                  - id: 2000301
+                    birthday: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenship: KZ
+                    expiredDate: '2021-10-03'
+                    firstName: Nurlan
+                    lastName: Muldashev
+                  - id: 2000302
+                    birthday: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenship: KZ
+                    expiredDate: '2021-10-03'
+                    firstName: Nurlan1
+                    lastName: Muldashev1
 components:
   schemas: {}
