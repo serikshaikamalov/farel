@@ -864,6 +864,6 @@ paths:
                       count: 2
                       totalAmount: 41517
                   refundId: null
-      description: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc'
+      description: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc in outboundFlights and returnFlights'
 components:
   schemas: {}
