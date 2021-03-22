@@ -74,5 +74,275 @@ paths:
                     expiredDate: '2021-10-03'
                     firstName: Nurlan1
                     lastName: Muldashev1
+  '/api/v1/public/checkin/{bookingNumber}/seatsMap':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-v1-public-checkin-bookingNumber-seatsMap
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  outboundFlights:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - flightId
+                        - departDate
+                        - arriveDate
+                        - departTime
+                        - arriveTime
+                      properties:
+                        flightId:
+                          type: number
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        departDate:
+                          type: string
+                          minLength: 1
+                        arriveDate:
+                          type: string
+                          minLength: 1
+                        departTime:
+                          type: string
+                          minLength: 1
+                        arriveTime:
+                          type: string
+                          minLength: 1
+                        seats:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required: []
+                            properties:
+                              passengerDetails:
+                                type: object
+                                properties:
+                                  id:
+                                    type: number
+                                  birthday:
+                                    type: string
+                                    minLength: 1
+                                  idNumber:
+                                    type: string
+                                    minLength: 1
+                                  citizenship:
+                                    type: string
+                                    minLength: 1
+                                  expiredDate:
+                                    type: string
+                                    minLength: 1
+                                  firstName:
+                                    type: string
+                                    minLength: 1
+                                  lastName:
+                                    type: string
+                                    minLength: 1
+                                required:
+                                  - id
+                                  - birthday
+                                  - idNumber
+                                  - citizenship
+                                  - expiredDate
+                                  - firstName
+                                  - lastName
+                              seats:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
+                  returnFlights:
+                    type: array
+                    items:
+                      required: []
+                      properties: {}
+                required:
+                  - outboundFlights
+                  - returnFlights
+              examples:
+                example-1:
+                  value:
+                    outboundFlights:
+                      - flightId: 2000351
+                        origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-23'
+                        arriveDate: '2021-03-23'
+                        departTime: '04:45'
+                        arriveTime: '07:45'
+                        seats:
+                          - passengerDetails:
+                              id: 2000301
+                              birthday: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenship: KZ
+                              expiredDate: '2021-10-03'
+                              firstName: Nurlan
+                              lastName: Muldashev
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                          - passengerDetails:
+                              id: 2000302
+                              birthday: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenship: KZ
+                              expiredDate: '2021-10-03'
+                              firstName: Nurlan1
+                              lastName: Muldashev1
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                      - flightId: 2000352
+                        origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-23'
+                        arriveDate: '2021-03-23'
+                        departTime: '04:45'
+                        arriveTime: '07:45'
+                        seats:
+                          - passengerDetails:
+                              id: 2000301
+                              birthday: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenship: KZ
+                              expiredDate: '2021-10-03'
+                              firstName: Nurlan
+                              lastName: Muldashev
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                          - passengerDetails:
+                              id: 2000302
+                              birthday: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenship: KZ
+                              expiredDate: '2021-10-03'
+                              firstName: Nurlan1
+                              lastName: Muldashev1
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                    returnFlights: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required: []
+                properties: {}
+            examples:
+              example-1:
+                value:
+                  - 2000301
+                  - 2000302
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
 components:
   schemas: {}
