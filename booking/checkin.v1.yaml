@@ -14,7 +14,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get boarding passengers
       tags: []
       responses: {}
       operationId: get-api-v1-public-checkin-bookingNumber-passengers
@@ -82,7 +82,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: Get boarding seats map
       operationId: post-api-v1-public-checkin-bookingNumber-seatsMap
       responses:
         '200':
@@ -352,7 +352,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: Checkin
       operationId: post-api-v1-public-checkin-bookingNumber
       responses:
         '200':
