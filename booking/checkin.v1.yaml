@@ -344,5 +344,63 @@ paths:
             schema:
               type: object
               properties: {}
+  '/api/v1/public/checkin/{bookingNumber}':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-api-v1-public-checkin-bookingNumber
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required:
+                  - flightId
+                  - passengerSeat
+                properties:
+                  flightId:
+                    type: number
+                  passengerSeat:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - passengerId
+                        - seat
+                      properties:
+                        passengerId:
+                          type: number
+                        seat:
+                          type: string
+                          minLength: 1
+            examples:
+              example-1:
+                value:
+                  - flightId: 2000351
+                    passengerSeat:
+                      - passengerId: 2000301
+                        seat: 10A
+                      - passengerId: 2000302
+                        seat: 10B
+                  - flightId: 2000352
+                    passengerSeat:
+                      - passengerId: 2000301
+                        seat: 10A
+                      - passengerId: 2000302
+                        seat: 10B
 components:
   schemas: {}
