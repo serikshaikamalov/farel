@@ -410,7 +410,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc'
       tags: []
       responses: {}
       operationId: get-api-v1-public-bookings-bookingNumber
