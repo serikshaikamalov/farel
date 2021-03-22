@@ -410,7 +410,7 @@ paths:
         in: path
         required: true
     get:
-      summary: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc'
+      summary: 'Example of checkinStartUtc, checkinEndUtc'
       tags: []
       responses: {}
       operationId: get-api-v1-public-bookings-bookingNumber
@@ -521,7 +521,6 @@ paths:
                       - companyCode
                       - checkinStartUtc
                       - checkinEndUtc
-                      - boardingUrl
                     properties:
                       departDate:
                         type: string
@@ -591,9 +590,6 @@ paths:
                         type: string
                         minLength: 1
                       checkinEndUtc:
-                        type: string
-                        minLength: 1
-                      boardingUrl:
                         type: string
                         minLength: 1
                 returnFlights:
@@ -798,7 +794,6 @@ paths:
                       companyCode: ZZ
                       checkinStartUtc: '2021-03-21T23:45:00Z'
                       checkinEndUtc: '2021-03-22T23:05:00Z'
-                      boardingUrl: 'https://localhost:8080/api/files/25bmym/I3bn6t'
                     - departDate: '2021-03-23'
                       arriveDate: '2021-03-23'
                       departTime: '04:45'
@@ -821,7 +816,6 @@ paths:
                       companyCode: ZZ
                       checkinStartUtc: '2021-03-21T23:45:00Z'
                       checkinEndUtc: '2021-03-22T23:05:00Z'
-                      boardingUrl: 'https://localhost:8080/api/files/25bmym/I3bn6t'
                   returnFlights: []
                   passengers:
                     - id: 2000301
@@ -864,6 +858,7 @@ paths:
                       count: 2
                       totalAmount: 41517
                   refundId: null
+        description: ''
       description: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc in outboundFlights and returnFlights'
 components:
   schemas: {}
