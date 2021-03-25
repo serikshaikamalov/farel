@@ -1,4 +1,4 @@
-title: AddFareRuleRequestModel
+title: FareRuleModel
 type: object
 properties:
   name:
@@ -11,6 +11,10 @@ properties:
       $ref: ./Translation.v1.yaml
   weight:
     type: number
+  id:
+    type:
+      - number
+      - 'null'
 required:
   - name
   - type
