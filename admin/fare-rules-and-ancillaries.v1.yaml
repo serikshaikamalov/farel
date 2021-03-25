@@ -99,6 +99,15 @@ paths:
         name: id
         in: path
         required: true
-        description: ID of the Fare Rule to be updated
+        description: ID of the Fare Rule
+    delete:
+      summary: 'Delete Fare Rule with a given ID '
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      operationId: delete-v1-api-dictionaries-fare-rules-id
 components:
   schemas: {}
