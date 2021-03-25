@@ -60,14 +60,14 @@ paths:
             examples:
               example-1:
                 value:
-                  - id: 2000301
+                  - id: 2000051
                     birthDate: '2001-01-05'
                     idNumber: '034060638'
                     citizenshipCode: KZ
                     idValidity: '2021-10-03'
                     firstName: Nurlan
                     lastName: Muldashev
-                  - id: 2000302
+                  - id: 2000052
                     birthDate: '2001-01-05'
                     idNumber: '034060638'
                     citizenshipCode: KZ
@@ -99,14 +99,11 @@ paths:
                     minItems: 1
                     items:
                       required:
-                        - flightId
                         - departDate
                         - arriveDate
                         - departTime
                         - arriveTime
                       properties:
-                        flightId:
-                          type: number
                         origin:
                           type: object
                           properties:
@@ -196,9 +193,102 @@ paths:
                                   properties: {}
                   returnFlights:
                     type: array
+                    uniqueItems: true
+                    minItems: 1
                     items:
-                      required: []
-                      properties: {}
+                      required:
+                        - departDate
+                        - arriveDate
+                        - departTime
+                        - arriveTime
+                      properties:
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        departDate:
+                          type: string
+                          minLength: 1
+                        arriveDate:
+                          type: string
+                          minLength: 1
+                        departTime:
+                          type: string
+                          minLength: 1
+                        arriveTime:
+                          type: string
+                          minLength: 1
+                        seats:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required: []
+                            properties:
+                              passengerDetails:
+                                type: object
+                                properties:
+                                  id:
+                                    type: number
+                                  birthDate:
+                                    type: string
+                                    minLength: 1
+                                  idNumber:
+                                    type: string
+                                    minLength: 1
+                                  citizenshipCode:
+                                    type: string
+                                    minLength: 1
+                                  idValidity:
+                                    type: string
+                                    minLength: 1
+                                  firstName:
+                                    type: string
+                                    minLength: 1
+                                  lastName:
+                                    type: string
+                                    minLength: 1
+                                required:
+                                  - id
+                                  - birthDate
+                                  - idNumber
+                                  - citizenshipCode
+                                  - idValidity
+                                  - firstName
+                                  - lastName
+                              seats:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
                 required:
                   - outboundFlights
                   - returnFlights
@@ -206,8 +296,7 @@ paths:
                 example-1:
                   value:
                     outboundFlights:
-                      - flightId: 2000351
-                        origin:
+                      - origin:
                           city: Aktobe
                           airportName: Aktobe International
                           airportCode: AKX
@@ -215,13 +304,13 @@ paths:
                           city: Nur-Sultan (Astana)
                           airportName: Nursultan Nazarbayev Airport
                           airportCode: NQZ
-                        departDate: '2021-03-23'
-                        arriveDate: '2021-03-23'
+                        departDate: '2021-03-26'
+                        arriveDate: '2021-03-26'
                         departTime: '04:45'
                         arriveTime: '07:45'
                         seats:
                           - passengerDetails:
-                              id: 2000301
+                              id: 2000051
                               birthDate: '2001-01-05'
                               idNumber: '034060638'
                               citizenshipCode: KZ
@@ -242,7 +331,7 @@ paths:
                               - 15E
                               - 16F
                           - passengerDetails:
-                              id: 2000302
+                              id: 2000052
                               birthDate: '2001-01-05'
                               idNumber: '034060638'
                               citizenshipCode: KZ
@@ -262,8 +351,8 @@ paths:
                               - 14D
                               - 15E
                               - 16F
-                      - flightId: 2000352
-                        origin:
+                    returnFlights:
+                      - origin:
                           city: Aktobe
                           airportName: Aktobe International
                           airportCode: AKX
@@ -271,13 +360,13 @@ paths:
                           city: Nur-Sultan (Astana)
                           airportName: Nursultan Nazarbayev Airport
                           airportCode: NQZ
-                        departDate: '2021-03-23'
-                        arriveDate: '2021-03-23'
+                        departDate: '2021-03-26'
+                        arriveDate: '2021-03-26'
                         departTime: '04:45'
                         arriveTime: '07:45'
                         seats:
                           - passengerDetails:
-                              id: 2000301
+                              id: 2000051
                               birthDate: '2001-01-05'
                               idNumber: '034060638'
                               citizenshipCode: KZ
@@ -298,7 +387,7 @@ paths:
                               - 15E
                               - 16F
                           - passengerDetails:
-                              id: 2000302
+                              id: 2000052
                               birthDate: '2001-01-05'
                               idNumber: '034060638'
                               citizenshipCode: KZ
@@ -318,7 +407,6 @@ paths:
                               - 14D
                               - 15E
                               - 16F
-                    returnFlights: []
       requestBody:
         content:
           application/json:
@@ -368,11 +456,16 @@ paths:
               items:
                 type: object
                 required:
-                  - flightId
+                  - originCode
+                  - destinationCode
                   - passengerSeat
                 properties:
-                  flightId:
-                    type: number
+                  originCode:
+                    type: string
+                    minLength: 1
+                  destinationCode:
+                    type: string
+                    minLength: 1
                   passengerSeat:
                     type: array
                     uniqueItems: true
@@ -390,17 +483,19 @@ paths:
             examples:
               example-1:
                 value:
-                  - flightId: 2000351
+                  - originCode: AKX
+                    destinationCode: NQZ
                     passengerSeat:
-                      - passengerId: 2000301
+                      - passengerId: 2000051
                         seat: 10A
-                      - passengerId: 2000302
+                      - passengerId: 2000052
                         seat: 10B
-                  - flightId: 2000352
+                  - originCode: AKX
+                    destinationCode: NQZ
                     passengerSeat:
-                      - passengerId: 2000301
+                      - passengerId: 2000051
                         seat: 10A
-                      - passengerId: 2000302
+                      - passengerId: 2000052
                         seat: 10B
   '/api/v1/public/bookings/{bookingNumber}':
     parameters:
