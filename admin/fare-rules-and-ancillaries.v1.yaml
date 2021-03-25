@@ -5,7 +5,7 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /fare-options:
+  /v1/api/dictionaries/fare-options:
     get:
       summary: 'get paginated, filtered and sorted fare rules and ancillaries'
       tags: []
@@ -109,5 +109,44 @@ paths:
         '404':
           description: Not Found
       operationId: delete-v1-api-dictionaries-fare-rules-id
+  '/v1/api/dictionaries/ancillaries/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Ancillary ID
+    post:
+      summary: Create Ancillary
+      tags: []
+      responses:
+        '201':
+          description: Created
+      operationId: post-v1-api-dictionaries-ancillaries-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AncillaryModel.v1.yaml
+    put:
+      summary: Update Ancillary
+      tags: []
+      responses:
+        '204':
+          description: No Content
+      operationId: put-v1-api-dictionaries-ancillaries-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AncillaryModel.v1.yaml
+    delete:
+      summary: Delete Ancillary
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: delete-v1-api-dictionaries-ancillaries-id
 components:
   schemas: {}
