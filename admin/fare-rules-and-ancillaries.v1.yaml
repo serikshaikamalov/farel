@@ -203,13 +203,15 @@ paths:
     post:
       summary: Add Fare Rule
       tags: []
-      responses: {}
+      responses:
+        '201':
+          description: Created
       operationId: post-v1-api-dictionaries-fare-rules
       requestBody:
         content:
           application/json:
             schema:
-              $ref: ''
+              $ref: ../models/AddFareRuleRequestModel.v1.yaml
 components:
   schemas:
     User:
