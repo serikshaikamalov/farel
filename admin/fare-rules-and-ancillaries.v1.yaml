@@ -199,6 +199,17 @@ paths:
             type: string
           in: query
           name: type
+  /v1/api/dictionaries/fare-rules:
+    post:
+      summary: Add Fare Rule
+      tags: []
+      responses: {}
+      operationId: post-v1-api-dictionaries-fare-rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ''
 components:
   schemas:
     User:

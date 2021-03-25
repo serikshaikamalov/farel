@@ -1,0 +1,7 @@
+title: Translation
+type: object
+properties:
+  languageCode:
+    type: string
+  value:
+    type: string
