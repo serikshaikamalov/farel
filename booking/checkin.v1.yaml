@@ -604,25 +604,25 @@ paths:
                   items:
                     required:
                       - id
-                      - birthday
+                      - birthDate
                       - idNumber
-                      - citizenship
-                      - expiredDate
+                      - citizenshipCode
+                      - idValidity
                       - firstName
                       - lastName
                     properties:
                       id:
                         type: number
-                      birthday:
+                      birthDate:
                         type: string
                         minLength: 1
                       idNumber:
                         type: string
                         minLength: 1
-                      citizenship:
+                      citizenshipCode:
                         type: string
                         minLength: 1
-                      expiredDate:
+                      idValidity:
                         type: string
                         minLength: 1
                       firstName:
@@ -819,17 +819,17 @@ paths:
                   returnFlights: []
                   passengers:
                     - id: 2000301
-                      birthday: '2001-01-05'
+                      birthDate: '2001-01-05'
                       idNumber: '034060638'
-                      citizenship: KZ
-                      expiredDate: '2021-10-03'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
                       firstName: Nurlan
                       lastName: Muldashev
                     - id: 2000302
-                      birthday: '2001-01-05'
+                      birthDate: '2001-01-05'
                       idNumber: '034060638'
-                      citizenship: KZ
-                      expiredDate: '2021-10-03'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
                       firstName: Nurlan1
                       lastName: Muldashev1
                   feesDetails:
