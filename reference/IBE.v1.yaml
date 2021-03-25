@@ -301,17 +301,19 @@ components:
       type: object
       description: list of flights
       properties:
+        date:
+          type: string
         departure: 
           type: object
           properties:
-            date: 
+            time: 
               type: string
             code: 
               type: string
         arrival: 
           type: object
           properties:
-            date: 
+            time: 
               type: string
             code: 
               type: string

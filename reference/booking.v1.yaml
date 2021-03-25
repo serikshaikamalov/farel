@@ -79,6 +79,12 @@ paths:
                 $ref: '#/components/schemas/BookingDetailsResponse'
         '404':
           description: Requested booking not found
+    parameters:
+      - schema:
+          type: string
+        name: bookingId
+        in: path
+        required: true
   '/bookings/{bookingId}/passengers/{passengerId}':
     put:
       operationId: updatePassengerDetails
