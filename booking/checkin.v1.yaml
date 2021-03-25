@@ -1168,9 +1168,17 @@ paths:
                               boardingUrl:
                                 type: string
                                 minLength: 1
+                  downloadOutboundFlights:
+                    type: string
+                    minLength: 1
+                  downloadReturnFlights:
+                    type: string
+                    minLength: 1
                 required:
                   - outboundFlights
                   - returnFlights
+                  - downloadOutboundFlights
+                  - downloadReturnFlights
               examples:
                 example-1:
                   value:
@@ -1196,7 +1204,7 @@ paths:
                             firstName: Nurlan
                             lastName: Muldashev
                             seat: 10C
-                            boardingUrl: api/files1tvydj/oHVGY6
+                            boardingUrl: /api/files/1tvydj/oHVGY6
                           - id: 2000052
                             birthDate: 05-01-2001
                             idNumber: '034060638'
@@ -1205,7 +1213,7 @@ paths:
                             firstName: Nurlan1
                             lastName: Muldashev1
                             seat: 10C
-                            boardingUrl: api/files1tvydj/HXnj3f
+                            boardingUrl: /api/files/1tvydj/HXnj3f
                     returnFlights:
                       - origin:
                           city: Aktobe
@@ -1228,7 +1236,7 @@ paths:
                             firstName: Nurlan
                             lastName: Muldashev
                             seat: 10C
-                            boardingUrl: api/files1tvydj/eO6ZXI
+                            boardingUrl: /api/files/1tvydj/eO6ZXI
                           - id: 2000052
                             birthDate: 05-01-2001
                             idNumber: '034060638'
@@ -1237,6 +1245,8 @@ paths:
                             firstName: Nurlan1
                             lastName: Muldashev1
                             seat: 10C
-                            boardingUrl: api/files1tvydj/PA4o6a
+                            boardingUrl: /api/files/1tvydj/PA4o6a
+                    downloadOutboundFlights: /api/files/1TVYDJ/oHVGY6_HXnj3f
+                    downloadReturnFlights: /api/files/1TVYDJ/eO6ZXI_PA4o6a
 components:
   schemas: {}
