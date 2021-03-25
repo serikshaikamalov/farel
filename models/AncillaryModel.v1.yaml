@@ -1,0 +1,30 @@
+title: AncillaryModel
+type: object
+properties:
+  id:
+    type:
+      - number
+      - 'null'
+  name:
+    type: string
+  type:
+    type: string
+  translations:
+    type: array
+    items:
+      $ref: ./Translation.v1.yaml
+  rules:
+    type: array
+    items:
+      type: string
+      enum:
+        - ROUTE
+        - TRAVEL_DATE
+        - DISTRIBUTION_CHANNELS
+        - TIME_BEFORE_DEPARTUES
+        - PAYMENT_TYPE
+        - WEIGHT
+        - DIMENSIONS
+required:
+  - name
+  - type
