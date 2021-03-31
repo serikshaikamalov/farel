@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: fare-rules-and-ancillaries
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /v1/api/dictionaries/fare-options:
+    get:
+      summary: 'get paginated, filtered and sorted fare rules and ancillaries'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  name:
+                    type: string
+                    minLength: 1
+                  type:
+                    type: string
+                    minLength: 1
+                  languages:
+                    type: array
+                    items:
+                      type: string
+                  category:
+                    type: string
+                    minLength: 1
+                required:
+                  - name
+                  - type
+                  - languages
+                  - category
+      operationId: get-fare-options
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+          required: true
+        - schema:
+            type: number
+          in: query
+          name: size
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: name
+        - schema:
+            type: string
+          in: query
+          name: category
+          description: Fare Rule or Ancillary
+        - schema:
+            type: string
+          in: query
+          name: type
+  '/v1/api/dictionaries/fare-rules/{id}':
+    post:
+      summary: Add Fare Rule
+      tags: []
+      responses:
+        '201':
+          description: Created
+      operationId: post-v1-api-dictionaries-fare-rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AddFareRuleRequestModel.v1.yaml
+    put:
+      summary: Update Fare Rule identified by a given ID
+      tags: []
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: put-v1-api-dictionaries-fare-rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AddFareRuleRequestModel.v1.yaml
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: ID of the Fare Rule
+    delete:
+      summary: 'Delete Fare Rule with a given ID '
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      operationId: delete-v1-api-dictionaries-fare-rules-id
+  '/v1/api/dictionaries/ancillaries/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Ancillary ID
+    post:
+      summary: Create Ancillary
+      tags: []
+      responses:
+        '201':
+          description: Created
+      operationId: post-v1-api-dictionaries-ancillaries-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AncillaryModel.v1.yaml
+    put:
+      summary: Update Ancillary
+      tags: []
+      responses:
+        '204':
+          description: No Content
+      operationId: put-v1-api-dictionaries-ancillaries-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AncillaryModel.v1.yaml
+    delete:
+      summary: Delete Ancillary
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: delete-v1-api-dictionaries-ancillaries-id
+components:
+  schemas: {}

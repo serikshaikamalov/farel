@@ -1,0 +1,1134 @@
+openapi: 3.0.0
+info:
+  title: checkin
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/api/v1/public/checkin/{bookingNumber}/passengers':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    get:
+      summary: Get boarding passengers
+      tags: []
+      responses: {}
+      operationId: get-api-v1-public-checkin-bookingNumber-passengers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required:
+                  - id
+                  - birthDate
+                  - idNumber
+                  - citizenshipCode
+                  - idValidity
+                  - firstName
+                  - lastName
+                properties:
+                  id:
+                    type: number
+                  birthDate:
+                    type: string
+                    minLength: 1
+                  idNumber:
+                    type: string
+                    minLength: 1
+                  citizenshipCode:
+                    type: string
+                    minLength: 1
+                  idValidity:
+                    type: string
+                    minLength: 1
+                  firstName:
+                    type: string
+                    minLength: 1
+                  lastName:
+                    type: string
+                    minLength: 1
+            examples:
+              example-1:
+                value:
+                  - id: 2000301
+                    birthDate: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenshipCode: KZ
+                    idValidity: '2021-10-03'
+                    firstName: Nurlan
+                    lastName: Muldashev
+                  - id: 2000302
+                    birthDate: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenshipCode: KZ
+                    idValidity: '2021-10-03'
+                    firstName: Nurlan1
+                    lastName: Muldashev1
+  '/api/v1/public/checkin/{bookingNumber}/seatsMap':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    post:
+      summary: Get boarding seats map
+      operationId: post-api-v1-public-checkin-bookingNumber-seatsMap
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  outboundFlights:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - flightId
+                        - departDate
+                        - arriveDate
+                        - departTime
+                        - arriveTime
+                      properties:
+                        flightId:
+                          type: number
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        departDate:
+                          type: string
+                          minLength: 1
+                        arriveDate:
+                          type: string
+                          minLength: 1
+                        departTime:
+                          type: string
+                          minLength: 1
+                        arriveTime:
+                          type: string
+                          minLength: 1
+                        seats:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required: []
+                            properties:
+                              passengerDetails:
+                                type: object
+                                properties:
+                                  id:
+                                    type: number
+                                  birthDate:
+                                    type: string
+                                    minLength: 1
+                                  idNumber:
+                                    type: string
+                                    minLength: 1
+                                  citizenshipCode:
+                                    type: string
+                                    minLength: 1
+                                  idValidity:
+                                    type: string
+                                    minLength: 1
+                                  firstName:
+                                    type: string
+                                    minLength: 1
+                                  lastName:
+                                    type: string
+                                    minLength: 1
+                                required:
+                                  - id
+                                  - birthDate
+                                  - idNumber
+                                  - citizenshipCode
+                                  - idValidity
+                                  - firstName
+                                  - lastName
+                              seats:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
+                  returnFlights:
+                    type: array
+                    items:
+                      required: []
+                      properties: {}
+                required:
+                  - outboundFlights
+                  - returnFlights
+              examples:
+                example-1:
+                  value:
+                    outboundFlights:
+                      - flightId: 2000351
+                        origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-23'
+                        arriveDate: '2021-03-23'
+                        departTime: '04:45'
+                        arriveTime: '07:45'
+                        seats:
+                          - passengerDetails:
+                              id: 2000301
+                              birthDate: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenshipCode: KZ
+                              idValidity: '2021-10-03'
+                              firstName: Nurlan
+                              lastName: Muldashev
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                          - passengerDetails:
+                              id: 2000302
+                              birthDate: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenshipCode: KZ
+                              idValidity: '2021-10-03'
+                              firstName: Nurlan1
+                              lastName: Muldashev1
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                      - flightId: 2000352
+                        origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-23'
+                        arriveDate: '2021-03-23'
+                        departTime: '04:45'
+                        arriveTime: '07:45'
+                        seats:
+                          - passengerDetails:
+                              id: 2000301
+                              birthDate: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenshipCode: KZ
+                              idValidity: '2021-10-03'
+                              firstName: Nurlan
+                              lastName: Muldashev
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                          - passengerDetails:
+                              id: 2000302
+                              birthDate: '2001-01-05'
+                              idNumber: '034060638'
+                              citizenshipCode: KZ
+                              idValidity: '2021-10-03'
+                              firstName: Nurlan1
+                              lastName: Muldashev1
+                            seats:
+                              - 10A
+                              - 10B
+                              - 10C
+                              - 10D
+                              - 10E
+                              - 10F
+                              - 11A
+                              - 12B
+                              - 13C
+                              - 14D
+                              - 15E
+                              - 16F
+                    returnFlights: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required: []
+                properties: {}
+            examples:
+              example-1:
+                value:
+                  - 2000301
+                  - 2000302
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+  '/api/v1/public/checkin/{bookingNumber}':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    post:
+      summary: Checkin
+      operationId: post-api-v1-public-checkin-bookingNumber
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required:
+                  - flightId
+                  - passengerSeat
+                properties:
+                  flightId:
+                    type: number
+                  passengerSeat:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - passengerId
+                        - seat
+                      properties:
+                        passengerId:
+                          type: number
+                        seat:
+                          type: string
+                          minLength: 1
+            examples:
+              example-1:
+                value:
+                  - flightId: 2000351
+                    passengerSeat:
+                      - passengerId: 2000301
+                        seat: 10A
+                      - passengerId: 2000302
+                        seat: 10B
+                  - flightId: 2000352
+                    passengerSeat:
+                      - passengerId: 2000301
+                        seat: 10A
+                      - passengerId: 2000302
+                        seat: 10B
+  '/api/v1/public/bookings/{bookingNumber}':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    get:
+      summary: 'Example of checkinStartUtc, checkinEndUtc'
+      tags: []
+      responses: {}
+      operationId: get-api-v1-public-bookings-bookingNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                order:
+                  type: object
+                  properties:
+                    number:
+                      type: string
+                      minLength: 1
+                    timeLimit:
+                      type: string
+                      minLength: 1
+                    status:
+                      type: string
+                      minLength: 1
+                  required:
+                    - number
+                    - timeLimit
+                    - status
+                outboundFlight:
+                  type: object
+                  properties:
+                    departDate:
+                      type: string
+                      minLength: 1
+                    arriveDate:
+                      type: string
+                      minLength: 1
+                    departTime:
+                      type: string
+                      minLength: 1
+                    arriveTime:
+                      type: string
+                      minLength: 1
+                    origin:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                          minLength: 1
+                        airportName:
+                          type: string
+                          minLength: 1
+                        airportCode:
+                          type: string
+                          minLength: 1
+                      required:
+                        - city
+                        - airportName
+                        - airportCode
+                    destination:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                          minLength: 1
+                        airportName:
+                          type: string
+                          minLength: 1
+                        airportCode:
+                          type: string
+                          minLength: 1
+                      required:
+                        - city
+                        - airportName
+                        - airportCode
+                    flightDuration:
+                      type: number
+                    stopDuration:
+                      type: number
+                    totalPrice:
+                      type: number
+                  required:
+                    - departDate
+                    - arriveDate
+                    - departTime
+                    - arriveTime
+                    - origin
+                    - destination
+                    - flightDuration
+                    - stopDuration
+                    - totalPrice
+                returnFlight: {}
+                outboundFlights:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - departDate
+                      - arriveDate
+                      - departTime
+                      - arriveTime
+                      - flightDuration
+                      - stopDuration
+                      - aircraft
+                      - flightNumber
+                      - flightId
+                      - totalPrice
+                      - fareClassName
+                      - companyCode
+                      - checkinStartUtc
+                      - checkinEndUtc
+                    properties:
+                      departDate:
+                        type: string
+                        minLength: 1
+                      arriveDate:
+                        type: string
+                        minLength: 1
+                      departTime:
+                        type: string
+                        minLength: 1
+                      arriveTime:
+                        type: string
+                        minLength: 1
+                      origin:
+                        type: object
+                        properties:
+                          city:
+                            type: string
+                            minLength: 1
+                          airportName:
+                            type: string
+                            minLength: 1
+                          airportCode:
+                            type: string
+                            minLength: 1
+                        required:
+                          - city
+                          - airportName
+                          - airportCode
+                      destination:
+                        type: object
+                        properties:
+                          city:
+                            type: string
+                            minLength: 1
+                          airportName:
+                            type: string
+                            minLength: 1
+                          airportCode:
+                            type: string
+                            minLength: 1
+                        required:
+                          - city
+                          - airportName
+                          - airportCode
+                      flightDuration:
+                        type: number
+                      stopDuration:
+                        type: number
+                      aircraft:
+                        type: string
+                        minLength: 1
+                      flightNumber:
+                        type: string
+                        minLength: 1
+                      flightId:
+                        type: number
+                      totalPrice:
+                        type: number
+                      fareClassName:
+                        type: string
+                        minLength: 1
+                      companyCode:
+                        type: string
+                        minLength: 1
+                      checkinStartUtc:
+                        type: string
+                        minLength: 1
+                      checkinEndUtc:
+                        type: string
+                        minLength: 1
+                returnFlights:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                passengers:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - id
+                      - birthDate
+                      - idNumber
+                      - citizenshipCode
+                      - idValidity
+                      - firstName
+                      - lastName
+                    properties:
+                      id:
+                        type: number
+                      birthDate:
+                        type: string
+                        minLength: 1
+                      idNumber:
+                        type: string
+                        minLength: 1
+                      citizenshipCode:
+                        type: string
+                        minLength: 1
+                      idValidity:
+                        type: string
+                        minLength: 1
+                      firstName:
+                        type: string
+                        minLength: 1
+                      lastName:
+                        type: string
+                        minLength: 1
+                feesDetails:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - id
+                      - tax
+                      - type
+                      - amount
+                    properties:
+                      id:
+                        type: number
+                      tax:
+                        type: string
+                        minLength: 1
+                      type:
+                        type: string
+                        minLength: 1
+                      amount:
+                        type: number
+                totalTaxes:
+                  type: number
+                totalPrice:
+                  type: number
+                origin:
+                  type: object
+                  properties:
+                    city:
+                      type: string
+                      minLength: 1
+                    airportName:
+                      type: string
+                      minLength: 1
+                    airportCode:
+                      type: string
+                      minLength: 1
+                  required:
+                    - city
+                    - airportName
+                    - airportCode
+                destination:
+                  type: object
+                  properties:
+                    city:
+                      type: string
+                      minLength: 1
+                    airportName:
+                      type: string
+                      minLength: 1
+                    airportCode:
+                      type: string
+                      minLength: 1
+                  required:
+                    - city
+                    - airportName
+                    - airportCode
+                outboundDate:
+                  type: string
+                  minLength: 1
+                returnDate:
+                  type: string
+                  minLength: 1
+                outboundStops:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - airport
+                      - stopDuration
+                    properties:
+                      airport:
+                        type: string
+                        minLength: 1
+                      stopDuration:
+                        type: number
+                returnStops:
+                  type: array
+                  items:
+                    required: []
+                    properties: {}
+                passengerAmountDetails:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - passengerType
+                      - count
+                      - totalAmount
+                    properties:
+                      passengerType:
+                        type: string
+                        minLength: 1
+                      count:
+                        type: number
+                      totalAmount:
+                        type: number
+                refundId: {}
+              required:
+                - order
+                - outboundFlight
+                - outboundFlights
+                - returnFlights
+                - passengers
+                - feesDetails
+                - totalTaxes
+                - totalPrice
+                - origin
+                - destination
+                - outboundDate
+                - returnDate
+                - outboundStops
+                - returnStops
+                - passengerAmountDetails
+            examples:
+              example-1:
+                value:
+                  order:
+                    number: 25BMYM
+                    timeLimit: '2021-03-22T12:36:07.779004Z'
+                    status: PAYMENT_AWAITING
+                  outboundFlight:
+                    departDate: '2021-03-23'
+                    arriveDate: '2021-03-23'
+                    departTime: '04:45'
+                    arriveTime: '07:45'
+                    origin:
+                      city: Aktobe
+                      airportName: Aktobe International
+                      airportCode: AKX
+                    destination:
+                      city: Nur-Sultan (Astana)
+                      airportName: Nursultan Nazarbayev Airport
+                      airportCode: NQZ
+                    flightDuration: 120
+                    stopDuration: -120
+                    totalPrice: 21876
+                  returnFlight: null
+                  outboundFlights:
+                    - departDate: '2021-03-23'
+                      arriveDate: '2021-03-23'
+                      departTime: '04:45'
+                      arriveTime: '07:45'
+                      origin:
+                        city: Aktobe
+                        airportName: Aktobe International
+                        airportCode: AKX
+                      destination:
+                        city: Nur-Sultan (Astana)
+                        airportName: Nursultan Nazarbayev Airport
+                        airportCode: NQZ
+                      flightDuration: 120
+                      stopDuration: -120
+                      aircraft: Airbus A320-200
+                      flightNumber: ZZ - 978
+                      flightId: 2000351
+                      totalPrice: 10938
+                      fareClassName: ECONOMY
+                      companyCode: ZZ
+                      checkinStartUtc: '2021-03-21T23:45:00Z'
+                      checkinEndUtc: '2021-03-22T23:05:00Z'
+                    - departDate: '2021-03-23'
+                      arriveDate: '2021-03-23'
+                      departTime: '04:45'
+                      arriveTime: '07:45'
+                      origin:
+                        city: Aktobe
+                        airportName: Aktobe International
+                        airportCode: AKX
+                      destination:
+                        city: Nur-Sultan (Astana)
+                        airportName: Nursultan Nazarbayev Airport
+                        airportCode: NQZ
+                      flightDuration: 120
+                      stopDuration: 0
+                      aircraft: Airbus A320-200
+                      flightNumber: ZZ - 978
+                      flightId: 2000352
+                      totalPrice: 10938
+                      fareClassName: ECONOMY
+                      companyCode: ZZ
+                      checkinStartUtc: '2021-03-21T23:45:00Z'
+                      checkinEndUtc: '2021-03-22T23:05:00Z'
+                  returnFlights: []
+                  passengers:
+                    - id: 2000301
+                      birthDate: '2001-01-05'
+                      idNumber: '034060638'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
+                      firstName: Nurlan
+                      lastName: Muldashev
+                    - id: 2000302
+                      birthDate: '2001-01-05'
+                      idNumber: '034060638'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
+                      firstName: Nurlan1
+                      lastName: Muldashev1
+                  feesDetails:
+                    - id: 9
+                      tax: Airport Fuel Surcharge (YQ)
+                      type: AMOUNT
+                      amount: 2264
+                  totalTaxes: 2264
+                  totalPrice: 43781
+                  origin:
+                    city: Aktobe
+                    airportName: Aktobe International
+                    airportCode: AKX
+                  destination:
+                    city: Nur-Sultan (Astana)
+                    airportName: Nursultan Nazarbayev Airport
+                    airportCode: NQZ
+                  outboundDate: '2021-03-23'
+                  returnDate: '2021-03-23'
+                  outboundStops:
+                    - airport: NQZ
+                      stopDuration: -120
+                  returnStops: []
+                  passengerAmountDetails:
+                    - passengerType: ADT
+                      count: 2
+                      totalAmount: 41517
+                  refundId: null
+        description: ''
+      description: 'Example of boardingUrl, checkinStartUtc, checkinEndUtc in outboundFlights and returnFlights'
+  '/api/v1/public/checkin/{bookingNumber}/status':
+    parameters:
+      - schema:
+          type: string
+        name: bookingNumber
+        in: path
+        required: true
+    get:
+      summary: Get status
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  outboundFlights:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - departDate
+                        - arriveDate
+                        - departTime
+                        - arriveTime
+                      properties:
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        departDate:
+                          type: string
+                          minLength: 1
+                        arriveDate:
+                          type: string
+                          minLength: 1
+                        departTime:
+                          type: string
+                          minLength: 1
+                        arriveTime:
+                          type: string
+                          minLength: 1
+                        passengers:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - id
+                              - birthDate
+                              - idNumber
+                              - citizenshipCode
+                              - firstName
+                              - lastName
+                              - seat
+                              - boardingUrl
+                            properties:
+                              id:
+                                type: number
+                              birthDate:
+                                type: string
+                                minLength: 1
+                              idNumber:
+                                type: string
+                                minLength: 1
+                              citizenshipCode:
+                                type: string
+                                minLength: 1
+                              firstName:
+                                type: string
+                                minLength: 1
+                              lastName:
+                                type: string
+                                minLength: 1
+                              seat:
+                                type: string
+                                minLength: 1
+                              boardingUrl:
+                                type: string
+                                minLength: 1
+                  returnFlights:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - departDate
+                        - arriveDate
+                        - departTime
+                        - arriveTime
+                      properties:
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              minLength: 1
+                            airportName:
+                              type: string
+                              minLength: 1
+                            airportCode:
+                              type: string
+                              minLength: 1
+                          required:
+                            - city
+                            - airportName
+                            - airportCode
+                        departDate:
+                          type: string
+                          minLength: 1
+                        arriveDate:
+                          type: string
+                          minLength: 1
+                        departTime:
+                          type: string
+                          minLength: 1
+                        arriveTime:
+                          type: string
+                          minLength: 1
+                        passengers:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - id
+                              - birthDate
+                              - idNumber
+                              - citizenshipCode
+                              - firstName
+                              - lastName
+                              - seat
+                              - boardingUrl
+                            properties:
+                              id:
+                                type: number
+                              birthDate:
+                                type: string
+                                minLength: 1
+                              idNumber:
+                                type: string
+                                minLength: 1
+                              citizenshipCode:
+                                type: string
+                                minLength: 1
+                              firstName:
+                                type: string
+                                minLength: 1
+                              lastName:
+                                type: string
+                                minLength: 1
+                              seat:
+                                type: string
+                                minLength: 1
+                              boardingUrl:
+                                type: string
+                                minLength: 1
+                  downloadOutboundFlights:
+                    type: string
+                    minLength: 1
+                  downloadReturnFlights:
+                    type: string
+                    minLength: 1
+                required:
+                  - outboundFlights
+                  - returnFlights
+                  - downloadOutboundFlights
+                  - downloadReturnFlights
+              examples:
+                example-1:
+                  value:
+                    outboundFlights:
+                      - origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-28'
+                        arriveDate: '2021-03-28'
+                        departTime: '04:45:00'
+                        arriveTime: '07:45:00'
+                        passengers:
+                          - id: 2002603
+                            birthDate: '2000-10-10'
+                            idNumber: '1'
+                            citizenshipCode: KZ
+                            firstName: asd
+                            lastName: asd
+                            seat: 10C
+                            boardingUrl: /api/files/HYLVCP/ZB0vUO
+                    returnFlights:
+                      - origin:
+                          city: Aktobe
+                          airportName: Aktobe International
+                          airportCode: AKX
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-03-28'
+                        arriveDate: '2021-03-28'
+                        departTime: '04:45:00'
+                        arriveTime: '07:45:00'
+                        passengers:
+                          - id: 2002603
+                            birthDate: '2000-10-10'
+                            idNumber: '1'
+                            citizenshipCode: KZ
+                            firstName: asd
+                            lastName: asd
+                            seat: 10C
+                            boardingUrl: /api/files/HYLVCP/ZB0vUO
+                    downloadOutboundFlights: /api/files/HYLVCP/ZB0vUO
+                    downloadReturnFlights: /api/files/HYLVCP/ZB0vUO
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-api-v1-public-checkin-bookingNumber-status
+components:
+  schemas: {}

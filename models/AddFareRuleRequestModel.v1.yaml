@@ -1,0 +1,20 @@
+title: FareRuleModel
+type: object
+properties:
+  name:
+    type: string
+  type:
+    type: string
+  translations:
+    type: array
+    items:
+      $ref: ./Translation.v1.yaml
+  weight:
+    type: number
+  id:
+    type:
+      - number
+      - 'null'
+required:
+  - name
+  - type
