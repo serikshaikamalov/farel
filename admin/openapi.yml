@@ -7188,7 +7188,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
@@ -7221,7 +7221,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
@@ -7247,7 +7247,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
