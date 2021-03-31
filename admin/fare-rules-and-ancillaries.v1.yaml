@@ -23,20 +23,22 @@ paths:
                       - string
                       - number
                   data:
-                    type: object
-                    properties:
-                      id:
-                        type: number
-                      name:
-                        type: string
-                      category:
-                        type: string
-                      type:
-                        type: string
-                      translations:
-                        type: array
-                        items:
-                          $ref: ../models/Translation.v1.yaml
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                        category:
+                          type: string
+                        type:
+                          type: string
+                        translations:
+                          type: array
+                          items:
+                            $ref: ../models/Translation.v1.yaml
       operationId: get-fare-options
       parameters:
         - schema:
