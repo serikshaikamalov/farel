@@ -5596,6 +5596,155 @@ paths:
           name: page
           description: page number
     parameters: []
+  /b2b-partners:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    legalName:
+                      type: string
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                    email:
+                      type: string
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    lastActivityDateTime:
+                      type: string
+                    account:
+                      type: object
+                      properties:
+                        number:
+                          type: string
+                        balance:
+                          type: number
+                    status:
+                      type: string
+      operationId: get-b2b-partners
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pattern
+    post:
+      summary: ''
+      operationId: post-b2b-partners
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                legalName:
+                  type: string
+                countryId:
+                  type: integer
+                email:
+                  type: string
+  '/b2b-partners/{agent-id}':
+    parameters:
+      - schema:
+          type: string
+        name: agent-id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  legalName:
+                    type: string
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                  email:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  lastActivityDateTime:
+                    type: string
+                  account:
+                    type: object
+                    properties:
+                      number:
+                        type: string
+                      balance:
+                        type: number
+                  status:
+                    type: string
+    put:
+      summary: ''
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                legalName:
+                  type: string
+                countryId:
+                  type: number
+                email:
+                  type: string
+                balance:
+                  type: number
+                status:
+                  type: string
+    delete:
+      summary: ''
+      operationId: delete-b2b-partners-agent-id
+      responses:
+        '204':
+          description: No Content
 components:
   schemas:
     SeatAndFares:

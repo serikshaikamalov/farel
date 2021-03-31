@@ -742,3 +742,8 @@ components:
             id: 2
             name: Russia
           translate: (en) Brest
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      description: ''
