@@ -2,6 +2,7 @@ openapi: 3.0.0
 info:
   title: ancillaries
   version: '1.0'
+  description: company ancillaries
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -9,7 +10,9 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-ancillaries
       description: Get all company ancillaries
       parameters:
@@ -112,11 +115,10 @@ components:
     ancillary-dto-model:
       title: ancillary-dto-model
       type: object
+      description: ''
       properties:
         id:
-          type:
-            - string
-            - 'null'
+          type: number
         name:
           type: string
         type:
@@ -136,50 +138,35 @@ components:
     ancillary-rule:
       title: ancillary-rule
       type: object
+      description: ''
       properties:
         type:
           type: string
         paymentTypes:
-          type:
-            - array
-            - 'null'
+          type: array
           items:
             type: string
         domestic:
-          type:
-            - boolean
-            - 'null'
+          type: boolean
         international:
-          type:
-            - boolean
-            - 'null'
+          type: boolean
         partners:
-          type:
-            - array
-            - 'null'
+          type: array
           items:
             type: string
         minutesBeforeDeparture:
-          type:
-            - number
-            - 'null'
+          type: number
         periods:
-          type:
-            - array
-            - 'null'
+          type: array
           items:
             type: array
-            items:
-              type: string
+            items: {}
         height:
-          type:
-            - number
-            - 'null'
+          type: number
         weight:
-          type:
-            - number
-            - 'null'
+          type: number
         depth:
-          type:
-            - number
-            - 'null'
+          type: number
+  securitySchemes: {}
+tags:
+  - name: Company Ancillaries
