@@ -3237,6 +3237,12 @@ paths:
                         status: AVAILABLE
                     active: true
       operationId: get-api-v1-seat-map-id
+    delete:
+      summary: Delete by id
+      operationId: delete-api-v1-seat-map-id
+      responses:
+        '204':
+          description: No Content
   '/api/v1/seat-map/airplane-types/{airplaneId}':
     parameters:
       - schema:
