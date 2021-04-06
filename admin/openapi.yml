@@ -54,7 +54,82 @@ tags:
     description: Fees
   - name: Company users
     description: CRUD for users and their permissions
+  - name: Agency profile
+    description: agent profile
 paths:
+  '/agency/user-profile/{agentId}':
+    get:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentProfileResponse'
+    post:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentProfileRequest'
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/agency/user-password/{agentId}':
+    put:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found          
   '/schedules/{schedule_id}/fees':
     get:
       tags:
@@ -7427,3 +7502,33 @@ components:
       properties:
         id:
           type: string
+    AgentProfileResponse:
+      title: profile
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    AgentProfileRequest:
+      title: profile
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+
+
+
+
+
+
+
+
+
