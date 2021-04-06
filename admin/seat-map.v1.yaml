@@ -3413,5 +3413,105 @@ paths:
                             status: AVAILABLE
                         active: true
       operationId: get-api-v1-seat-map-airplane-types-airplaneId
+  /api/v1/seat-map/review:
+    get:
+      summary: Get seat maps for review
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - airplaneType
+                        - active
+                      properties:
+                        id:
+                          type: number
+                        airplaneType:
+                          type: number
+                        seatMap:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - cabinClass
+                              - number
+                              - status
+                            properties:
+                              cabinClass:
+                                type: string
+                                minLength: 1
+                              number:
+                                type: string
+                                minLength: 1
+                              coordinates:
+                                type: object
+                                properties:
+                                  x:
+                                    type: number
+                                  'y':
+                                    type: number
+                                required:
+                                  - x
+                                  - 'y'
+                              seatCharacteristics:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
+                              status:
+                                type: string
+                                minLength: 1
+                        active:
+                          type: boolean
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 2
+                    data:
+                      - id: 2000052
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 2000151
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+      operationId: get-api-v1-seat-map-review
 components:
   schemas: {}
