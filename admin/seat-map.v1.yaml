@@ -4,6 +4,167 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
-paths: {}
+paths:
+  /api/v1/airplane-bodies:
+    get:
+      summary: Get airplane bodies
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    items:
+                      required: []
+                      properties: {}
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 2
+                    data:
+                      - NARROW
+                      - WIDE
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-api-v1-airplane-bodies
+  /api/v1/seat-characteristics:
+    get:
+      summary: Get seat characteristics
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - '1'
+                        - '9'
+                        - E
+                        - 1D
+                        - 6A
+                        - OW
+                        - A
+                        - 1A
+                        - CH
+                        - IE
+                        - W
+                        - V
+                        - 1W
+                        - U
+                        - LS
+                        - O
+                        - RS
+                        - L
+                        - H
+                      properties:
+                        '1':
+                          type: string
+                          minLength: 1
+                        '9':
+                          type: string
+                          minLength: 1
+                        E:
+                          type: string
+                          minLength: 1
+                        1D:
+                          type: string
+                          minLength: 1
+                        6A:
+                          type: string
+                          minLength: 1
+                        OW:
+                          type: string
+                          minLength: 1
+                        A:
+                          type: string
+                          minLength: 1
+                        1A:
+                          type: string
+                          minLength: 1
+                        CH:
+                          type: string
+                          minLength: 1
+                        IE:
+                          type: string
+                          minLength: 1
+                        W:
+                          type: string
+                          minLength: 1
+                        V:
+                          type: string
+                          minLength: 1
+                        1W:
+                          type: string
+                          minLength: 1
+                        U:
+                          type: string
+                          minLength: 1
+                        LS:
+                          type: string
+                          minLength: 1
+                        O:
+                          type: string
+                          minLength: 1
+                        RS:
+                          type: string
+                          minLength: 1
+                        L:
+                          type: string
+                          minLength: 1
+                        H:
+                          type: string
+                          minLength: 1
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 19
+                    data:
+                      - '1': Restricted seat - General
+                        '9': 'Center seat (not window, not aisle)'
+                        E: Exit row seat
+                        1D: Restricted recline seat
+                        6A: In front of galley seat
+                        OW: Overwing seat(s)
+                        A: Aisle seat
+                        1A: Seat not allowed for infant
+                        CH: Chargeable seats
+                        IE: Seat not suitable for child
+                        W: Window seat
+                        V: Seat to be left vacant or offered last
+                        1W: Window seat without window
+                        U: Seat suitable for unaccompanied minors
+                        LS: Left side of aircraft
+                        O: Preferential seat
+                        RS: Right side of aircraft
+                        L: Leg space seat
+                        H: Seat with facilities for handicapped/incapacitated passenger
+      operationId: get-api-v1-seat-characteristics
 components:
   schemas: {}
