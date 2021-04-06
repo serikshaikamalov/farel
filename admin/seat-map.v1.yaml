@@ -3513,5 +3513,31 @@ paths:
                             status: AVAILABLE
                         active: true
       operationId: get-api-v1-seat-map-review
+    post:
+      summary: Approve seat map for global
+      operationId: post-api-v1-seat-map-review
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                global:
+                  type: boolean
+              required:
+                - id
+                - global
+            examples:
+              example-1:
+                value:
+                  id: 2000051
+                  global: false
+        description: ''
 components:
   schemas: {}
