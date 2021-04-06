@@ -3138,6 +3138,2934 @@ paths:
               example-1:
                 value: '[object Object]'
         description: ''
+    put:
+      summary: Update seat map
+      operationId: put-api-v1-seat-map
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  airplaneType:
+                    type: number
+                  seatMap:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - cabinClass
+                        - number
+                        - status
+                      properties:
+                        cabinClass:
+                          type: string
+                          minLength: 1
+                        number:
+                          type: string
+                          minLength: 1
+                        coordinates:
+                          type: object
+                          properties:
+                            x:
+                              type: number
+                            'y':
+                              type: number
+                          required:
+                            - x
+                            - 'y'
+                        seatCharacteristics:
+                          type: array
+                          items:
+                            required: []
+                            properties: {}
+                        status:
+                          type: string
+                          minLength: 1
+                  active:
+                    type: boolean
+                required:
+                  - id
+                  - airplaneType
+                  - seatMap
+                  - active
+              examples:
+                example-1:
+                  value:
+                    id: 1999951
+                    airplaneType: 4
+                    seatMap:
+                      - cabinClass: 'Y'
+                        number: 1A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 1B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 1C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 1D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 1E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 1F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 17F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 16F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 15F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 14F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 13F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 12F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 11F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 10F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 9F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 8F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 7F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 6F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 5F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 4F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 19F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 20F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 21F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 18F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 23F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 24F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 26F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25B
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25C
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25D
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25E
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 25F
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                    active: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: number
+                airplaneType:
+                  type: number
+                seatMap:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - cabinClass
+                      - number
+                      - status
+                    properties:
+                      cabinClass:
+                        type: string
+                        minLength: 1
+                      number:
+                        type: string
+                        minLength: 1
+                      coordinates:
+                        type: object
+                        properties:
+                          x:
+                            type: number
+                          'y':
+                            type: number
+                        required:
+                          - x
+                          - 'y'
+                      seatCharacteristics:
+                        type: array
+                        items:
+                          required: []
+                          properties: {}
+                      status:
+                        type: string
+                        minLength: 1
+              required:
+                - id
+                - airplaneType
+                - seatMap
+            examples:
+              example-1:
+                value:
+                  id: 100
+                  airplaneType: 4
+                  seatMap:
+                    - cabinClass: 'Y'
+                      number: 1A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 1B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 1C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 1D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 1E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 1F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 17F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 16F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 15F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 14F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 13F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 12F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 11F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 10F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 9F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 8F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 7F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 6F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 5F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 4F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 3F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 2F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 19F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 20F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 21F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 18F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 23F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 24F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 26F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25A
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25B
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25C
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25D
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25E
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+                    - cabinClass: 'Y'
+                      number: 25F
+                      coordinates:
+                        x: 0
+                        'y': 1
+                      seatCharacteristics:
+                        - W
+                        - 1A
+                      status: AVAILABLE
+        description: ''
   '/api/v1/seat-map/{id}':
     parameters:
       - schema:
