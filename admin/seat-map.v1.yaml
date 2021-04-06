@@ -3138,5 +3138,280 @@ paths:
               example-1:
                 value: '[object Object]'
         description: ''
+  '/api/v1/seat-map/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get seat map by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  airplaneType:
+                    type: number
+                  seatMap:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - cabinClass
+                        - number
+                        - status
+                      properties:
+                        cabinClass:
+                          type: string
+                          minLength: 1
+                        number:
+                          type: string
+                          minLength: 1
+                        coordinates:
+                          type: object
+                          properties:
+                            x:
+                              type: number
+                            'y':
+                              type: number
+                          required:
+                            - x
+                            - 'y'
+                        seatCharacteristics:
+                          type: array
+                          items:
+                            required: []
+                            properties: {}
+                        status:
+                          type: string
+                          minLength: 1
+                  active:
+                    type: boolean
+                required:
+                  - id
+                  - airplaneType
+                  - seatMap
+                  - active
+              examples:
+                example-1:
+                  value:
+                    id: 2000351
+                    airplaneType: 1
+                    seatMap:
+                      - cabinClass: 'Y'
+                        number: 1A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 2A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                      - cabinClass: 'Y'
+                        number: 3A
+                        coordinates:
+                          x: 0
+                          'y': 1
+                        seatCharacteristics:
+                          - W
+                          - 1A
+                        status: AVAILABLE
+                    active: true
+      operationId: get-api-v1-seat-map-id
+  '/api/v1/seat-map/airplane-types/{airplaneId}':
+    parameters:
+      - schema:
+          type: string
+        name: airplaneId
+        in: path
+        required: true
+    get:
+      summary: Get seat maps by airplane id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  totalCount:
+                    type: number
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - airplaneType
+                        - active
+                      properties:
+                        id:
+                          type: number
+                        airplaneType:
+                          type: number
+                        seatMap:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - cabinClass
+                              - number
+                              - status
+                            properties:
+                              cabinClass:
+                                type: string
+                                minLength: 1
+                              number:
+                                type: string
+                                minLength: 1
+                              coordinates:
+                                type: object
+                                properties:
+                                  x:
+                                    type: number
+                                  'y':
+                                    type: number
+                                required:
+                                  - x
+                                  - 'y'
+                              seatCharacteristics:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
+                              status:
+                                type: string
+                                minLength: 1
+                        active:
+                          type: boolean
+                required:
+                  - totalCount
+                  - data
+              examples:
+                example-1:
+                  value:
+                    totalCount: 6
+                    data:
+                      - id: 2000052
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 2000151
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 2000251
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 2000351
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                          - cabinClass: 'Y'
+                            number: 2A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                          - cabinClass: 'Y'
+                            number: 3A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 1999951
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+                      - id: 2000051
+                        airplaneType: 1
+                        seatMap:
+                          - cabinClass: 'Y'
+                            number: 1A
+                            coordinates:
+                              x: 0
+                              'y': 1
+                            seatCharacteristics:
+                              - W
+                              - 1A
+                            status: AVAILABLE
+                        active: true
+      operationId: get-api-v1-seat-map-airplane-types-airplaneId
 components:
   schemas: {}
