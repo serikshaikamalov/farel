@@ -2,12 +2,16 @@ openapi: 3.0.0
 info:
   title: fare-rules-and-ancillaries
   version: '1.0'
+  contact: {}
+  description: 'Manage Airline ancillaries'
 servers:
   - url: 'http://localhost:3000'
+tags: [{'name':''}]
 paths:
   /v1/api/dictionaries/fare-options:
     get:
       summary: 'get paginated, filtered and sorted fare rules and ancillaries'
+      description: 'Get Airline fare rules summary'
       tags: []
       responses:
         '200':
@@ -61,9 +65,24 @@ paths:
             type: string
           in: query
           name: type
-  '/v1/api/dictionaries/fare-rules/{id}':
+  /v1/api/dictionaries/ancillaries:
+    post:
+      summary: Create Ancillary
+      description: 'Create Airline ancillary'
+      tags: []
+      responses:
+        '201':
+          description: Created
+      operationId: post-v1-api-dictionaries-ancillaries-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/AncillaryModel.v1.yaml
+  /v1/api/dictionaries/fare-rules:
     post:
       summary: Add Fare Rule
+      description: 'Cread Airline fare rule'
       tags: []
       responses:
         '201':
@@ -74,8 +93,10 @@ paths:
           application/json:
             schema:
               $ref: ../models/AddFareRuleRequestModel.v1.yaml
+  /v1/api/dictionaries/fare-rules/{id}:
     put:
       summary: Update Fare Rule identified by a given ID
+      description: 'Update Airline fare rule'
       tags: []
       responses:
         '204':
@@ -102,6 +123,7 @@ paths:
         description: ID of the Fare Rule
     delete:
       summary: 'Delete Fare Rule with a given ID '
+      description: 'Delete Airline fare rule'
       tags: []
       responses:
         '200':
@@ -117,20 +139,9 @@ paths:
         in: path
         required: true
         description: Ancillary ID
-    post:
-      summary: Create Ancillary
-      tags: []
-      responses:
-        '201':
-          description: Created
-      operationId: post-v1-api-dictionaries-ancillaries-id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: ../models/AncillaryModel.v1.yaml
     put:
       summary: Update Ancillary
+      description: Update Airline ancillary
       tags: []
       responses:
         '204':
@@ -143,6 +154,7 @@ paths:
               $ref: ../models/AncillaryModel.v1.yaml
     delete:
       summary: Delete Ancillary
+      description: Update Airline ancillary
       tags: []
       responses:
         '200':

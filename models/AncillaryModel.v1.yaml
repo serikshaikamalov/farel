@@ -13,6 +13,26 @@ properties:
     type: array
     items:
       $ref: ./Translation.v1.yaml
+  dimensions:
+    type: object
+    properties:
+      x:
+        type: integer
+      y:
+        type: integer
+      z:
+        type: integer
+      unit:
+        type: array
+        enum: [CENTIMETER, INCH]
+  weight:
+    type: object
+    properties:
+      amount:
+        type: integer
+      unit:
+        type: array
+        enum: [KILOGRAM, POUND]
   rules:
     type: array
     items:
