@@ -22,24 +22,27 @@ paths:
                 description: ''
                 type: object
                 properties:
-                  name:
-                    type: string
-                    minLength: 1
-                  type:
-                    type: string
-                    minLength: 1
-                  languages:
+                  totalCount:
+                    type:
+                      - string
+                      - number
+                  data:
                     type: array
                     items:
-                      type: string
-                  category:
-                    type: string
-                    minLength: 1
-                required:
-                  - name
-                  - type
-                  - languages
-                  - category
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                        category:
+                          type: string
+                        type:
+                          type: string
+                        translations:
+                          type: array
+                          items:
+                            $ref: ../models/Translation.v1.yaml
       operationId: get-fare-options
       parameters:
         - schema:

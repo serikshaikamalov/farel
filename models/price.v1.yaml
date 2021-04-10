@@ -1,0 +1,7 @@
+title: price
+type: object
+properties:
+  amount:
+    type: number
+  currencyCode:
+    type: string

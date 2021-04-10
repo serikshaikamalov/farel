@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: ancillaries
+  version: '1.0'
+  description: company ancillaries
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /ancillaries:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: get-ancillaries
+      description: Get all company ancillaries
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+          description: current page
+        - schema:
+            type: number
+          in: query
+          name: size
+          description: items per page
+        - schema:
+            type: string
+          in: query
+          name: type
+          description: filter list by selected ancillary type
+        - schema:
+            type: string
+          in: query
+          name: name
+          description: filter list by ancillary name
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                totalCount:
+                  type: number
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ancillary-list-model'
+  '/ancillaries/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: get-ancillaries-ancillaryId
+      description: Get ancillary data by id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ancillary-dto-model'
+    post:
+      summary: ''
+      operationId: post-ancillaries-id
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ancillary-dto-model'
+    put:
+      summary: ''
+      operationId: put-ancillaries-id
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ancillary-dto-model'
+    delete:
+      summary: ''
+      operationId: delete-ancillaries-id
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    ancillary-list-model:
+      title: ancillary-list-model
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        price:
+          $ref: ../models/price.v1.yaml
+        description:
+          type: string
+    ancillary-dto-model:
+      title: ancillary-dto-model
+      type: object
+      description: ''
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        type:
+          type: string
+        price:
+          $ref: ../models/price.v1.yaml
+        distributionName:
+          type: string
+        description:
+          type: string
+        comment:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ancillary-rule'
+    ancillary-rule:
+      title: ancillary-rule
+      type: object
+      description: ''
+      properties:
+        type:
+          type: string
+        paymentTypes:
+          type: array
+          items:
+            type: string
+        domestic:
+          type: boolean
+        international:
+          type: boolean
+        partners:
+          type: array
+          items:
+            type: string
+        minutesBeforeDeparture:
+          type: number
+        periods:
+          type: array
+          items:
+            type: array
+            items: {}
+        height:
+          type: number
+        weight:
+          type: number
+        depth:
+          type: number
+  securitySchemes: {}
+tags:
+  - name: Company Ancillaries

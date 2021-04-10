@@ -54,7 +54,174 @@ tags:
     description: Fees
   - name: Company users
     description: CRUD for users and their permissions
+  - name: Agency profile
+    description: agent profile
 paths:
+  '/agency/user-profile/{agentId}':
+    get:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentProfileResponse'
+    post:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentProfileRequest'
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/agency/{agencyId}':
+    get:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agencyId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencyProfileResponse'
+    post:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agencyId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgencyProfileRequest'
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/agency/{agencyId}/comissions/':
+    get:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agencyId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid        
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencyComissionsResponse'
+    post:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agencyId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgencyComissionRequest'
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/agency/user-password/{agentId}':
+    put:
+      tags:
+        - Agency profile
+      parameters:
+        - name: agentId
+          in: path
+          description: agent id
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found          
   '/schedules/{schedule_id}/fees':
     get:
       tags:
@@ -5596,6 +5763,155 @@ paths:
           name: page
           description: page number
     parameters: []
+  /b2b-partners:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    legalName:
+                      type: string
+                    country:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                    email:
+                      type: string
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    lastActivityDateTime:
+                      type: string
+                    account:
+                      type: object
+                      properties:
+                        number:
+                          type: string
+                        balance:
+                          type: number
+                    status:
+                      type: string
+      operationId: get-b2b-partners
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: pattern
+    post:
+      summary: ''
+      operationId: post-b2b-partners
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                legalName:
+                  type: string
+                countryId:
+                  type: integer
+                email:
+                  type: string
+  '/b2b-partners/{agent-id}':
+    parameters:
+      - schema:
+          type: string
+        name: agent-id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  legalName:
+                    type: string
+                  country:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                  email:
+                    type: string
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  lastActivityDateTime:
+                    type: string
+                  account:
+                    type: object
+                    properties:
+                      number:
+                        type: string
+                      balance:
+                        type: number
+                  status:
+                    type: string
+    put:
+      summary: ''
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                legalName:
+                  type: string
+                countryId:
+                  type: number
+                email:
+                  type: string
+                balance:
+                  type: number
+                status:
+                  type: string
+    delete:
+      summary: ''
+      operationId: delete-b2b-partners-agent-id
+      responses:
+        '204':
+          description: No Content
 components:
   schemas:
     SeatAndFares:
@@ -7188,7 +7504,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
@@ -7221,7 +7537,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
@@ -7247,7 +7563,7 @@ components:
             type: object
             properties:
               id:
-                type: integer
+                type: string
               name:
                 type: string
               permission:
@@ -7278,3 +7594,95 @@ components:
       properties:
         id:
           type: string
+    AgentProfileResponse:
+      title: profile
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    AgentProfileRequest:
+      title: profile
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    AgencyProfileResponse:
+      title: profile
+      type: object
+      properties:
+        brandName:
+          type: string
+        legalName:
+          type: string
+    AgencyProfileRequest:
+      title: profile
+      type: object
+      properties:
+        brandName:
+          type: string
+        legalName:
+          type: string
+    AgencyComissionsResponse:
+      title: profile
+      type: array
+      items:
+        $ref: '#/components/schemas/AgencyCommissions'
+
+
+    AgencyComissionsRequest:
+      title: profile
+      type: object
+      properties:
+        brandName:
+          type: string
+        legalName:
+          type: string
+
+    AgencyCommissions:
+      title: commision
+      type: object
+      properties:
+        routeType:
+          type: array
+          items:
+            type: string
+          enum:
+            - DOMESTIC
+            - INTERNATIONAL
+            - CUSTOM
+        commissionType:
+          type: string
+          enum:
+            - NUMERIC
+            - PERCENT
+        amount:
+          type: number
+
+
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
