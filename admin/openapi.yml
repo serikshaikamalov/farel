@@ -159,7 +159,7 @@ paths:
           style: simple
           schema:
             type: string
-            format: uuid        
+            format: uuid
       responses:
         '200':
           description: ''
@@ -167,6 +167,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgencyComissionsResponse'
+              examples:
+                example-1:
+                  value:
+                    - routeType:
+                        - DOMESTIC
+                        - INTERNATIONAL
+                      commissionType: NUMERIC
+                      amount: 0
+                example-2:
+                  value:
+                    - routeType:
+                        - DOMESTIC
+                      commissionType: NUMERIC
+                      amount: 0
     post:
       tags:
         - Agency profile
@@ -178,7 +192,7 @@ paths:
           style: simple
           schema:
             type: string
-            format: uuid  
+            format: uuid
       requestBody:
         content:
           application/json:
@@ -221,7 +235,7 @@ paths:
         '403':
           description: Forbidden
         '404':
-          description: Not Found          
+          description: Not Found
   '/schedules/{schedule_id}/fees':
     get:
       tags:
@@ -7498,6 +7512,8 @@ components:
       properties:
         email:
           type: string
+        manageUsers:
+          type: boolean
         modules:
           type: array
           items:
@@ -7520,6 +7536,8 @@ components:
           type: string
         email:
           type: string
+        manageUsers:
+          type: boolean
         firstName:
           type: string
         lastName:
@@ -7557,6 +7575,8 @@ components:
           type: string
         phoneNumber:
           type: string
+        manageUsers:
+          type: boolean          
         modules:
           type: array
           items:
@@ -7635,8 +7655,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AgencyCommissions'
-
-
     AgencyComissionsRequest:
       title: profile
       type: object
@@ -7645,7 +7663,6 @@ components:
           type: string
         legalName:
           type: string
-
     AgencyCommissions:
       title: commision
       type: object
@@ -7665,24 +7682,3 @@ components:
             - PERCENT
         amount:
           type: number
-
-
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
