@@ -3,5 +3,5 @@ type: object
 properties:
   amount:
     type: number
-  currency:
+  currencyCode:
     type: string
