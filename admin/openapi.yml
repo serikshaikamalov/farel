@@ -7512,7 +7512,7 @@ components:
       properties:
         email:
           type: string
-        manageUsers:
+        manageUsersPermission:
           type: boolean
         modules:
           type: array
@@ -7520,10 +7520,10 @@ components:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
@@ -7536,7 +7536,7 @@ components:
           type: string
         email:
           type: string
-        manageUsers:
+        manageUsersPermission:
           type: boolean
         firstName:
           type: string
@@ -7555,10 +7555,10 @@ components:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
@@ -7575,7 +7575,7 @@ components:
           type: string
         phoneNumber:
           type: string
-        manageUsers:
+        manageUsersPermission:
           type: boolean          
         modules:
           type: array
@@ -7583,10 +7583,10 @@ components:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
