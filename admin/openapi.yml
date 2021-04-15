@@ -147,7 +147,7 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  '/agency/{agencyId}/comissions/':
+  '/agency/{agencyId}/commissions/':
     get:
       tags:
         - Agency profile
@@ -197,7 +197,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AgencyComissionRequest'
+              $ref: '#/components/schemas/AgencyComissionsRequest'
+            examples:
+              example-1:
+                value:
+                  - routeType:
+                      - DOMESTIC
+                      - INTERNATIONAL
+                    commissionType: NUMERIC
+                    amount: 0
+              example-2:
+                value:
+                  - routeType:
+                      - DOMESTIC
+                    commissionType: NUMERIC
+                    amount: 0
       responses:
         '202':
           description: Accepted
@@ -7657,12 +7671,9 @@ components:
         $ref: '#/components/schemas/AgencyCommissions'
     AgencyComissionsRequest:
       title: profile
-      type: object
-      properties:
-        brandName:
-          type: string
-        legalName:
-          type: string
+      type: array
+      items:
+        $ref: '#/components/schemas/AgencyCommissions'
     AgencyCommissions:
       title: commision
       type: object
