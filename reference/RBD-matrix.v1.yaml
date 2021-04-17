@@ -4,3 +4,142 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
+paths:
+  /api/v1/rbd-matrix:
+    get:
+      summary: ''
+      operationId: get-api-v1-rbd-matrix
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingClassMatrix'
+      description: Get paginated list of RBD Matrices
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+        - schema:
+            type: integer
+          in: query
+          name: size
+    post:
+      summary: ''
+      operationId: post-api-v1-rbd-matrix
+      responses:
+        '200':
+          description: OK
+      description: Create new RBD Matrix
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+  '/api/v1/rbd-matrix/{id}':
+    get:
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingClassMatrix'
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+  '/api/v1/rbd-matrix/{id}/booking-classes':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-api-v1-rbd-matrix-id-booking-classes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BookingClass'
+components:
+  schemas:
+    BookingClass:
+      title: BookingClass
+      type: object
+      properties:
+        classDesignator:
+          type: string
+        seatCount:
+          type: integer
+          minimum: 1
+        timeLimit:
+          type: integer
+          description: Time limit to pay for PNR in minutes
+          minimum: 15
+      required:
+        - classDesignator
+        - seatCount
+        - timeLimit
+    CreateBookingClassMatrixRequest:
+      title: BookingClassMatrix
+      type: object
+      properties:
+        cabinClass:
+          type: string
+          enum:
+            - FIRST_PREMIUM
+            - FIRST
+            - BUSINESS
+            - BUSINESS_PREMIUM
+            - ECONOMY
+            - ECONOMY_PREMIUM
+        totalSeatCount:
+          type: integer
+          minimum: 1
+        bookingClasses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingClass'
+      required:
+        - cabinClass
+        - totalSeatCount
+        - bookingClasses
+      description: RBD Matrix
+      x-examples:
+        RBD Matrix with two booking classes:
+          id: 1014f010-ab99-4dda-9a7c-414e17f2f07a
+          cabinClass: ECONOMY
+          totalSeatCount: 30
+          bookingClasses:
+            - classDesignator: 'Y'
+              seatCount: 20
+              timeLimit: 60
+            - classDesignator: X
+              seatCount: 10
+              timeLimit: 60
+    BookingClassMatrix:
+      title: BookingClassMatrix
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+        - $ref: '#/components/schemas/CreateBookingClassMatrixRequest'
