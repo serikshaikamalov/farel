@@ -147,7 +147,7 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  '/agency/{agencyId}/comissions/':
+  '/agency/{agencyId}/commissions/':
     get:
       tags:
         - Agency profile
@@ -159,7 +159,7 @@ paths:
           style: simple
           schema:
             type: string
-            format: uuid        
+            format: uuid
       responses:
         '200':
           description: ''
@@ -167,6 +167,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgencyComissionsResponse'
+              examples:
+                example-1:
+                  value:
+                    - routeType:
+                        - DOMESTIC
+                        - INTERNATIONAL
+                      commissionType: NUMERIC
+                      amount: 0
+                example-2:
+                  value:
+                    - routeType:
+                        - DOMESTIC
+                      commissionType: NUMERIC
+                      amount: 0
     post:
       tags:
         - Agency profile
@@ -178,12 +192,26 @@ paths:
           style: simple
           schema:
             type: string
-            format: uuid  
+            format: uuid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AgencyComissionRequest'
+              $ref: '#/components/schemas/AgencyComissionsRequest'
+            examples:
+              example-1:
+                value:
+                  - routeType:
+                      - DOMESTIC
+                      - INTERNATIONAL
+                    commissionType: NUMERIC
+                    amount: 0
+              example-2:
+                value:
+                  - routeType:
+                      - DOMESTIC
+                    commissionType: NUMERIC
+                    amount: 0
       responses:
         '202':
           description: Accepted
@@ -221,7 +249,7 @@ paths:
         '403':
           description: Forbidden
         '404':
-          description: Not Found          
+          description: Not Found
   '/schedules/{schedule_id}/fees':
     get:
       tags:
@@ -7498,16 +7526,18 @@ components:
       properties:
         email:
           type: string
+        manageUsersPermission:
+          type: boolean
         modules:
           type: array
           items:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
@@ -7520,6 +7550,8 @@ components:
           type: string
         email:
           type: string
+        manageUsersPermission:
+          type: boolean
         firstName:
           type: string
         lastName:
@@ -7537,10 +7569,10 @@ components:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
@@ -7557,16 +7589,18 @@ components:
           type: string
         phoneNumber:
           type: string
+        manageUsersPermission:
+          type: boolean          
         modules:
           type: array
           items:
             type: object
             properties:
               id:
-                type: string
+                type: integer
               name:
                 type: string
-              permission:
+              permissions:
                 type: array
                 items:
                   type: string
@@ -7635,17 +7669,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AgencyCommissions'
-
-
     AgencyComissionsRequest:
       title: profile
-      type: object
-      properties:
-        brandName:
-          type: string
-        legalName:
-          type: string
-
+      type: array
+      items:
+        $ref: '#/components/schemas/AgencyCommissions'
     AgencyCommissions:
       title: commision
       type: object
@@ -7665,24 +7693,3 @@ components:
             - PERCENT
         amount:
           type: number
-
-
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
