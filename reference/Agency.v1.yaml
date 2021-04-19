@@ -42,12 +42,6 @@ paths:
                           - CUSTOM
                         commissionType: PERCENT
                         amount: 5
-        '403':
-          description: It is not possible to get other user profile
-        '404':
-          description: User Not Found
-      operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user
     post:
       tags:
         - Agency profile
@@ -55,7 +49,7 @@ paths:
       responses:
         '204':
           description: Agency Updated
-      description: Update the infromation of an existing user.
+      description: Update the infromation of an existing agency.
       requestBody:
         content:
           application/json:
