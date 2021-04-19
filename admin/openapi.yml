@@ -221,6 +221,17 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  '/me':
+    get:
+      tags:
+        - User context
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserContext'
   '/agency/user-password/{agentId}':
     put:
       tags:
@@ -7693,3 +7704,13 @@ components:
             - PERCENT
         amount:
           type: number
+    UserContext:
+      title: user context
+      type: object
+      properties:
+        companyId:
+          type: string
+        userId:
+          type: string
+        agencyId:
+          type: string
