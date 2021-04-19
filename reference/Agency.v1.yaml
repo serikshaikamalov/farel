@@ -15,358 +15,97 @@ paths:
         description: uuid of an existing agency.
     get:
       summary: Get Agency profile by agency id
-      tags: 
+      tags:
         - Agency profile
       responses:
         '200':
-          description: Agency 
+          description: Agency
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/AgencyProfile'
               examples:
-                Get User Alice Smith:
+                example with two commissions:
                   value:
-                    id: qwerty123
-                    firstName: Sierra
-                    lastName: Fergusoon
-                    email: sierra@gmail.com
-                    phone: '+77078904592'
+                    brandName: Santufei
+                    legalName: Santufei
+                    commissions:
+                      - routeType:
+                          - INTERNATIONAL
+                          - LOCAL
+                          - CUSTOM
+                        commissionType: AMOUNT
+                        amount: 10
+                      - routeType:
+                          - INTERNATIONAL
+                          - LOCAL
+                          - CUSTOM
+                        commissionType: PERCENT
+                        amount: 5
         '403':
           description: It is not possible to get other user profile
         '404':
           description: User Not Found
       operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user 
-    put:
-      tags:
-        - User profile
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '204':
-          description: User Updated
-        '403':
-          description: It is not possible to change other's profile.
-        '404':
-          description: User Not Found
-      description: Update the infromation of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                phone:
-                  type: string
-            examples:
-              Update profile for Rebecca:
-                value:
-                  firstName: Sierra
-                  lastName: Fergusoon
-                  phone: '+77078904592'
-        description: Patch user profile to update.
-  '/customers/{userId}/password':
-    parameters:
-      - schema:
-          type: string
-        name: userId
-        in: path
-        required: true
-        description: uuid of an existing logged user user.
+      description: Retrieve the information of the user with the matching user
     post:
       tags:
-        - User profile
-      summary: Update User password
-      operationId: patch-password-userId
+        - Agency profile
+      summary: Update agency profile
+      responses:
+        '204':
+          description: Agency Updated
+      description: Update the infromation of an existing user.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                currentPassword:
-                  type: string
-                newPassword:
-                  type: string
-            examples:
-              Update password for account :
-                value:
-                  currentPassword: admin
-                  newPassword: demo
-      responses:
-        '204':
-          description: Password Updated
-        '400':
-          description: Password too short
-        '403':
-          description: Forbidden to change others password
-        '404':
-          description: User Not Found
-      description: Update the infromation of an existing user.
-  '/customers/{customerId}/bookings':
-    parameters:
-      - schema:
-          type: string
-        name: customerId
-        in: path
-        required: true
-        description: uuid of an existing logged user user.
-    get:
-      summary: Get User Bookings by User ID
-      tags: 
-        - User profile
-      responses:
-        '200':
-          description: User Found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Bookings'
-        '403':
-          description: It is not possible to get other user profile
-        '404':
-          description: User Not Found
-      operationId: get-bookings-userId
-      description: Retrieve the bookings of the user with the matching user ID.
-  '/customers/{customerId}/passengers':
-    parameters:
-      - schema:
-          type: string
-        name: customerId
-        in: path
-        required: true
-        description: uuid of an existing logged user user.
-    get:
-      summary: Get User Bookings by User ID
-      tags: 
-        - User profile
-      responses:
-        '200':
-          description: User Found
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PassengerResponse'
-        '403':
-          description: It is not possible to get other user profile passengers
-        '404':
-          description: User Not Found
-      operationId: get-passengers-userId
-      description: Retrieve the passengers of the user with the matching user ID.
-  '/customers/{customerId}/passengers/{passengerId}':
-    parameters:
-      - schema:
-          type: string
-        name: customerId
-        in: path
-        required: true
-        description: uuid of an existing logged user user.
-      - schema:
-          type: string
-        name: passengerId
-        in: path
-        required: true
-        description: uuid of an existing logged user user.
-    put:
-      tags:
-        - User profile
-      summary: Update Passenger
-      operationId: patch-passenger-userId
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PassengerRequest'
-      responses:
-        '204':
-          description: Passenger Updated
-        '400':
-          description: Wrong fields in passenger request
-        '403':
-          description: Forbidden to change others passenger
-        '404':
-          description: Customer or Passenger Not Found
-      description: Update the infromation of an existing user.
-    delete:
-      tags:
-        - User profile
-      summary: Update Passenger
-      operationId: delete-passenger-userId
-      responses:
-        '204':
-          description: Passenger Deleted
-        '403':
-          description: Forbidden to delete others passenger
-        '404':
-          description: Customer or Passenger Not Found
-      description: Deletes customers passenger.
+              $ref: '#/components/schemas/AgencyProfile'
+              examples:
+                example with two commissions:
+                  value:
+                    brandName: Santufei
+                    legalName: Santufei
+                    commissions:
+                      - routeType:
+                          - INTERNATIONAL
+                          - LOCAL
+                          - CUSTOM
+                        commissionType: AMOUNT
+                        amount: 10
+                      - routeType:
+                          - INTERNATIONAL
+                          - LOCAL
+                          - CUSTOM
+                        commissionType: PERCENT
+                        amount: 5
 components:
   schemas:
-    User:
-      title: User
+    AgencyProfile:
+      title: Profile
       type: object
-      description: 'user profile'
+      description: agency profile
       x-examples:
-        Alice Smith:
-          id: testid
-          firstName: Sierra
-          lastName: Fergusoon
+        sample profile:
+          brandName: Sierra
+          legalName: Fergusoon
           email: sierra@gmail.com
           phone: '+77078904592'
       properties:
-        id:
-          type: string
         firstName:
           type: string
-        lastName:
+        legalName:
           type: string
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
-          format: phone
-    UserChange:
-      title: User change
+        commissions:
+          $ref: '#/components/schemas/Commissions'
+    Commissions:
+      title: commissions
       type: object
-      description: 'user profile'
-      x-examples:
-        Alice Smith:
-          firstName: Sierra
-          lastName: Fergusoon
-          phone: '+77078904592'
+      description: Agency commissions
       properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        phone:
-          type: string
-          format: phone
-    Password:
-      title: Change password
-      type: object
-      description: 'old and new passwords'
-      x-examples:
-        Alice Smith:
-          currentPassword: current
-          newPassword: new-password
-      properties:
-        currentPassword:
-          type: string
-        newPassword:
-          type: string
-    Bookings:
-      title: Booking list
-      type: object
-      description: 'list of bookings'
-      properties:
-        orderNumber: 
-          type: string
-        price: 
-          type: string
-        currency:
-          type: string
-        status:
-          type: string
-          enum:
-            - PAYMENT_AWAITING
-            - PURCHASED
-            - EXPIRED
-            - CANCELED
-            - REFUNDED
-            - PROCESSING
-            - ERROR
-        flights:
+        routeType:
           type: array
-          items:
-            $ref: '#/components/schemas/Flight'
-        tag:
+        commissionType:
           type: string
-          description: string to make search firstname,lastname,pnr code
-    Flight:
-      title: Flight
-      type: object
-      description: list of flights
-      properties:
-        date:
-          type: string
-        departure: 
-          type: object
-          properties:
-            time: 
-              type: string
-            code: 
-              type: string
-        arrival: 
-          type: object
-          properties:
-            time: 
-              type: string
-            code: 
-              type: string
-            nextDayCount:
-              type: integer
-        duration:
+        amount:
           type: integer
-        stop:
-          type: integer
-        stopDuration:
-          type: integer
-          description: stop duration in minutes
-        stopCodes:
-          type: array
-          items:
-            properties:
-              type: string
-    PassengerResponse:
-      title: passenger
-      type: object
-      description: list of passengers
-      properties:
-        id:
-          type: integer
-        firstName:
-          type: string
-        lastName:
-          type: string
-        birthday: 
-          type: string
-        citizenship:
-          type: string
-        idNumber:
-          type: string
-    PassengerRequest:
-      title: passenger
-      type: object
-      description: list of passengers
-      properties:
-        id:
-          type: integer
-        firstName:
-          type: string
-        lastName:
-          type: string
-        birthday: 
-          type: string
-        citizenship:
-          type: string
-        idNumber:
-          type: string
-        sex:
-          type: string
-        expireDate:
-          type: string
-        
