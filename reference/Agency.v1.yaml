@@ -55,24 +55,24 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AgencyProfile'
-              examples:
-                example with two commissions:
-                  value:
-                    brandName: Santufei
-                    legalName: Santufei
-                    commissions:
-                      - routeType:
-                          - INTERNATIONAL
-                          - LOCAL
-                          - CUSTOM
-                        commissionType: AMOUNT
-                        amount: 10
-                      - routeType:
-                          - INTERNATIONAL
-                          - LOCAL
-                          - CUSTOM
-                        commissionType: PERCENT
-                        amount: 5
+            examples:
+              example with two commissions:
+                value:
+                  brandName: Santufei
+                  legalName: Santufei
+                  commissions:
+                    - routeType:
+                        - INTERNATIONAL
+                        - LOCAL
+                        - CUSTOM
+                      commissionType: AMOUNT
+                      amount: 10
+                    - routeType:
+                        - INTERNATIONAL
+                        - LOCAL
+                        - CUSTOM
+                      commissionType: PERCENT
+                      amount: 5
 components:
   schemas:
     AgencyProfile:
