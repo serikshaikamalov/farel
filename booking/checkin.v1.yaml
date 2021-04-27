@@ -368,11 +368,16 @@ paths:
               items:
                 type: object
                 required:
-                  - flightId
+                  - originCode
+                  - destinationCode
                   - passengerSeat
                 properties:
-                  flightId:
-                    type: number
+                  originCode:
+                    type: string
+                    minLength: 1
+                  destinationCode:
+                    type: string
+                    minLength: 1
                   passengerSeat:
                     type: array
                     uniqueItems: true
@@ -390,13 +395,15 @@ paths:
             examples:
               example-1:
                 value:
-                  - flightId: 2000351
+                  - originCode: ALA
+                    destinationCode: NQZ
                     passengerSeat:
                       - passengerId: 2000301
                         seat: 10A
                       - passengerId: 2000302
                         seat: 10B
-                  - flightId: 2000352
+                  - originCode: ALA
+                    destinationCode: NQZ
                     passengerSeat:
                       - passengerId: 2000301
                         seat: 10A
