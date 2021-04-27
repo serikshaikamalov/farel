@@ -99,14 +99,11 @@ paths:
                     minItems: 1
                     items:
                       required:
-                        - flightId
                         - departDate
                         - arriveDate
                         - departTime
                         - arriveTime
                       properties:
-                        flightId:
-                          type: number
                         origin:
                           type: object
                           properties:
@@ -151,7 +148,7 @@ paths:
                         arriveTime:
                           type: string
                           minLength: 1
-                        seats:
+                        passengers:
                           type: array
                           uniqueItems: true
                           minItems: 1
@@ -172,9 +169,6 @@ paths:
                                   citizenshipCode:
                                     type: string
                                     minLength: 1
-                                  idValidity:
-                                    type: string
-                                    minLength: 1
                                   firstName:
                                     type: string
                                     minLength: 1
@@ -186,139 +180,166 @@ paths:
                                   - birthDate
                                   - idNumber
                                   - citizenshipCode
-                                  - idValidity
                                   - firstName
                                   - lastName
-                              seats:
+                              seatsAvailable:
                                 type: array
                                 items:
                                   required: []
                                   properties: {}
-                  returnFlights:
-                    type: array
-                    items:
-                      required: []
-                      properties: {}
                 required:
                   - outboundFlights
-                  - returnFlights
               examples:
                 example-1:
                   value:
                     outboundFlights:
-                      - flightId: 2000351
-                        origin:
-                          city: Aktobe
-                          airportName: Aktobe International
-                          airportCode: AKX
+                      - origin:
+                          city: Almaty
+                          airportName: Almaty International
+                          airportCode: ALA
                         destination:
                           city: Nur-Sultan (Astana)
                           airportName: Nursultan Nazarbayev Airport
                           airportCode: NQZ
-                        departDate: '2021-03-23'
-                        arriveDate: '2021-03-23'
-                        departTime: '04:45'
-                        arriveTime: '07:45'
-                        seats:
+                        departDate: '2021-04-28'
+                        arriveDate: '2021-04-28'
+                        departTime: '02:05:00'
+                        arriveTime: '04:05:00'
+                        passengers:
                           - passengerDetails:
-                              id: 2000301
-                              birthDate: '2001-01-05'
-                              idNumber: '034060638'
+                              id: 2005302
+                              birthDate: '2000-10-10'
+                              idNumber: '1'
                               citizenshipCode: KZ
-                              idValidity: '2021-10-03'
-                              firstName: Nurlan
-                              lastName: Muldashev
-                            seats:
+                              firstName: asd
+                              lastName: asd
+                            seatsAvailable:
+                              - 1A
+                              - 1B
+                              - 1C
+                              - 1D
+                              - 1E
+                              - 1F
+                              - 17A
+                              - 17B
+                              - 17C
+                              - 17D
+                              - 17E
+                              - 17F
+                              - 16A
+                              - 16B
+                              - 16C
+                              - 16D
+                              - 16E
+                              - 16F
+                              - 15A
+                              - 15B
+                              - 15C
+                              - 15D
+                              - 15E
+                              - 15F
+                              - 14A
+                              - 14B
+                              - 14C
+                              - 14D
+                              - 14E
+                              - 14F
+                              - 13A
+                              - 13B
+                              - 13C
+                              - 13D
+                              - 13E
+                              - 13F
+                              - 12A
+                              - 12B
+                              - 12C
+                              - 12D
+                              - 12E
+                              - 12F
+                              - 11A
+                              - 11B
+                              - 11C
+                              - 11D
+                              - 11E
+                              - 11F
                               - 10A
                               - 10B
                               - 10C
                               - 10D
                               - 10E
                               - 10F
-                              - 11A
-                              - 12B
-                              - 13C
-                              - 14D
-                              - 15E
-                              - 16F
-                          - passengerDetails:
-                              id: 2000302
-                              birthDate: '2001-01-05'
-                              idNumber: '034060638'
-                              citizenshipCode: KZ
-                              idValidity: '2021-10-03'
-                              firstName: Nurlan1
-                              lastName: Muldashev1
-                            seats:
-                              - 10A
-                              - 10B
-                              - 10C
-                              - 10D
-                              - 10E
-                              - 10F
-                              - 11A
-                              - 12B
-                              - 13C
-                              - 14D
-                              - 15E
-                              - 16F
-                      - flightId: 2000352
-                        origin:
-                          city: Aktobe
-                          airportName: Aktobe International
-                          airportCode: AKX
-                        destination:
-                          city: Nur-Sultan (Astana)
-                          airportName: Nursultan Nazarbayev Airport
-                          airportCode: NQZ
-                        departDate: '2021-03-23'
-                        arriveDate: '2021-03-23'
-                        departTime: '04:45'
-                        arriveTime: '07:45'
-                        seats:
-                          - passengerDetails:
-                              id: 2000301
-                              birthDate: '2001-01-05'
-                              idNumber: '034060638'
-                              citizenshipCode: KZ
-                              idValidity: '2021-10-03'
-                              firstName: Nurlan
-                              lastName: Muldashev
-                            seats:
-                              - 10A
-                              - 10B
-                              - 10C
-                              - 10D
-                              - 10E
-                              - 10F
-                              - 11A
-                              - 12B
-                              - 13C
-                              - 14D
-                              - 15E
-                              - 16F
-                          - passengerDetails:
-                              id: 2000302
-                              birthDate: '2001-01-05'
-                              idNumber: '034060638'
-                              citizenshipCode: KZ
-                              idValidity: '2021-10-03'
-                              firstName: Nurlan1
-                              lastName: Muldashev1
-                            seats:
-                              - 10A
-                              - 10B
-                              - 10C
-                              - 10D
-                              - 10E
-                              - 10F
-                              - 11A
-                              - 12B
-                              - 13C
-                              - 14D
-                              - 15E
-                              - 16F
-                    returnFlights: []
+                              - 9A
+                              - 9B
+                              - 9C
+                              - 9D
+                              - 9E
+                              - 9F
+                              - 8A
+                              - 8B
+                              - 8C
+                              - 8D
+                              - 8E
+                              - 8F
+                              - 7A
+                              - 7B
+                              - 7C
+                              - 7D
+                              - 7E
+                              - 7F
+                              - 6A
+                              - 6B
+                              - 6C
+                              - 6D
+                              - 6E
+                              - 6F
+                              - 5A
+                              - 5B
+                              - 5C
+                              - 5D
+                              - 5E
+                              - 5F
+                              - 4A
+                              - 4B
+                              - 4C
+                              - 4D
+                              - 4E
+                              - 4F
+                              - 3A
+                              - 3B
+                              - 3C
+                              - 3D
+                              - 3E
+                              - 3F
+                              - 2A
+                              - 2B
+                              - 2C
+                              - 2D
+                              - 2E
+                              - 2F
+                              - 19A
+                              - 19B
+                              - 19C
+                              - 19D
+                              - 19E
+                              - 19F
+                              - 20A
+                              - 20B
+                              - 20C
+                              - 20D
+                              - 20E
+                              - 20F
+                              - 21A
+                              - 21B
+                              - 21C
+                              - 21D
+                              - 21E
+                              - 21F
+                              - 22A
+                              - 22B
+                              - 22C
+                              - 22D
+                              - 22E
+                              - 22F
       requestBody:
         content:
           application/json:
