@@ -960,192 +960,76 @@ paths:
                           uniqueItems: true
                           minItems: 1
                           items:
-                            required:
-                              - id
-                              - birthDate
-                              - idNumber
-                              - citizenshipCode
-                              - firstName
-                              - lastName
-                              - seat
-                              - boardingUrl
+                            required: []
                             properties:
-                              id:
-                                type: number
-                              birthDate:
-                                type: string
-                                minLength: 1
-                              idNumber:
-                                type: string
-                                minLength: 1
-                              citizenshipCode:
-                                type: string
-                                minLength: 1
-                              firstName:
-                                type: string
-                                minLength: 1
-                              lastName:
-                                type: string
-                                minLength: 1
-                              seat:
-                                type: string
-                                minLength: 1
-                              boardingUrl:
-                                type: string
-                                minLength: 1
-                  returnFlights:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - departDate
-                        - arriveDate
-                        - departTime
-                        - arriveTime
-                      properties:
-                        origin:
-                          type: object
-                          properties:
-                            city:
-                              type: string
-                              minLength: 1
-                            airportName:
-                              type: string
-                              minLength: 1
-                            airportCode:
-                              type: string
-                              minLength: 1
-                          required:
-                            - city
-                            - airportName
-                            - airportCode
-                        destination:
-                          type: object
-                          properties:
-                            city:
-                              type: string
-                              minLength: 1
-                            airportName:
-                              type: string
-                              minLength: 1
-                            airportCode:
-                              type: string
-                              minLength: 1
-                          required:
-                            - city
-                            - airportName
-                            - airportCode
-                        departDate:
-                          type: string
-                          minLength: 1
-                        arriveDate:
-                          type: string
-                          minLength: 1
-                        departTime:
-                          type: string
-                          minLength: 1
-                        arriveTime:
-                          type: string
-                          minLength: 1
-                        passengers:
-                          type: array
-                          uniqueItems: true
-                          minItems: 1
-                          items:
-                            required:
-                              - id
-                              - birthDate
-                              - idNumber
-                              - citizenshipCode
-                              - firstName
-                              - lastName
-                              - seat
-                              - boardingUrl
-                            properties:
-                              id:
-                                type: number
-                              birthDate:
-                                type: string
-                                minLength: 1
-                              idNumber:
-                                type: string
-                                minLength: 1
-                              citizenshipCode:
-                                type: string
-                                minLength: 1
-                              firstName:
-                                type: string
-                                minLength: 1
-                              lastName:
-                                type: string
-                                minLength: 1
-                              seat:
-                                type: string
-                                minLength: 1
-                              boardingUrl:
-                                type: string
-                                minLength: 1
+                              passengerDetails:
+                                type: object
+                                properties:
+                                  id:
+                                    type: number
+                                  birthDate:
+                                    type: string
+                                    minLength: 1
+                                  idNumber:
+                                    type: string
+                                    minLength: 1
+                                  citizenshipCode:
+                                    type: string
+                                    minLength: 1
+                                  firstName:
+                                    type: string
+                                    minLength: 1
+                                  lastName:
+                                    type: string
+                                    minLength: 1
+                                  seat:
+                                    type: string
+                                    minLength: 1
+                                  boardingUrl:
+                                    type: string
+                                    minLength: 1
+                                required:
+                                  - id
+                                  - birthDate
+                                  - idNumber
+                                  - citizenshipCode
+                                  - firstName
+                                  - lastName
+                                  - seat
+                                  - boardingUrl
                   downloadOutboundFlights:
-                    type: string
-                    minLength: 1
-                  downloadReturnFlights:
                     type: string
                     minLength: 1
                 required:
                   - outboundFlights
-                  - returnFlights
                   - downloadOutboundFlights
-                  - downloadReturnFlights
               examples:
                 example-1:
                   value:
                     outboundFlights:
                       - origin:
-                          city: Aktobe
-                          airportName: Aktobe International
-                          airportCode: AKX
+                          city: Almaty
+                          airportName: Almaty International
+                          airportCode: ALA
                         destination:
                           city: Nur-Sultan (Astana)
                           airportName: Nursultan Nazarbayev Airport
                           airportCode: NQZ
-                        departDate: '2021-03-28'
-                        arriveDate: '2021-03-28'
-                        departTime: '04:45:00'
-                        arriveTime: '07:45:00'
+                        departDate: '2021-04-28'
+                        arriveDate: '2021-04-28'
+                        departTime: '02:05:00'
+                        arriveTime: '04:05:00'
                         passengers:
-                          - id: 2002603
-                            birthDate: '2000-10-10'
-                            idNumber: '1'
-                            citizenshipCode: KZ
-                            firstName: asd
-                            lastName: asd
-                            seat: 10C
-                            boardingUrl: /api/files/HYLVCP/ZB0vUO
-                    returnFlights:
-                      - origin:
-                          city: Aktobe
-                          airportName: Aktobe International
-                          airportCode: AKX
-                        destination:
-                          city: Nur-Sultan (Astana)
-                          airportName: Nursultan Nazarbayev Airport
-                          airportCode: NQZ
-                        departDate: '2021-03-28'
-                        arriveDate: '2021-03-28'
-                        departTime: '04:45:00'
-                        arriveTime: '07:45:00'
-                        passengers:
-                          - id: 2002603
-                            birthDate: '2000-10-10'
-                            idNumber: '1'
-                            citizenshipCode: KZ
-                            firstName: asd
-                            lastName: asd
-                            seat: 10C
-                            boardingUrl: /api/files/HYLVCP/ZB0vUO
-                    downloadOutboundFlights: /api/files/HYLVCP/ZB0vUO
-                    downloadReturnFlights: /api/files/HYLVCP/ZB0vUO
+                          - passengerDetails:
+                              id: 2005703
+                              birthDate: '2000-10-10'
+                              idNumber: '1'
+                              citizenshipCode: KZ
+                              firstName: asd
+                              lastName: asd
+                              seat: 1B
+                              boardingUrl: /api/files/HEJ8AR/6YQMGj
+                    downloadOutboundFlights: /api/files/HEJ8AR/all/6YQMGj
             application/xml:
               schema:
                 type: object
