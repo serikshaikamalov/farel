@@ -1,0 +1,110 @@
+openapi: 3.1.0
+info:
+  title: special-services.v1
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /special-services:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/special-service'
+                  totalCount:
+                    type: number
+      operationId: get-special-services
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: size
+        - schema:
+            type: string
+          in: query
+          name: code
+        - schema:
+            type: string
+          in: query
+          name: name
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-special-services
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/special-service'
+  '/special-services/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/special-service'
+      operationId: get-special-services-id
+    put:
+      summary: ''
+      operationId: put-special-services-id
+      responses:
+        '204':
+          description: No Content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/special-service'
+    delete:
+      summary: ''
+      operationId: delete-special-services-id
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    special-service:
+      title: special-service
+      type: object
+      properties:
+        id:
+          type:
+            - 'null'
+            - string
+        code:
+          type: string
+        name:
+          type: string
+        requestContext:
+          type: string
+        responseContext:
+          type: string
+        category:
+          $ref: ./special-service-categories.v1.yaml#/components/schemas/special-service-category
