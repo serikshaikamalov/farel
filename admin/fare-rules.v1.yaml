@@ -56,3 +56,5 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/fare-rule-segment'
+tags:
+  - name: fare-rule-info
