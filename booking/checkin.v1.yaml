@@ -38,7 +38,8 @@ paths:
                   - lastName
                 properties:
                   id:
-                    type: number
+                    type: string
+                    minLength: 1
                   birthDate:
                     type: string
                     minLength: 1
@@ -57,17 +58,33 @@ paths:
                   lastName:
                     type: string
                     minLength: 1
-            examples:
-              example-1:
-                value:
-                  - id: 2000301
+              x-examples:
+                example-1:
+                  - id: 3aec1470-cf47-11eb-989a-752fe710481b
                     birthDate: '2001-01-05'
                     idNumber: '034060638'
                     citizenshipCode: KZ
                     idValidity: '2021-10-03'
                     firstName: Nurlan
                     lastName: Muldashev
-                  - id: 2000302
+                  - id: 3aec1470-cf47-11eb-989a-752fe7104812
+                    birthDate: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenshipCode: KZ
+                    idValidity: '2021-10-03'
+                    firstName: Nurlan1
+                    lastName: Muldashev1
+            examples:
+              example-1:
+                value:
+                  - id: 3aec1470-cf47-11eb-989a-752fe710481b
+                    birthDate: '2001-01-05'
+                    idNumber: '034060638'
+                    citizenshipCode: KZ
+                    idValidity: '2021-10-03'
+                    firstName: Nurlan
+                    lastName: Muldashev
+                  - id: 3aec1470-cf47-11eb-989a-752fe7104812
                     birthDate: '2001-01-05'
                     idNumber: '034060638'
                     citizenshipCode: KZ
@@ -352,11 +369,15 @@ paths:
                 type: object
                 required: []
                 properties: {}
+              x-examples:
+                example-1:
+                  - 3aec1470-cf47-11eb-989a-752fe710481b
+                  - 3aec1470-cf47-11eb-989a-752fe7104812
             examples:
               example-1:
                 value:
-                  - 2000301
-                  - 2000302
+                  - 3aec1470-cf47-11eb-989a-752fe710481b
+                  - 3aec1470-cf47-11eb-989a-752fe7104812
           application/xml:
             schema:
               type: object
@@ -404,24 +425,39 @@ paths:
                         - seat
                       properties:
                         passengerId:
-                          type: number
+                          type: string
+                          minLength: 1
                         seat:
                           type: string
                           minLength: 1
+              x-examples:
+                example-1:
+                  - flightId: 2000351
+                    passengerSeat:
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe710481b
+                        seat: 10A
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe7104812
+                        seat: 10B
+                  - flightId: 2000352
+                    passengerSeat:
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe710481b
+                        seat: 10A
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe7104812
+                        seat: 10B
             examples:
               example-1:
                 value:
                   - flightId: 2000351
                     passengerSeat:
-                      - passengerId: 2000301
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe710481b
                         seat: 10A
-                      - passengerId: 2000302
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe7104812
                         seat: 10B
                   - flightId: 2000352
                     passengerSeat:
-                      - passengerId: 2000301
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe710481b
                         seat: 10A
-                      - passengerId: 2000302
+                      - passengerId: 3aec1470-cf47-11eb-989a-752fe7104812
                         seat: 10B
   '/api/v1/public/bookings/{bookingNumber}':
     parameters:
