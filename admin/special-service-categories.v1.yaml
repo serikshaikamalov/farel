@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  title: special-service-categories.v1
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /special-service-categories:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - special-service-categories
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/special-service-category'
+      operationId: get-special-service-categories
+components:
+  schemas:
+    special-service-category:
+      title: special-service-category
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string

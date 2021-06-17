@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: fare-rules.v1
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/fare-rules/{id}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      operationId: get-fare-rules
+      description: get fare rule info by pnr id or flight id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fare-rule-info'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: type
+          description: '"pnr" or "flight"'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+components:
+  schemas:
+    fare-rule-segment:
+      title: fare-rule-tab
+      type: object
+      properties:
+        name:
+          type: string
+        baggageRules:
+          type: array
+          items:
+            type: string
+        changeAndRefundRules:
+          type: array
+          items:
+            type: string
+        passengerDiscountRules:
+          type: array
+          items:
+            type: string
+        services:
+          type: array
+          items:
+            type: string
+    fare-rule-info:
+      title: fare-rule-info
+      type: object
+      properties:
+        tabs:
+          type: array
+          items:
+            $ref: '#/components/schemas/fare-rule-segment'
+tags:
+  - name: fare-rule-info
