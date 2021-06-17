@@ -820,7 +820,8 @@ paths:
                       - lastName
                     properties:
                       id:
-                        type: number
+                        type: string
+                        minLength: 1
                       birthDate:
                         type: string
                         minLength: 1
@@ -955,6 +956,116 @@ paths:
                 - outboundStops
                 - returnStops
                 - passengerAmountDetails
+              x-examples:
+                example-1:
+                  order:
+                    number: 25BMYM
+                    timeLimit: '2021-03-22T12:36:07.779004Z'
+                    status: PAYMENT_AWAITING
+                  outboundFlight:
+                    departDate: '2021-03-23'
+                    arriveDate: '2021-03-23'
+                    departTime: '04:45'
+                    arriveTime: '07:45'
+                    origin:
+                      city: Aktobe
+                      airportName: Aktobe International
+                      airportCode: AKX
+                    destination:
+                      city: Nur-Sultan (Astana)
+                      airportName: Nursultan Nazarbayev Airport
+                      airportCode: NQZ
+                    flightDuration: 120
+                    stopDuration: -120
+                    totalPrice: 21876
+                  returnFlight: null
+                  outboundFlights:
+                    - departDate: '2021-03-23'
+                      arriveDate: '2021-03-23'
+                      departTime: '04:45'
+                      arriveTime: '07:45'
+                      origin:
+                        city: Aktobe
+                        airportName: Aktobe International
+                        airportCode: AKX
+                      destination:
+                        city: Nur-Sultan (Astana)
+                        airportName: Nursultan Nazarbayev Airport
+                        airportCode: NQZ
+                      flightDuration: 120
+                      stopDuration: -120
+                      aircraft: Airbus A320-200
+                      flightNumber: ZZ - 978
+                      flightId: 2000351
+                      totalPrice: 10938
+                      fareClassName: ECONOMY
+                      companyCode: ZZ
+                      checkinStartUtc: '2021-03-21T23:45:00Z'
+                      checkinEndUtc: '2021-03-22T23:05:00Z'
+                    - departDate: '2021-03-23'
+                      arriveDate: '2021-03-23'
+                      departTime: '04:45'
+                      arriveTime: '07:45'
+                      origin:
+                        city: Aktobe
+                        airportName: Aktobe International
+                        airportCode: AKX
+                      destination:
+                        city: Nur-Sultan (Astana)
+                        airportName: Nursultan Nazarbayev Airport
+                        airportCode: NQZ
+                      flightDuration: 120
+                      stopDuration: 0
+                      aircraft: Airbus A320-200
+                      flightNumber: ZZ - 978
+                      flightId: 2000352
+                      totalPrice: 10938
+                      fareClassName: ECONOMY
+                      companyCode: ZZ
+                      checkinStartUtc: '2021-03-21T23:45:00Z'
+                      checkinEndUtc: '2021-03-22T23:05:00Z'
+                  returnFlights: []
+                  passengers:
+                    - id: uuid
+                      birthDate: '2001-01-05'
+                      idNumber: '034060638'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
+                      firstName: Nurlan
+                      lastName: Muldashev
+                    - id: uuid
+                      birthDate: '2001-01-05'
+                      idNumber: '034060638'
+                      citizenshipCode: KZ
+                      idValidity: '2021-10-03'
+                      firstName: Nurlan1
+                      lastName: Muldashev1
+                  feesDetails:
+                    - id: 9
+                      tax: Airport Fuel Surcharge (YQ)
+                      type: AMOUNT
+                      amount: 2264
+                  totalTaxes: 2264
+                  totalPrice: 43781
+                  origin:
+                    city: Aktobe
+                    airportName: Aktobe International
+                    airportCode: AKX
+                  destination:
+                    city: Nur-Sultan (Astana)
+                    airportName: Nursultan Nazarbayev Airport
+                    airportCode: NQZ
+                  outboundDate: '2021-03-23'
+                  returnDate: '2021-03-23'
+                  outboundStops:
+                    - airport: NQZ
+                      stopDuration: -120
+                  returnStops: []
+                  passengerAmountDetails:
+                    - passengerType: ADT
+                      count: 2
+                      totalAmount: 41517
+                  refundId: null
             examples:
               example-1:
                 value:
@@ -1026,14 +1137,14 @@ paths:
                       checkinEndUtc: '2021-03-22T23:05:00Z'
                   returnFlights: []
                   passengers:
-                    - id: 2000301
+                    - id: uuid
                       birthDate: '2001-01-05'
                       idNumber: '034060638'
                       citizenshipCode: KZ
                       idValidity: '2021-10-03'
                       firstName: Nurlan
                       lastName: Muldashev
-                    - id: 2000302
+                    - id: uuid
                       birthDate: '2001-01-05'
                       idNumber: '034060638'
                       citizenshipCode: KZ
@@ -1153,7 +1264,8 @@ paths:
                                 type: object
                                 properties:
                                   id:
-                                    type: number
+                                    type: string
+                                    minLength: 1
                                   birthDate:
                                     type: string
                                     minLength: 1
@@ -1190,6 +1302,32 @@ paths:
                 required:
                   - outboundFlights
                   - downloadOutboundFlights
+                x-examples:
+                  example-1:
+                    outboundFlights:
+                      - origin:
+                          city: Almaty
+                          airportName: Almaty International
+                          airportCode: ALA
+                        destination:
+                          city: Nur-Sultan (Astana)
+                          airportName: Nursultan Nazarbayev Airport
+                          airportCode: NQZ
+                        departDate: '2021-04-28'
+                        arriveDate: '2021-04-28'
+                        departTime: '02:05:00'
+                        arriveTime: '04:05:00'
+                        passengers:
+                          - passengerDetails:
+                              id: 3aec1470-cf47-11eb-989a-752fe710481b
+                              birthDate: '2000-10-10'
+                              idNumber: '1'
+                              citizenshipCode: KZ
+                              firstName: asd
+                              lastName: asd
+                              seat: 1B
+                              boardingUrl: /api/files/HEJ8AR/6YQMGj
+                    downloadOutboundFlights: /api/files/HEJ8AR/all/6YQMGj
               examples:
                 example-1:
                   value:
@@ -1208,7 +1346,7 @@ paths:
                         arriveTime: '04:05:00'
                         passengers:
                           - passengerDetails:
-                              id: 2005703
+                              id: 3aec1470-cf47-11eb-989a-752fe710481b
                               birthDate: '2000-10-10'
                               idNumber: '1'
                               citizenshipCode: KZ
