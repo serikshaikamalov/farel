@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: logs.v1
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/flights/{flightId}/logs':
+    parameters:
+      - schema:
+          type: string
+        name: flightId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Logs
+      responses: {}
+      operationId: get-flights-flightId-logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ILog'
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - COMMERCIAL
+              - OPERATIONAL
+          in: query
+          name: type
+          description: type of logs
+  '/bookings/{pnrNumber}/logs':
+    parameters:
+      - schema:
+          type: string
+        name: pnrNumber
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Logs
+      responses: {}
+      operationId: get-bookings-pnrNumber-logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ILog'
+components:
+  schemas:
+    ILog:
+      title: ILog
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        datetime:
+          type: string
+        user:
+          $ref: '#/components/schemas/ILogUser'
+        logDetails:
+          type: array
+          items:
+            type: string
+        paxDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ILogPax'
+        source:
+          type: string
+        paymentInfo:
+          type: string
+        comment:
+          type: string
+      required:
+        - id
+        - title
+        - datetime
+    ILogUser:
+      title: ILogUser
+      type: object
+      properties:
+        username:
+          type: string
+        role:
+          type: string
+    ILogPax:
+      title: ILogPax
+      type: object
+      properties:
+        title:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
