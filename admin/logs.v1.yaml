@@ -13,7 +13,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: 'Get flight logs (commercial, operational)'
       tags:
         - Logs
       responses: {}
@@ -42,7 +42,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get booking logs
       tags:
         - Logs
       responses: {}
